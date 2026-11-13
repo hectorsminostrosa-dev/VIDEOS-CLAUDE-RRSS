@@ -1,0 +1,250 @@
+﻿{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 355 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\nvidia-trampa-miel-v2\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 59 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\nvidia-trampa-miel-v2\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 1864 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\nvidia-trampa-miel-v2\\compositions\\world.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 3
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Scripts \"build/three.js\" and \"build/three.min.js\" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "70.3",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:50632/",
+        "line": 1542
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 70.3,
+    "samples": [
+      3.906,
+      11.717,
+      19.528,
+      27.339,
+      35.15,
+      42.961,
+      50.772,
+      58.583,
+      66.394
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.08:1; WCAG AA requires 3:1.",
+        "text": "🍯",
+        "fg": "rgb(0,0,0)",
+        "bg": "rgb(11,13,12)",
+        "ratio": 1.08,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(94,94,94)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(5) > div > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 155.1875,
+          "y": 257,
+          "width": 61.65625,
+          "height": 50
+        },
+        "time": 3.906,
+        "times": [
+          3.906
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      3.906,
+      19.528,
+      35.15,
+      50.772,
+      66.394
+    ],
+    "checked": 18,
+    "passed": 17
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Meme en X · foto de 2024, sin relación con el caso\" (11 words) is on screen 1.37 s (±0.01 s), under its 2.85 s floor: hold it about 0.5 s + 0.3 s a word (3.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Meme en X · foto de 2024, sin relación con el caso",
+        "selector": "#w-tuit",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 207.7,
+          "y": 1138,
+          "width": 664.5799999999999,
+          "height": 30
+        },
+        "time": 14.204,
+        "words": 11,
+        "seconds": 1.365,
+        "floorSeconds": 2.85
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"US$2.823M EN CHIPS Compras de Megaspeed a Nvidia (NYT)\" (11 words) is on screen 1.77 s (±0.01 s), under its 2.85 s floor: hold it about 0.5 s + 0.3 s a word (3.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "US$2.823M EN CHIPS Compras de Megaspeed a Nvidia (NYT)",
+        "selector": "#c-usd > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 323.31,
+          "y": 254,
+          "width": 447.53000000000003,
+          "height": 49
+        },
+        "time": 28.368,
+        "words": 11,
+        "seconds": 1.771,
+        "floorSeconds": 2.85
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 563
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "562b66e5-5064-4439-874f-ab32a4d90051",
+    "revision": null,
+    "report": "D:\\Videos PROYECTO CLAUDE\\nvidia-trampa-miel-v2\\.hyperframes\\artifacts\\checks\\562b66e5-5064-4439-874f-ab32a4d90051.json",
+    "attribution": "unversioned"
+  },
+  "_meta": {
+    "version": "0.9.13",
+    "latestVersion": "0.9.26",
+    "updateAvailable": true,
+    "checkedAt": "2026-11-09T22:29:27.460Z",
+    "skillsOutdated": 9,
+    "skillsMissing": 0,
+    "updateNotice": "For the user: HyperFrames CLI 0.9.26 is available (this run is 0.9.13), and 9 installed HyperFrames skills are out of date. To update both, run: npx hyperframes@latest update"
+  }
+}

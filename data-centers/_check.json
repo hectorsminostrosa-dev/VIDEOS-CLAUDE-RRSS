@@ -1,0 +1,350 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 470 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\data-centers\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 76 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\data-centers\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 1098 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\data-centers\\compositions\\world.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 3
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Scripts \"build/three.js\" and \"build/three.min.js\" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "82.8",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:57001/",
+        "line": 1542
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 82.8,
+    "samples": [
+      4.6,
+      13.8,
+      23,
+      32.2,
+      41.4,
+      50.6,
+      59.8,
+      69,
+      78.2
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.6:1; WCAG AA requires 3:1.",
+        "text": "🚰",
+        "fg": "rgb(0,0,0)",
+        "bg": "rgb(48,49,45)",
+        "ratio": 1.6,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(121,121,121)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(6) > div > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 69,
+          "y": 292.734375,
+          "width": 68.65625,
+          "height": 50
+        },
+        "time": 23,
+        "times": [
+          23
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.16:1; WCAG AA requires 3:1.",
+        "text": "📜",
+        "fg": "rgb(0,0,0)",
+        "bg": "rgb(22,22,20)",
+        "ratio": 1.16,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(99,99,99)",
+        "large": true,
+        "selector": "div > div:nth-of-type(2) > div > div:nth-of-type(12) > div > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 69,
+          "y": 284.890625,
+          "width": 68.65625,
+          "height": 50
+        },
+        "time": 41.4,
+        "times": [
+          41.4
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      4.6,
+      23,
+      41.4,
+      59.8,
+      78.2
+    ],
+    "checked": 26,
+    "passed": 24
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Frenado en tribunales Segundo Tribunal Ambiental, febrero...\" (9 words) is on screen 1.47 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Frenado en tribunales Segundo Tribunal Ambiental, febrero de 2024",
+        "selector": "#c-trib > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 153.66,
+          "y": 244,
+          "width": 461.61,
+          "height": 49
+        },
+        "time": 27.37,
+        "words": 9,
+        "seconds": 1.468,
+        "floorSeconds": 2.4
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Segundo Tribunal Ambiental, febrero de 2024\" (6 words) is on screen 1.47 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Segundo Tribunal Ambiental, febrero de 2024",
+        "selector": "#c-trib > span:nth-of-type(2) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 153.66,
+          "y": 300.8,
+          "width": 530.79,
+          "height": 67.5
+        },
+        "time": 27.37,
+        "words": 6,
+        "seconds": 1.468,
+        "floorSeconds": 1.725
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"390 toneladas de combustible y 44 generadores diésel de r...\" (10 words) is on screen 1.60 s (±0.01 s), under its 2.63 s floor: hold it about 0.5 s + 0.3 s a word (3.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "390 toneladas de combustible y 44 generadores diésel de respaldo",
+        "selector": "#c-696 > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 323.69,
+          "y": 244,
+          "width": 503.25000000000006,
+          "height": 66
+        },
+        "time": 34.471,
+        "words": 10,
+        "seconds": 1.598,
+        "floorSeconds": 2.625
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"y 44 generadores diésel de respaldo\" (6 words) is on screen 1.60 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "y 44 generadores diésel de respaldo",
+        "selector": "#c-696 > span:nth-of-type(2) > span:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 323.69,
+          "y": 316.47,
+          "width": 489.45,
+          "height": 30
+        },
+        "time": 34.471,
+        "words": 6,
+        "seconds": 1.598,
+        "floorSeconds": 1.725
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Tope: 1.000 toneladas de sustancias inflamables, como el ...\" (10 words) is on screen 1.33 s (±0.01 s), under its 2.63 s floor: hold it about 0.5 s + 0.3 s a word (3.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Tope: 1.000 toneladas de sustancias inflamables, como el diésel",
+        "selector": "#c-tope > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 139.63,
+          "y": 244,
+          "width": 333.34000000000003,
+          "height": 66
+        },
+        "time": 42.307,
+        "words": 10,
+        "seconds": 1.331,
+        "floorSeconds": 2.625
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"de sustancias inflamables, como el diésel\" (6 words) is on screen 1.33 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "de sustancias inflamables, como el diésel",
+        "selector": "#c-tope > span:nth-of-type(2) > span:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 139.63,
+          "y": 316.47,
+          "width": 558.46,
+          "height": 30
+        },
+        "time": 42.307,
+        "words": 6,
+        "seconds": 1.331,
+        "floorSeconds": 1.725
+      }
+    ],
+    "enabled": true,
+    "step": 0.13800000000000168,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "e878a50d-09e8-4180-bcae-00122af30552",
+    "revision": null,
+    "report": "D:\\Videos PROYECTO CLAUDE\\data-centers\\.hyperframes\\artifacts\\checks\\e878a50d-09e8-4180-bcae-00122af30552.json",
+    "attribution": "inputs-changed"
+  },
+  "_meta": {
+    "version": "0.9.13",
+    "latestVersion": "0.9.33",
+    "updateAvailable": true,
+    "checkedAt": "2026-11-11T17:22:32.029Z",
+    "skillsOutdated": 9,
+    "skillsMissing": 0
+  }
+}

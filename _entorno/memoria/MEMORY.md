@@ -1,0 +1,3 @@
+- [Responder siempre en español](responder-siempre-en-espanol.md) — avisos, resúmenes y entregas; nunca en inglés
+- [Mejoras de fluidez (60 fps y otras)](mejoras-fluidez-video-nuevo.md) — se aplicaron en malls-chinos; falta que el usuario las apruebe como estándar
+- [Música sintetizada: nunca](musica-sintetizada-no-gusta.md) — rechazada dos veces; solo su pista (~18 dB bajo la voz) o sin música

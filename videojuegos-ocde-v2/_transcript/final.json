@@ -1,0 +1,987 @@
+[
+ {
+  "text": "Chile",
+  "start": 1.03,
+  "end": 1.44
+ },
+ {
+  "text": "número",
+  "start": 1.44,
+  "end": 1.96
+ },
+ {
+  "text": "1,",
+  "start": 1.96,
+  "end": 2.5
+ },
+ {
+  "text": "pero",
+  "start": 2.63,
+  "end": 2.78
+ },
+ {
+  "text": "esta",
+  "start": 2.78,
+  "end": 3.04
+ },
+ {
+  "text": "vez",
+  "start": 3.04,
+  "end": 3.34
+ },
+ {
+  "text": "en",
+  "start": 3.34,
+  "end": 3.56
+ },
+ {
+  "text": "la",
+  "start": 3.56,
+  "end": 3.72
+ },
+ {
+  "text": "pantalla.",
+  "start": 3.72,
+  "end": 4.38
+ },
+ {
+  "text": "Según",
+  "start": 4.47,
+  "end": 4.88
+ },
+ {
+  "text": "el",
+  "start": 4.88,
+  "end": 5.02
+ },
+ {
+  "text": "último",
+  "start": 5.02,
+  "end": 5.32
+ },
+ {
+  "text": "informe",
+  "start": 5.32,
+  "end": 5.64
+ },
+ {
+  "text": "de",
+  "start": 5.64,
+  "end": 5.78
+ },
+ {
+  "text": "la",
+  "start": 5.78,
+  "end": 5.9
+ },
+ {
+  "text": "OCDE,",
+  "start": 5.9,
+  "end": 6.38
+ },
+ {
+  "text": "los",
+  "start": 6.54,
+  "end": 6.64
+ },
+ {
+  "text": "adolescentes",
+  "start": 6.64,
+  "end": 7.18
+ },
+ {
+  "text": "chilenos",
+  "start": 7.18,
+  "end": 7.56
+ },
+ {
+  "text": "son",
+  "start": 7.56,
+  "end": 7.7
+ },
+ {
+  "text": "los",
+  "start": 7.7,
+  "end": 7.94
+ },
+ {
+  "text": "que",
+  "start": 7.94,
+  "end": 8.06
+ },
+ {
+  "text": "más",
+  "start": 8.06,
+  "end": 8.26
+ },
+ {
+  "text": "horas",
+  "start": 8.26,
+  "end": 8.5
+ },
+ {
+  "text": "pasan",
+  "start": 8.5,
+  "end": 8.82
+ },
+ {
+  "text": "jugando",
+  "start": 8.82,
+  "end": 9.22
+ },
+ {
+  "text": "videojuegos",
+  "start": 9.22,
+  "end": 9.96
+ },
+ {
+  "text": "en",
+  "start": 9.96,
+  "end": 10.26
+ },
+ {
+  "text": "todo",
+  "start": 10.26,
+  "end": 10.4
+ },
+ {
+  "text": "el",
+  "start": 10.4,
+  "end": 10.56
+ },
+ {
+  "text": "bloque.",
+  "start": 10.56,
+  "end": 10.74
+ },
+ {
+  "text": "El",
+  "start": 11.26,
+  "end": 11.36
+ },
+ {
+  "text": "36",
+  "start": 11.36,
+  "end": 11.82
+ },
+ {
+  "text": "%",
+  "start": 11.82,
+  "end": 12.22
+ },
+ {
+  "text": "de",
+  "start": 12.22,
+  "end": 12.38
+ },
+ {
+  "text": "los",
+  "start": 12.38,
+  "end": 12.54
+ },
+ {
+  "text": "jóvenes",
+  "start": 12.54,
+  "end": 12.86
+ },
+ {
+  "text": "juegan",
+  "start": 12.86,
+  "end": 13.42
+ },
+ {
+  "text": "más",
+  "start": 13.42,
+  "end": 13.68
+ },
+ {
+  "text": "de",
+  "start": 13.68,
+  "end": 13.88
+ },
+ {
+  "text": "tres",
+  "start": 13.88,
+  "end": 14
+ },
+ {
+  "text": "horas",
+  "start": 14,
+  "end": 14.2
+ },
+ {
+  "text": "al",
+  "start": 14.2,
+  "end": 14.42
+ },
+ {
+  "text": "día",
+  "start": 14.42,
+  "end": 14.66
+ },
+ {
+  "text": "entre",
+  "start": 14.66,
+  "end": 15.02
+ },
+ {
+  "text": "semana,",
+  "start": 15.02,
+  "end": 15.44
+ },
+ {
+  "text": "superando",
+  "start": 15.88,
+  "end": 16.16
+ },
+ {
+  "text": "por",
+  "start": 16.16,
+  "end": 16.4
+ },
+ {
+  "text": "lejos",
+  "start": 16.4,
+  "end": 16.74
+ },
+ {
+  "text": "el",
+  "start": 16.74,
+  "end": 17
+ },
+ {
+  "text": "promedio",
+  "start": 17,
+  "end": 17.26
+ },
+ {
+  "text": "internacional.",
+  "start": 17.26,
+  "end": 17.82
+ },
+ {
+  "text": "Y",
+  "start": 18.26,
+  "end": 18.42
+ },
+ {
+  "text": "un",
+  "start": 18.42,
+  "end": 18.48
+ },
+ {
+  "text": "9",
+  "start": 18.48,
+  "end": 18.76
+ },
+ {
+  "text": "%",
+  "start": 18.76,
+  "end": 19.3
+ },
+ {
+  "text": "supera",
+  "start": 19.3,
+  "end": 19.62
+ },
+ {
+  "text": "las",
+  "start": 19.62,
+  "end": 19.88
+ },
+ {
+  "text": "siete",
+  "start": 19.88,
+  "end": 20.28
+ },
+ {
+  "text": "horas",
+  "start": 20.28,
+  "end": 20.7
+ },
+ {
+  "text": "diarias,",
+  "start": 20.7,
+  "end": 21.14
+ },
+ {
+  "text": "lo",
+  "start": 21.41,
+  "end": 21.58
+ },
+ {
+  "text": "que",
+  "start": 21.58,
+  "end": 21.74
+ },
+ {
+  "text": "según",
+  "start": 21.74,
+  "end": 21.92
+ },
+ {
+  "text": "el",
+  "start": 21.92,
+  "end": 22.14
+ },
+ {
+  "text": "organismo",
+  "start": 22.14,
+  "end": 22.5
+ },
+ {
+  "text": "ya",
+  "start": 22.5,
+  "end": 22.76
+ },
+ {
+  "text": "pasa",
+  "start": 22.76,
+  "end": 23.02
+ },
+ {
+  "text": "la",
+  "start": 23.02,
+  "end": 23.22
+ },
+ {
+  "text": "cuenta",
+  "start": 23.22,
+  "end": 23.58
+ },
+ {
+  "text": "en",
+  "start": 23.58,
+  "end": 24.06
+ },
+ {
+  "text": "el",
+  "start": 24.06,
+  "end": 24.2
+ },
+ {
+  "text": "rendimiento",
+  "start": 24.2,
+  "end": 24.64
+ },
+ {
+  "text": "escolar.",
+  "start": 24.64,
+  "end": 25.16
+ },
+ {
+  "text": "Aunque",
+  "start": 25.57,
+  "end": 25.82
+ },
+ {
+  "text": "ojo,",
+  "start": 26.02,
+  "end": 26.22
+ },
+ {
+  "text": "no",
+  "start": 26.46,
+  "end": 26.5
+ },
+ {
+  "text": "es",
+  "start": 26.5,
+  "end": 26.64
+ },
+ {
+  "text": "por",
+  "start": 26.64,
+  "end": 26.78
+ },
+ {
+  "text": "nada",
+  "start": 26.78,
+  "end": 27.02
+ },
+ {
+  "text": "que",
+  "start": 27.02,
+  "end": 27.3
+ },
+ {
+  "text": "Chile se",
+  "start": 27.3,
+  "end": 27.46
+ },
+ {
+  "text": "ha",
+  "start": 27.46,
+  "end": 27.7
+ },
+ {
+  "text": "destacado",
+  "start": 27.7,
+  "end": 28.1
+ },
+ {
+  "text": "tanto",
+  "start": 28.1,
+  "end": 28.5
+ },
+ {
+  "text": "a",
+  "start": 28.5,
+  "end": 28.7
+ },
+ {
+  "text": "nivel",
+  "start": 28.7,
+  "end": 28.88
+ },
+ {
+  "text": "mundial",
+  "start": 28.88,
+  "end": 29.26
+ },
+ {
+  "text": "en",
+  "start": 29.26,
+  "end": 29.54
+ },
+ {
+  "text": "disciplinas",
+  "start": 29.54,
+  "end": 29.9
+ },
+ {
+  "text": "como",
+  "start": 29.9,
+  "end": 30.14
+ },
+ {
+  "text": "esports,",
+  "start": 30.14,
+  "end": 30.68
+ },
+ {
+  "text": "con",
+  "start": 30.88,
+  "end": 31.04
+ },
+ {
+  "text": "talentos",
+  "start": 31.04,
+  "end": 31.44
+ },
+ {
+  "text": "como",
+  "start": 31.44,
+  "end": 31.68
+ },
+ {
+  "text": "Craime,",
+  "start": 31.68,
+  "end": 32.08
+ },
+ {
+  "text": "campeón",
+  "start": 32.3,
+  "end": 32.52
+ },
+ {
+  "text": "de",
+  "start": 32.52,
+  "end": 32.68
+ },
+ {
+  "text": "Street",
+  "start": 32.68,
+  "end": 32.92
+ },
+ {
+  "text": "Fighter",
+  "start": 32.92,
+  "end": 33.16
+ },
+ {
+  "text": "6,",
+  "start": 33.16,
+  "end": 33.52
+ },
+ {
+  "text": "los",
+  "start": 33.96,
+  "end": 34.08
+ },
+ {
+  "text": "hermanos",
+  "start": 34.08,
+  "end": 34.48
+ },
+ {
+  "text": "Scorpionprocs",
+  "start": 34.48,
+  "end": 35.26
+ },
+ {
+  "text": "y",
+  "start": 35.26,
+  "end": 35.38
+ },
+ {
+  "text": "Nicolás",
+  "start": 35.38,
+  "end": 35.88
+ },
+ {
+  "text": "dominando",
+  "start": 35.88,
+  "end": 36.5
+ },
+ {
+  "text": "en",
+  "start": 36.5,
+  "end": 36.64
+ },
+ {
+  "text": "el",
+  "start": 36.64,
+  "end": 36.74
+ },
+ {
+  "text": "Mortal",
+  "start": 36.74,
+  "end": 37.02
+ },
+ {
+  "text": "Kombat,",
+  "start": 37.02,
+  "end": 37.4
+ },
+ {
+  "text": "PoniX,",
+  "start": 37.84,
+  "end": 38.24
+ },
+ {
+  "text": "reciente",
+  "start": 38.4,
+  "end": 38.76
+ },
+ {
+  "text": "campeona",
+  "start": 38.76,
+  "end": 39.24
+ },
+ {
+  "text": "en",
+  "start": 39.24,
+  "end": 39.4
+ },
+ {
+  "text": "el",
+  "start": 39.4,
+  "end": 39.56
+ },
+ {
+  "text": "mundial",
+  "start": 39.56,
+  "end": 39.78
+ },
+ {
+  "text": "de",
+  "start": 39.78,
+  "end": 40
+ },
+ {
+  "text": "Valorant,",
+  "start": 40,
+  "end": 40.42
+ },
+ {
+  "text": "o",
+  "start": 40.66,
+  "end": 40.78
+ },
+ {
+  "text": "GamezK1ng,",
+  "start": 40.78,
+  "end": 41.36
+ },
+ {
+  "text": "directo",
+  "start": 41.66,
+  "end": 41.94
+ },
+ {
+  "text": "desde",
+  "start": 41.94,
+  "end": 42.1
+ },
+ {
+  "text": "Ovalle",
+  "start": 42.1,
+  "end": 42.52
+ },
+ {
+  "text": "levantando",
+  "start": 42.52,
+  "end": 43.42
+ },
+ {
+  "text": "el",
+  "start": 43.42,
+  "end": 43.64
+ },
+ {
+  "text": "mundial",
+  "start": 43.64,
+  "end": 43.86
+ },
+ {
+  "text": "de",
+  "start": 43.86,
+  "end": 44.06
+ },
+ {
+  "text": "Free",
+  "start": 44.06,
+  "end": 44.22
+ },
+ {
+  "text": "Fire",
+  "start": 44.22,
+  "end": 44.42
+ },
+ {
+  "text": "este",
+  "start": 44.42,
+  "end": 44.7
+ },
+ {
+  "text": "año.",
+  "start": 44.7,
+  "end": 45.08
+ },
+ {
+  "text": "Y",
+  "start": 46.14,
+  "end": 46.26
+ },
+ {
+  "text": "es",
+  "start": 46.26,
+  "end": 46.44
+ },
+ {
+  "text": "que",
+  "start": 46.44,
+  "end": 46.6
+ },
+ {
+  "text": "la",
+  "start": 46.6,
+  "end": 46.78
+ },
+ {
+  "text": "ciencia",
+  "start": 46.78,
+  "end": 47.06
+ },
+ {
+  "text": "lo",
+  "start": 47.06,
+  "end": 47.24
+ },
+ {
+  "text": "respalda.",
+  "start": 47.24,
+  "end": 47.72
+ },
+ {
+  "text": "Jugar",
+  "start": 47.94,
+  "end": 48.32
+ },
+ {
+  "text": "con",
+  "start": 48.32,
+  "end": 48.52
+ },
+ {
+  "text": "moderación",
+  "start": 48.52,
+  "end": 49.1
+ },
+ {
+  "text": "entrena",
+  "start": 49.1,
+  "end": 49.58
+ },
+ {
+  "text": "la",
+  "start": 49.58,
+  "end": 49.7
+ },
+ {
+  "text": "neuroplasticidad,",
+  "start": 49.7,
+  "end": 50.66
+ },
+ {
+  "text": "afina",
+  "start": 51,
+  "end": 51.22
+ },
+ {
+  "text": "los",
+  "start": 51.22,
+  "end": 51.48
+ },
+ {
+  "text": "reflejos,",
+  "start": 51.48,
+  "end": 51.92
+ },
+ {
+  "text": "mejora",
+  "start": 52.26,
+  "end": 52.48
+ },
+ {
+  "text": "la",
+  "start": 52.48,
+  "end": 52.66
+ },
+ {
+  "text": "coordinación",
+  "start": 52.66,
+  "end": 53.28
+ },
+ {
+  "text": "e",
+  "start": 53.28,
+  "end": 53.66
+ },
+ {
+  "text": "incluso",
+  "start": 53.66,
+  "end": 54.32
+ },
+ {
+  "text": "ayuda",
+  "start": 54.32,
+  "end": 54.8
+ },
+ {
+  "text": "a",
+  "start": 54.8,
+  "end": 55.02
+ },
+ {
+  "text": "la",
+  "start": 55.02,
+  "end": 55.16
+ },
+ {
+  "text": "salud",
+  "start": 55.16,
+  "end": 55.32
+ },
+ {
+  "text": "mental.",
+  "start": 55.32,
+  "end": 55.7
+ },
+ {
+  "text": "Claro,",
+  "start": 55.93,
+  "end": 56.34
+ },
+ {
+  "text": "la",
+  "start": 56.62,
+  "end": 56.82
+ },
+ {
+  "text": "clave",
+  "start": 56.82,
+  "end": 57.08
+ },
+ {
+  "text": "siempre",
+  "start": 57.08,
+  "end": 57.4
+ },
+ {
+  "text": "está",
+  "start": 57.4,
+  "end": 57.66
+ },
+ {
+  "text": "en",
+  "start": 57.66,
+  "end": 57.82
+ },
+ {
+  "text": "no",
+  "start": 57.82,
+  "end": 57.9
+ },
+ {
+  "text": "irse",
+  "start": 57.9,
+  "end": 58.14
+ },
+ {
+  "text": "al",
+  "start": 58.14,
+  "end": 58.2
+ },
+ {
+  "text": "chancho.",
+  "start": 58.2,
+  "end": 58.72
+ },
+ {
+  "text": "Así",
+  "start": 59.18,
+  "end": 59.44
+ },
+ {
+  "text": "que",
+  "start": 59.44,
+  "end": 59.64
+ },
+ {
+  "text": "si",
+  "start": 59.64,
+  "end": 59.86
+ },
+ {
+  "text": "pillas",
+  "start": 59.86,
+  "end": 60.14
+ },
+ {
+  "text": "a",
+  "start": 60.14,
+  "end": 60.24
+ },
+ {
+  "text": "tu",
+  "start": 60.24,
+  "end": 60.32
+ },
+ {
+  "text": "cabro",
+  "start": 60.32,
+  "end": 60.6
+ },
+ {
+  "text": "chico",
+  "start": 60.6,
+  "end": 60.82
+ },
+ {
+  "text": "pegado",
+  "start": 60.82,
+  "end": 61.16
+ },
+ {
+  "text": "en",
+  "start": 61.16,
+  "end": 61.3
+ },
+ {
+  "text": "la",
+  "start": 61.3,
+  "end": 61.46
+ },
+ {
+  "text": "pantalla",
+  "start": 61.46,
+  "end": 61.78
+ },
+ {
+  "text": "hasta",
+  "start": 61.78,
+  "end": 61.98
+ },
+ {
+  "text": "las",
+  "start": 61.98,
+  "end": 62.16
+ },
+ {
+  "text": "tres",
+  "start": 62.16,
+  "end": 62.32
+ },
+ {
+  "text": "de",
+  "start": 62.32,
+  "end": 62.44
+ },
+ {
+  "text": "la",
+  "start": 62.44,
+  "end": 62.66
+ },
+ {
+  "text": "mañana,",
+  "start": 62.66,
+  "end": 62.92
+ },
+ {
+  "text": "no",
+  "start": 63.16,
+  "end": 63.3
+ },
+ {
+  "text": "te",
+  "start": 63.3,
+  "end": 63.46
+ },
+ {
+  "text": "enojes,",
+  "start": 63.46,
+  "end": 63.86
+ },
+ {
+  "text": "probablemente",
+  "start": 64.04,
+  "end": 64.96
+ },
+ {
+  "text": "estés",
+  "start": 64.96,
+  "end": 65.26
+ },
+ {
+  "text": "criando",
+  "start": 65.26,
+  "end": 65.78
+ },
+ {
+  "text": "a",
+  "start": 65.78,
+  "end": 66.04
+ },
+ {
+  "text": "un",
+  "start": 66.04,
+  "end": 66.2
+ },
+ {
+  "text": "próximo",
+  "start": 66.2,
+  "end": 66.72
+ },
+ {
+  "text": "campeón",
+  "start": 66.72,
+  "end": 67.16
+ },
+ {
+  "text": "mundial.",
+  "start": 67.16,
+  "end": 67.46
+ }
+]

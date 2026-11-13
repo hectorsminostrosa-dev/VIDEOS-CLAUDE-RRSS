@@ -1,0 +1,1048 @@
+﻿node.exe : [hyperframes] check: the report is saved to D:\Videos PROYECTO 
+CLAUDE\hongos-terapia\.hyperframes\artifacts\checks\39f2b464-183a-4b9f-a8b8-64f4c30f041e.json when the check ends, 
+unless a warning says it could not be saved
+En línea: 1 Carácter: 1
++ & "D:\herramientas\node/node.exe" "D:\herramientas\node/node_modules/ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([hyperframes] c...ld not be saved:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[INFO] [Compiler] Fetched 11 font face(s) for "Montserrat" from Google Fonts (cached to 
+C:\Users\h\.cache\hyperframes\fonts\montserrat)
+[INFO] [Compiler] Injected deterministic @font-face rules for 1 requested font families
+[hyperframes] check: starting Chrome
+[hyperframes] check: loading the page
+[hyperframes] check: waiting for the page to be ready
+[hyperframes] check: checking samples
+[hyperframes] check: samples 1/9
+[hyperframes] check: samples 2/9
+[hyperframes] check: samples 3/9
+[hyperframes] check: samples 4/9
+[hyperframes] check: samples 5/9
+[hyperframes] check: samples 6/9
+[hyperframes] check: samples 7/9
+[hyperframes] check: samples 8/9
+[hyperframes] check: samples 9/9
+[hyperframes] check: running the overlap pass
+[hyperframes] check: craft 1/408
+[hyperframes] check: craft 2/408
+[hyperframes] check: craft 3/408
+[hyperframes] check: craft 4/408
+[hyperframes] check: craft 5/408
+[hyperframes] check: craft 6/408
+[hyperframes] check: craft 7/408
+[hyperframes] check: craft 8/408
+[hyperframes] check: craft 9/408
+[hyperframes] check: craft 10/408
+[hyperframes] check: craft 11/408
+[hyperframes] check: craft 12/408
+[hyperframes] check: craft 13/408
+[hyperframes] check: craft 14/408
+[hyperframes] check: craft 15/408
+[hyperframes] check: craft 16/408
+[hyperframes] check: craft 17/408
+[hyperframes] check: craft 18/408
+[hyperframes] check: craft 19/408
+[hyperframes] check: craft 20/408
+[hyperframes] check: craft 21/408
+[hyperframes] check: craft 22/408
+[hyperframes] check: craft 23/408
+[hyperframes] check: craft 24/408
+[hyperframes] check: craft 25/408
+[hyperframes] check: craft 26/408
+[hyperframes] check: craft 27/408
+[hyperframes] check: craft 28/408
+[hyperframes] check: craft 29/408
+[hyperframes] check: craft 30/408
+[hyperframes] check: craft 31/408
+[hyperframes] check: craft 32/408
+[hyperframes] check: craft 33/408
+[hyperframes] check: craft 34/408
+[hyperframes] check: craft 35/408
+[hyperframes] check: craft 36/408
+[hyperframes] check: craft 37/408
+[hyperframes] check: craft 38/408
+[hyperframes] check: craft 39/408
+[hyperframes] check: craft 40/408
+[hyperframes] check: craft 41/408
+[hyperframes] check: craft 42/408
+[hyperframes] check: craft 43/408
+[hyperframes] check: craft 44/408
+[hyperframes] check: craft 45/408
+[hyperframes] check: craft 46/408
+[hyperframes] check: craft 47/408
+[hyperframes] check: craft 48/408
+[hyperframes] check: craft 49/408
+[hyperframes] check: craft 50/408
+[hyperframes] check: craft 51/408
+[hyperframes] check: craft 52/408
+[hyperframes] check: craft 53/408
+[hyperframes] check: craft 54/408
+[hyperframes] check: craft 55/408
+[hyperframes] check: craft 56/408
+[hyperframes] check: craft 57/408
+[hyperframes] check: craft 58/408
+[hyperframes] check: craft 59/408
+[hyperframes] check: craft 60/408
+[hyperframes] check: craft 61/408
+[hyperframes] check: craft 62/408
+[hyperframes] check: craft 63/408
+[hyperframes] check: craft 64/408
+[hyperframes] check: craft 65/408
+[hyperframes] check: craft 66/408
+[hyperframes] check: craft 67/408
+[hyperframes] check: craft 68/408
+[hyperframes] check: craft 69/408
+[hyperframes] check: craft 70/408
+[hyperframes] check: craft 71/408
+[hyperframes] check: craft 72/408
+[hyperframes] check: craft 73/408
+[hyperframes] check: craft 74/408
+[hyperframes] check: craft 75/408
+[hyperframes] check: craft 76/408
+[hyperframes] check: craft 77/408
+[hyperframes] check: craft 78/408
+[hyperframes] check: craft 79/408
+[hyperframes] check: craft 80/408
+[hyperframes] check: craft 81/408
+[hyperframes] check: craft 82/408
+[hyperframes] check: craft 83/408
+[hyperframes] check: craft 84/408
+[hyperframes] check: craft 85/408
+[hyperframes] check: craft 86/408
+[hyperframes] check: craft 87/408
+[hyperframes] check: craft 88/408
+[hyperframes] check: craft 89/408
+[hyperframes] check: craft 90/408
+[hyperframes] check: craft 91/408
+[hyperframes] check: craft 92/408
+[hyperframes] check: craft 93/408
+[hyperframes] check: craft 94/408
+[hyperframes] check: craft 95/408
+[hyperframes] check: craft 96/408
+[hyperframes] check: craft 97/408
+[hyperframes] check: craft 98/408
+[hyperframes] check: craft 99/408
+[hyperframes] check: craft 100/408
+[hyperframes] check: craft 101/408
+[hyperframes] check: craft 102/408
+[hyperframes] check: craft 103/408
+[hyperframes] check: craft 104/408
+[hyperframes] check: craft 105/408
+[hyperframes] check: craft 106/408
+[hyperframes] check: craft 107/408
+[hyperframes] check: craft 108/408
+[hyperframes] check: craft 109/408
+[hyperframes] check: craft 110/408
+[hyperframes] check: craft 111/408
+[hyperframes] check: craft 112/408
+[hyperframes] check: craft 113/408
+[hyperframes] check: craft 114/408
+[hyperframes] check: craft 115/408
+[hyperframes] check: craft 116/408
+[hyperframes] check: craft 117/408
+[hyperframes] check: craft 118/408
+[hyperframes] check: craft 119/408
+[hyperframes] check: craft 120/408
+[hyperframes] check: craft 121/408
+[hyperframes] check: craft 122/408
+[hyperframes] check: craft 123/408
+[hyperframes] check: craft 124/408
+[hyperframes] check: craft 125/408
+[hyperframes] check: craft 126/408
+[hyperframes] check: craft 127/408
+[hyperframes] check: craft 128/408
+[hyperframes] check: craft 129/408
+[hyperframes] check: craft 130/408
+[hyperframes] check: craft 131/408
+[hyperframes] check: craft 132/408
+[hyperframes] check: craft 133/408
+[hyperframes] check: craft 134/408
+[hyperframes] check: craft 135/408
+[hyperframes] check: craft 136/408
+[hyperframes] check: craft 137/408
+[hyperframes] check: craft 138/408
+[hyperframes] check: craft 139/408
+[hyperframes] check: craft 140/408
+[hyperframes] check: craft 141/408
+[hyperframes] check: craft 142/408
+[hyperframes] check: craft 143/408
+[hyperframes] check: craft 144/408
+[hyperframes] check: craft 145/408
+[hyperframes] check: craft 146/408
+[hyperframes] check: craft 147/408
+[hyperframes] check: craft 148/408
+[hyperframes] check: craft 149/408
+[hyperframes] check: craft 150/408
+[hyperframes] check: craft 151/408
+[hyperframes] check: craft 152/408
+[hyperframes] check: craft 153/408
+[hyperframes] check: craft 154/408
+[hyperframes] check: craft 155/408
+[hyperframes] check: craft 156/408
+[hyperframes] check: craft 157/408
+[hyperframes] check: craft 158/408
+[hyperframes] check: craft 159/408
+[hyperframes] check: craft 160/408
+[hyperframes] check: craft 161/408
+[hyperframes] check: craft 162/408
+[hyperframes] check: craft 163/408
+[hyperframes] check: craft 164/408
+[hyperframes] check: craft 165/408
+[hyperframes] check: craft 166/408
+[hyperframes] check: craft 167/408
+[hyperframes] check: craft 168/408
+[hyperframes] check: craft 169/408
+[hyperframes] check: craft 170/408
+[hyperframes] check: craft 171/408
+[hyperframes] check: craft 172/408
+[hyperframes] check: craft 173/408
+[hyperframes] check: craft 174/408
+[hyperframes] check: craft 175/408
+[hyperframes] check: craft 176/408
+[hyperframes] check: craft 177/408
+[hyperframes] check: craft 178/408
+[hyperframes] check: craft 179/408
+[hyperframes] check: craft 180/408
+[hyperframes] check: craft 181/408
+[hyperframes] check: craft 182/408
+[hyperframes] check: craft 183/408
+[hyperframes] check: craft 184/408
+[hyperframes] check: craft 185/408
+[hyperframes] check: craft 186/408
+[hyperframes] check: craft 187/408
+[hyperframes] check: craft 188/408
+[hyperframes] check: craft 189/408
+[hyperframes] check: craft 190/408
+[hyperframes] check: craft 191/408
+[hyperframes] check: craft 192/408
+[hyperframes] check: craft 193/408
+[hyperframes] check: craft 194/408
+[hyperframes] check: craft 195/408
+[hyperframes] check: craft 196/408
+[hyperframes] check: craft 197/408
+[hyperframes] check: craft 198/408
+[hyperframes] check: craft 199/408
+[hyperframes] check: craft 200/408
+[hyperframes] check: craft 201/408
+[hyperframes] check: craft 202/408
+[hyperframes] check: craft 203/408
+[hyperframes] check: craft 204/408
+[hyperframes] check: craft 205/408
+[hyperframes] check: craft 206/408
+[hyperframes] check: craft 207/408
+[hyperframes] check: craft 208/408
+[hyperframes] check: craft 209/408
+[hyperframes] check: craft 210/408
+[hyperframes] check: craft 211/408
+[hyperframes] check: craft 212/408
+[hyperframes] check: craft 213/408
+[hyperframes] check: craft 214/408
+[hyperframes] check: craft 215/408
+[hyperframes] check: craft 216/408
+[hyperframes] check: craft 217/408
+[hyperframes] check: craft 218/408
+[hyperframes] check: craft 219/408
+[hyperframes] check: craft 220/408
+[hyperframes] check: craft 221/408
+[hyperframes] check: craft 222/408
+[hyperframes] check: craft 223/408
+[hyperframes] check: craft 224/408
+[hyperframes] check: craft 225/408
+[hyperframes] check: craft 226/408
+[hyperframes] check: craft 227/408
+[hyperframes] check: craft 228/408
+[hyperframes] check: craft 229/408
+[hyperframes] check: craft 230/408
+[hyperframes] check: craft 231/408
+[hyperframes] check: craft 232/408
+[hyperframes] check: craft 233/408
+[hyperframes] check: craft 234/408
+[hyperframes] check: craft 235/408
+[hyperframes] check: craft 236/408
+[hyperframes] check: craft 237/408
+[hyperframes] check: craft 238/408
+[hyperframes] check: craft 239/408
+[hyperframes] check: craft 240/408
+[hyperframes] check: craft 241/408
+[hyperframes] check: craft 242/408
+[hyperframes] check: craft 243/408
+[hyperframes] check: craft 244/408
+[hyperframes] check: craft 245/408
+[hyperframes] check: craft 246/408
+[hyperframes] check: craft 247/408
+[hyperframes] check: craft 248/408
+[hyperframes] check: craft 249/408
+[hyperframes] check: craft 250/408
+[hyperframes] check: craft 251/408
+[hyperframes] check: craft 252/408
+[hyperframes] check: craft 253/408
+[hyperframes] check: craft 254/408
+[hyperframes] check: craft 255/408
+[hyperframes] check: craft 256/408
+[hyperframes] check: craft 257/408
+[hyperframes] check: craft 258/408
+[hyperframes] check: craft 259/408
+[hyperframes] check: craft 260/408
+[hyperframes] check: craft 261/408
+[hyperframes] check: craft 262/408
+[hyperframes] check: craft 263/408
+[hyperframes] check: craft 264/408
+[hyperframes] check: craft 265/408
+[hyperframes] check: craft 266/408
+[hyperframes] check: craft 267/408
+[hyperframes] check: craft 268/408
+[hyperframes] check: craft 269/408
+[hyperframes] check: craft 270/408
+[hyperframes] check: craft 271/408
+[hyperframes] check: craft 272/408
+[hyperframes] check: craft 273/408
+[hyperframes] check: craft 274/408
+[hyperframes] check: craft 275/408
+[hyperframes] check: craft 276/408
+[hyperframes] check: craft 277/408
+[hyperframes] check: craft 278/408
+[hyperframes] check: craft 279/408
+[hyperframes] check: craft 280/408
+[hyperframes] check: craft 281/408
+[hyperframes] check: craft 282/408
+[hyperframes] check: craft 283/408
+[hyperframes] check: craft 284/408
+[hyperframes] check: craft 285/408
+[hyperframes] check: craft 286/408
+[hyperframes] check: craft 287/408
+[hyperframes] check: craft 288/408
+[hyperframes] check: craft 289/408
+[hyperframes] check: craft 290/408
+[hyperframes] check: craft 291/408
+[hyperframes] check: craft 292/408
+[hyperframes] check: craft 293/408
+[hyperframes] check: craft 294/408
+[hyperframes] check: craft 295/408
+[hyperframes] check: craft 296/408
+[hyperframes] check: craft 297/408
+[hyperframes] check: craft 298/408
+[hyperframes] check: craft 299/408
+[hyperframes] check: craft 300/408
+[hyperframes] check: craft 301/408
+[hyperframes] check: craft 302/408
+[hyperframes] check: craft 303/408
+[hyperframes] check: craft 304/408
+[hyperframes] check: craft 305/408
+[hyperframes] check: craft 306/408
+[hyperframes] check: craft 307/408
+[hyperframes] check: craft 308/408
+[hyperframes] check: craft 309/408
+[hyperframes] check: craft 310/408
+[hyperframes] check: craft 311/408
+[hyperframes] check: craft 312/408
+[hyperframes] check: craft 313/408
+[hyperframes] check: craft 314/408
+[hyperframes] check: craft 315/408
+[hyperframes] check: craft 316/408
+[hyperframes] check: craft 317/408
+[hyperframes] check: craft 318/408
+[hyperframes] check: craft 319/408
+[hyperframes] check: craft 320/408
+[hyperframes] check: craft 321/408
+[hyperframes] check: craft 322/408
+[hyperframes] check: craft 323/408
+[hyperframes] check: craft 324/408
+[hyperframes] check: craft 325/408
+[hyperframes] check: craft 326/408
+[hyperframes] check: craft 327/408
+[hyperframes] check: craft 328/408
+[hyperframes] check: craft 329/408
+[hyperframes] check: craft 330/408
+[hyperframes] check: craft 331/408
+[hyperframes] check: craft 332/408
+[hyperframes] check: craft 333/408
+[hyperframes] check: craft 334/408
+[hyperframes] check: craft 335/408
+[hyperframes] check: craft 336/408
+[hyperframes] check: craft 337/408
+[hyperframes] check: craft 338/408
+[hyperframes] check: craft 339/408
+[hyperframes] check: craft 340/408
+[hyperframes] check: craft 341/408
+[hyperframes] check: craft 342/408
+[hyperframes] check: craft 343/408
+[hyperframes] check: craft 344/408
+[hyperframes] check: craft 345/408
+[hyperframes] check: craft 346/408
+[hyperframes] check: craft 347/408
+[hyperframes] check: craft 348/408
+[hyperframes] check: craft 349/408
+[hyperframes] check: craft 350/408
+[hyperframes] check: craft 351/408
+[hyperframes] check: craft 352/408
+[hyperframes] check: craft 353/408
+[hyperframes] check: craft 354/408
+[hyperframes] check: craft 355/408
+[hyperframes] check: craft 356/408
+[hyperframes] check: craft 357/408
+[hyperframes] check: craft 358/408
+[hyperframes] check: craft 359/408
+[hyperframes] check: craft 360/408
+[hyperframes] check: craft 361/408
+[hyperframes] check: craft 362/408
+[hyperframes] check: craft 363/408
+[hyperframes] check: craft 364/408
+[hyperframes] check: craft 365/408
+[hyperframes] check: craft 366/408
+[hyperframes] check: craft 367/408
+[hyperframes] check: craft 368/408
+[hyperframes] check: craft 369/408
+[hyperframes] check: craft 370/408
+[hyperframes] check: craft 371/408
+[hyperframes] check: craft 372/408
+[hyperframes] check: craft 373/408
+[hyperframes] check: craft 374/408
+[hyperframes] check: craft 375/408
+[hyperframes] check: craft 376/408
+[hyperframes] check: craft 377/408
+[hyperframes] check: craft 378/408
+[hyperframes] check: craft 379/408
+[hyperframes] check: craft 380/408
+[hyperframes] check: craft 381/408
+[hyperframes] check: craft 382/408
+[hyperframes] check: craft 383/408
+[hyperframes] check: craft 384/408
+[hyperframes] check: craft 385/408
+[hyperframes] check: craft 386/408
+[hyperframes] check: craft 387/408
+[hyperframes] check: craft 388/408
+[hyperframes] check: craft 389/408
+[hyperframes] check: craft 390/408
+[hyperframes] check: craft 391/408
+[hyperframes] check: craft 392/408
+[hyperframes] check: craft 393/408
+[hyperframes] check: craft 394/408
+[hyperframes] check: craft 395/408
+[hyperframes] check: craft 396/408
+[hyperframes] check: craft 397/408
+[hyperframes] check: craft 398/408
+[hyperframes] check: craft 399/408
+[hyperframes] check: craft 400/408
+[hyperframes] check: craft 401/408
+[hyperframes] check: craft 402/408
+[hyperframes] check: craft 403/408
+[hyperframes] check: craft 404/408
+[hyperframes] check: craft 405/408
+[hyperframes] check: craft 406/408
+[hyperframes] check: craft 407/408
+[hyperframes] check: craft 408/408
+[hyperframes] check: overlap 1/23
+[hyperframes] check: overlap 2/23
+[hyperframes] check: overlap 3/23
+[hyperframes] check: overlap 4/23
+[hyperframes] check: overlap 5/23
+[hyperframes] check: overlap 6/23
+[hyperframes] check: overlap 7/23
+[hyperframes] check: overlap 8/23
+[hyperframes] check: overlap 9/23
+[hyperframes] check: overlap 10/23
+[hyperframes] check: overlap 11/23
+[hyperframes] check: overlap 12/23
+[hyperframes] check: overlap 13/23
+[hyperframes] check: overlap 14/23
+[hyperframes] check: overlap 15/23
+[hyperframes] check: overlap 16/23
+[hyperframes] check: overlap 17/23
+[hyperframes] check: overlap 18/23
+[hyperframes] check: overlap 19/23
+[hyperframes] check: overlap 20/23
+[hyperframes] check: overlap 21/23
+[hyperframes] check: overlap 22/23
+[hyperframes] check: overlap 23/23
+[hyperframes] check: checking samples
+[hyperframes] check: analyze 0/3
+[hyperframes] check: analyzing the samples
+[hyperframes] check: analyze 1/3
+[hyperframes] check: analyze 2/3
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 47 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\hongos-terapia\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "font_face_local_only",
+        "severity": "warning",
+        "message": "@font-face 'bahnschrift' only names a font installed on this machine (src: local()). A local render uses the installed copy; a cloud render or another machine has none and falls back to a different font.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\hongos-terapia\\compositions\\captions.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add a url() source to the font file (.woff2) inside the project, or use a Google Fonts family, so every render draws the same glyphs."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 905 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\hongos-terapia\\compositions\\world.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split this sub-composition further into smaller .html files, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "font_face_local_only",
+        "severity": "warning",
+        "message": "@font-face 'bahnschrift' only names a font installed on this machine (src: local()). A local render uses the installed copy; a cloud render or another machine has none and falls back to a different font.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "D:\\Videos PROYECTO CLAUDE\\hongos-terapia\\compositions\\world.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add a url() source to the font file (.woff2) inside the project, or use a Google Fonts family, so every render draws the same glyphs."
+      }
+    ],
+    "filesScanned": 3
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Scripts \"build/three.js\" and \"build/three.min.js\" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "51",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:52072/",
+        "line": 1542
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 51,
+    "samples": [
+      2.833,
+      8.5,
+      14.167,
+      19.833,
+      25.5,
+      31.167,
+      36.833,
+      42.5,
+      48.167
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 8,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.54:1; WCAG AA requires 3:1.",
+        "text": "en la historia de Chile,",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(214,208,190)",
+        "ratio": 1.54,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(116,116,116)",
+        "large": true,
+        "selector": "#capt-3",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 40,
+          "y": 1250,
+          "width": 1000,
+          "height": 76.796875
+        },
+        "time": 2.833,
+        "times": [
+          2.833
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.15:1; WCAG AA requires 3:1.",
+        "text": "Primer ensayo clínico",
+        "fg": "rgb(247,241,230)",
+        "bg": "rgb(234,226,209)",
+        "ratio": 1.15,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(133,129,124)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(6) > div > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 247.578125,
+          "y": 259,
+          "width": 584.828125,
+          "height": 66
+        },
+        "time": 14.167,
+        "times": [
+          14.167
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.14:1; WCAG AA requires 3:1.",
+        "text": "con psilocibina en Chile",
+        "fg": "rgb(247,241,230)",
+        "bg": "rgb(234,227,210)",
+        "ratio": 1.14,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(133,129,124)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(6) > div > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 247.578125,
+          "y": 329,
+          "width": 584.828125,
+          "height": 41.59375
+        },
+        "time": 14.167,
+        "times": [
+          14.167
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.04:1; WCAG AA requires 3:1.",
+        "text": "Fuente: The Clinic (27 oct 2026)",
+        "fg": "rgb(247,241,230)",
+        "bg": "rgb(240,237,230)",
+        "ratio": 1.04,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(139,136,130)",
+        "large": true,
+        "selector": "#t-src1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 332.96875,
+          "y": 1173,
+          "width": 414.0625,
+          "height": 30
+        },
+        "time": 14.167,
+        "times": [
+          14.167
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.16:1; WCAG AA requires 3:1.",
+        "text": "que utilizará psilocibina,",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(240,238,231)",
+        "ratio": 1.16,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(137,137,137)",
+        "large": true,
+        "selector": "#capt-13",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 40,
+          "y": 1250,
+          "width": 1000,
+          "height": 76.796875
+        },
+        "time": 14.167,
+        "times": [
+          14.167
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.62:1; WCAG AA requires 3:1.",
+        "text": "Fuente: The Clinic (27 oct 2026)",
+        "fg": "rgb(247,241,230)",
+        "bg": "rgb(159,150,122)",
+        "ratio": 2.62,
+        "requiredRatio": 3,
+[hyperframes] check: report saved to D:\Videos PROYECTO 
+CLAUDE\hongos-terapia\.hyperframes\artifacts\checks\39f2b464-183a-4b9f-a8b8-64f4c30f041e.json
+        "suggestedColor": "rgb(75,73,69)",
+        "large": true,
+        "selector": "#t-src3",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 332.96875,
+          "y": 1173,
+          "width": 414.0625,
+          "height": 30
+        },
+        "time": 25.5,
+        "times": [
+          25.5
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.05:1; WCAG AA requires 3:1.",
+        "text": "y no mediante microdosis,",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(197,178,161)",
+        "ratio": 2.05,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(97,97,97)",
+        "large": true,
+        "selector": "#capt-23",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 40,
+          "y": 1250,
+          "width": 1000,
+          "height": 76.796875
+        },
+        "time": 25.5,
+        "times": [
+          25.5
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.54:1; WCAG AA requires 3:1.",
+        "text": "¿Tú estarías dispuesto",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(214,208,190)",
+        "ratio": 1.54,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(116,116,116)",
+        "large": true,
+        "selector": "#capt-45",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 40,
+          "y": 1250,
+          "width": 1000,
+          "height": 76.796875
+        },
+        "time": 48.167,
+        "times": [
+          48.167
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      2.833,
+      14.167,
+      25.5,
+      36.833,
+      48.167
+    ],
+    "checked": 14,
+    "passed": 6
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"42participantes aprox. · de 18 a 65 años · fase 2\" (9 words) is on screen 1.68 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "42participantes aprox. · de 18 a 65 años · fase 2",
+        "selector": "#w-68",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 369.89,
+          "y": 256,
+          "width": 340.19000000000005,
+          "height": 102
+        },
+        "time": 24.055,
+        "words": 9,
+        "seconds": 1.68,
+        "floorSeconds": 2.4,
+        "measured": [
+          {
+            "time": 23.75,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24,
+            "opacity": 0.39,
+            "heightPx": 102
+          },
+          {
+            "time": 24.125,
+            "opacity": 0.81,
+            "heightPx": 102
+          },
+          {
+            "time": 24.25,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 24.375,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 24.5,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 25.25,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 25.375,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 25.5,
+            "opacity": 1,
+            "heightPx": 102
+          },
+          {
+            "time": 25.625,
+            "opacity": 0.95,
+            "heightPx": 102
+          },
+          {
+            "time": 25.75,
+            "opacity": 0.32,
+            "heightPx": 102
+          },
+          {
+            "time": 25.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"aprox. · de 18 a 65 años · fase 2\" (8 words) is on screen 1.63 s (±0.01 s), under its 2.17 s floor: hold it about 0.5 s + 0.3 s a word (2.90 s here) before it leaves or changes; see references/motion.md.",
+        "text": "aprox. · de 18 a 65 años · fase 2",
+        "selector": "#c-68 > span:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/world.html",
+        "bbox": {
+          "x": 320.42,
+          "y": 359,
+          "width": 439.13999999999993,
+          "height": 32
+        },
+        "time": 24.07,
+        "words": 8,
+        "seconds": 1.633,
+        "floorSeconds": 2.175,
+        "measured": [
+          {
+            "time": 23.75,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 23.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24,
+            "opacity": 0.33,
+            "heightPx": 32
+          },
+          {
+            "time": 24.125,
+            "opacity": 0.7,
+            "heightPx": 32
+          },
+          {
+            "time": 24.25,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 24.375,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 24.5,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 25.25,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 25.375,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 25.5,
+            "opacity": 0.86,
+            "heightPx": 32
+          },
+          {
+            "time": 25.625,
+            "opacity": 0.82,
+            "heightPx": 32
+          },
+          {
+            "time": 25.75,
+            "opacity": 0.27,
+            "heightPx": 32
+          },
+          {
+            "time": 25.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 408
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "39f2b464-183a-4b9f-a8b8-64f4c30f041e",
+    "revision": null,
+    "report": "D:\\Videos PROYECTO CLAUDE\\hongos-terapia\\.hyperframes\\artifacts\\checks\\39f2b464-183a-4b9f-a8b8-64f4c30f041e.json",
+    "attribution": "inputs-changed"
+  },
+  "_meta": {
+    "version": "0.9.23",
+    "latestVersion": "0.9.23",
+    "updateAvailable": false,
+    "checkedAt": "2026-11-08T16:12:01.694Z",
+    "skillsOutdated": 3,
+    "skillsMissing": 0
+  }
+}

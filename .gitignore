@@ -1,0 +1,19 @@
+# Videos terminados (cada uno en la raíz de su carpeta): van a Google Drive, no a GitHub
+/*/*.mp4
+
+# Video del usuario hablando a cámara en data-centers: pesa 124 MB (GitHub acepta hasta 100 MB por archivo).
+# Va a Drive; en el otro PC se copia a data-centers\assets\video\hector.mp4
+/data-centers/assets/video/hector.mp4
+
+# Cachés y capturas de revisión de HyperFrames (se regeneran solas)
+.hyperframes/
+snapshots/
+_frames/
+
+# Registros de render, revisión y Whisper
+*.log
+*.err
+
+# Respaldos y módulos instalados
+*.zip
+node_modules/

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="lib/gsap.min.js"></script>
+    <script src="lib/three.min.js"></script>
+    <script src="lib/geo.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="71.6" data-width="1080" data-height="1920">
+      <div id="world" data-composition-id="world" data-composition-src="compositions/world.html" data-start="0" data-duration="71.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="71.6" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+      <audio id="narracion" class="clip" src="assets/narracion.mp3" data-start="0" data-media-start="0.35" data-duration="68.6" data-track-index="3" data-volume="1"></audio>
+      <audio id="musica" class="clip" src="assets/musica.wav" data-start="0" data-duration="71.6" data-track-index="4" data-volume="1"></audio>
+      <audio id="sfx-pop-0" class="clip" src="assets/sfx/pop.wav" data-start="36.627" data-duration="0.550" data-track-index="5" data-volume="0.32" data-fade-out="0.15"></audio>
+      <audio id="sfx-pop-1" class="clip" src="assets/sfx/pop.wav" data-start="38.827" data-duration="0.550" data-track-index="5" data-volume="0.32" data-fade-out="0.15"></audio>
+      <audio id="sfx-pop-2" class="clip" src="assets/sfx/pop.wav" data-start="43.187" data-duration="0.550" data-track-index="5" data-volume="0.32" data-fade-out="0.15"></audio>
+      <audio id="sfx-click-0" class="clip" src="assets/sfx/click.wav" data-start="51.297" data-duration="0.450" data-track-index="6" data-volume="0.3"></audio>
+      <audio id="sfx-click-1" class="clip" src="assets/sfx/click.wav" data-start="58.997" data-duration="0.450" data-track-index="6" data-volume="0.3"></audio>
+      <audio id="sfx-whoosh-0" class="clip" src="assets/sfx/whoosh.mp3" data-start="14.997" data-duration="1.150" data-track-index="7" data-volume="0.4" data-media-start="1.25" data-fade-out="0.2"></audio>
+      <audio id="sfx-whoosh-1" class="clip" src="assets/sfx/whoosh.mp3" data-start="52.677" data-duration="1.150" data-track-index="7" data-volume="0.4" data-media-start="1.25" data-fade-out="0.2"></audio>
+      <audio id="sfx-boom-0" class="clip" src="assets/sfx/boom.mp3" data-start="3.997" data-duration="1.100" data-track-index="8" data-volume="0.3" data-fade-out="0.4"></audio>
+      <audio id="sfx-stamp-0" class="clip" src="assets/sfx/stamp.mp3" data-start="22.547" data-duration="0.600" data-track-index="9" data-volume="0.26" data-fade-out="0.25"></audio>
+      <audio id="sfx-stamp-1" class="clip" src="assets/sfx/stamp.mp3" data-start="25.537" data-duration="0.600" data-track-index="9" data-volume="0.26" data-fade-out="0.25"></audio>
+      <audio id="sfx-stamp-2" class="clip" src="assets/sfx/stamp.mp3" data-start="29.747" data-duration="0.600" data-track-index="9" data-volume="0.26" data-fade-out="0.25"></audio>
+      <audio id="sfx-rumble-0" class="clip" src="assets/sfx/rumble.mp3" data-start="61.387" data-duration="2.600" data-track-index="10" data-volume="0.42" data-fade-out="0.8"></audio>
+      <audio id="sfx-ding-0" class="clip" src="assets/sfx/ding.mp3" data-start="67.567" data-duration="1.033" data-track-index="11" data-volume="0.3" data-fade-out="0.4"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

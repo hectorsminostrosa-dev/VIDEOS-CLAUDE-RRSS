@@ -1,0 +1,929 @@
+<template>
+  <style>
+    @font-face { font-family: "Caveat"; src: url("assets/fonts/caveat-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "Bahnschrift"; src: local("Bahnschrift"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #1d2327; }
+    #w-canvas { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; }
+    #w-bloom { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; mix-blend-mode: screen; opacity: 0.32; pointer-events: none; }
+    #w-sweep { position: absolute; left: 0; right: 0; top: 0; height: 5px; z-index: 8; background: linear-gradient(90deg, transparent, #e2c58f 18%, #fff7e8 50%, #e2c58f 82%, transparent); box-shadow: 0 0 34px 8px rgba(233, 201, 143, 0.5); opacity: 0; }
+    #w-grain { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; mix-blend-mode: overlay; opacity: 0.05; pointer-events: none; }
+    #w-hud { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+    #w-hud svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .card { display: inline-block; background: rgba(30, 35, 40, 0.8); border: 1.5px solid #c9a46a; border-radius: 12px; padding: 14px 28px; font-family: "Bahnschrift", sans-serif; font-size: 40px; color: #f7f1e6; white-space: nowrap; box-shadow: 0 0 26px rgba(201, 164, 106, 0.22), 0 8px 30px rgba(0, 0, 0, 0.22); }
+    .card.alert { border-color: #b5523b; box-shadow: 0 0 26px rgba(181, 82, 59, 0.3), 0 8px 30px rgba(0, 0, 0, 0.22); }
+    .card .sub { display: block; font-size: 32px; line-height: 1.3; margin-top: 6px; color: #f7f1e6; opacity: 0.86; text-align: center; }
+    .num { font-family: "Montserrat", sans-serif; font-weight: 700; color: #f7f1e6; font-size: 84px; line-height: 1; letter-spacing: -0.02em; }
+    .unit { font-size: 38px; margin-left: 14px; color: #f7f1e6; }
+    .fixed { position: absolute; left: 0; right: 0; text-align: center; z-index: 10; }
+    .strike { position: relative; display: inline-block; }
+    #k-strike { position: absolute; left: -10px; right: -10px; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: #b5523b; transform-origin: 0 50%; }
+    .nota { display: inline-block; font-family: "Caveat", cursive; font-weight: 700; font-size: 112px; line-height: 1; color: #b5452f; white-space: nowrap; transform: rotate(-7deg); text-shadow: 0 0 18px rgba(255, 246, 230, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35); }
+    .src { font-family: "Bahnschrift", sans-serif; font-size: 30px; color: #f7f1e6; text-shadow: 0 1px 8px #000000, 0 0 3px rgba(0, 0, 0, 0.7); }
+    #w-end { position: absolute; inset: 0; z-index: 40; }
+    #e-bg { position: absolute; inset: 0; background: #000000; }
+  </style>
+  <div id="root" data-composition-id="world" data-start="0" data-duration="51.0" data-width="1080" data-height="1920">
+    <canvas id="w-canvas" width="1620" height="2880" data-layout-ignore></canvas>
+    <canvas id="w-bloom" width="270" height="480" data-layout-ignore></canvas>
+    <canvas id="w-grain" width="540" height="960" data-layout-ignore></canvas>
+    <div id="w-sweep" data-layout-ignore></div>
+    <div id="w-hud" data-layout-ignore><svg viewBox="0 0 1080 1920" fill="none" stroke="#f7f1e6" stroke-opacity="0.42" stroke-width="2.5"><path d="M46 226 V178 H94 M986 178 H1034 V226 M1034 1296 V1344 H986 M94 1344 H46 V1296"/></svg></div>
+
+    <div id="w-hito" class="fixed clip" style="top: 250px" data-start="2.04" data-duration="1.86" data-track-index="1"><div id="c-hito" class="card"><span class="num" style="font-size:56px">Hito médico en Chile</span></div></div>
+    <div id="w-ley" class="fixed clip" style="top: 250px" data-start="5.3" data-duration="2.35" data-track-index="2"><div id="c-ley" class="card alert">Sustancia controlada<span class="sub">Ley 20.000</span></div></div>
+    <div id="w-isp" class="fixed clip" style="top: 250px" data-start="9.75" data-duration="2.2" data-track-index="3"><div id="c-isp" class="card">Instituto de Salud Pública (ISP)</div></div>
+    <div id="w-primer" class="fixed clip" style="top: 250px" data-start="12.09" data-duration="3.16" data-track-index="4"><div id="c-primer" class="card"><span class="num" style="font-size:54px">Primer ensayo clínico</span><span class="sub">con psilocibina en Chile</span></div></div>
+    <div id="w-src1" class="fixed src clip" style="top: 1170px" data-start="9.75" data-duration="5.5" data-track-index="5"><span id="t-src1">Fuente: The Clinic (27 oct 2026)</span></div>
+    <div id="w-psilo" class="fixed clip" style="top: 250px" data-start="15.4" data-duration="2.3" data-track-index="6"><div id="c-psilo" class="card"><span class="num" style="font-size:58px">Psilocibina</span><span class="sub">principio activo de los hongos</span></div></div>
+    <div id="w-drt" class="fixed clip" style="top: 250px" data-start="18.9" data-duration="3.65" data-track-index="7"><div id="c-drt" class="card"><span class="num" style="font-size:54px">Depresión resistente</span><span class="sub">sin respuesta a 2 o más antidepresivos</span></div></div>
+    <div id="w-src2" class="fixed src clip" style="top: 1170px" data-start="18.9" data-duration="3.65" data-track-index="8"><span id="t-src2">Fuente: The Clinic (27 oct 2026)</span></div>
+    <div id="w-68" class="fixed clip" style="top: 250px" data-start="23.85" data-duration="2.0" data-track-index="9"><div id="c-68" class="card"><span id="n-68" class="num">0</span><span class="unit">participantes</span><span class="sub">aprox. · de 18 a 65 años · fase 2</span></div></div>
+    <div id="w-src3" class="fixed src clip" style="top: 1170px" data-start="22.75" data-duration="3.1" data-track-index="10"><span id="t-src3">Fuente: The Clinic (27 oct 2026)</span></div>
+    <div id="w-micro" class="fixed clip" style="top: 250px" data-start="25.9" data-duration="1.15" data-track-index="11"><div id="c-micro" class="card"><span class="strike"><span class="num" style="font-size:56px">Microdosis</span><i id="k-strike"></i></span></div></div>
+    <div id="w-macro" class="fixed clip" style="top: 250px" data-start="27.15" data-duration="2.6" data-track-index="12"><div id="c-macro" class="card"><span class="num" style="font-size:56px">Macrodosis única</span><span class="sub">guiada por terapeutas</span></div></div>
+    <div id="w-src4" class="fixed src clip" style="top: 1170px" data-start="25.9" data-duration="3.85" data-track-index="13"><span id="t-src4">Fuente: The Clinic (27 oct 2026)</span></div>
+    <div id="w-ego" class="fixed clip" style="top: 250px" data-start="31.6" data-duration="1.95" data-track-index="14"><div id="c-ego" class="card"><span class="num" style="font-size:54px">Disolución del ego</span><span class="sub">temporal</span></div></div>
+    <div id="w-chile" class="fixed clip" style="top: 250px" data-start="37.15" data-duration="3.05" data-track-index="15"><div id="c-chile" class="card"><span class="num" style="font-size:50px">Un hito para la ciencia</span><span class="sub">en Chile</span></div></div>
+    <div id="w-vs" class="fixed clip" style="top: 250px" data-start="40.45" data-duration="1.85" data-track-index="16"><div id="c-vs" class="card">Psilocibina vs. agüita de melisa</div></div>
+    <div id="w-nota" class="fixed clip" style="top: 400px" data-start="41.95" data-duration="4.1" data-track-index="17"><span id="n-nota" class="nota">receta de la abuela</span></div>
+    <div id="w-cta" class="fixed clip" style="top: 250px" data-start="47.19" data-duration="2.76" data-track-index="18"><div id="c-cta" class="card"><span class="num" style="font-size:54px">¿Probarías esta terapia?</span><span class="sub">Cuéntalo en los comentarios</span></div></div>
+
+    <div id="w-end" class="clip" data-start="50.0" data-duration="1.0" data-track-index="19"><div id="e-bg"></div></div>
+  </div>
+  <script>
+    (function () {
+      const DUR = 50.0;
+      const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+      const prog = (t, a, b) => clamp((t - a) / (b - a));
+      const io = (x) => x * x * x * (x * (x * 6 - 15) + 10);
+      const eOut = (x) => 1 - Math.pow(1 - x, 3);
+      const eIn = (x) => x * x * x;
+      const settle = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.exp(-5.5 * x) * Math.cos(6.5 * x));
+      const mix = (a, b, x) => a + (b - a) * x;
+      function rng(seed) {
+        return function () {
+          seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
+          let r = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+          return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      const C = (hex) => new THREE.Color(hex);
+
+      // Paleta natural (tomada de la imagen de referencia): pizarra azul grisácea, arena soleada, crema,
+      // café de hongo, verde oliva y ocre cálido. Rojo ladrillo solo para alertas y la nota a mano.
+      const P = {
+        wall: "#75828b", wallWarm: "#cdbfa4", table: "#d8cbb1", cream: "#f3ead8", ink: "#262b2f",
+        cap: "#8d6a45", gill: "#cdb38a", stem: "#d9c7a3", olive: "#55683a", oliveL: "#6f8445", ochre: "#b98a4e",
+        slate: "#4f5c65", clay: "#b49a7c", brick: "#a8452f", oak: "#9c7b58", sage: "#7f8c5e",
+      };
+
+      // El render 3D va a un canvas fuera de pantalla y se acumula en #w-canvas (motion blur real).
+      const canvas = document.getElementById("w-canvas");
+      const outCtx = canvas.getContext("2d");
+      const glCanvas = document.createElement("canvas");
+      const renderer = new THREE.WebGLRenderer({ canvas: glCanvas, antialias: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(1.5);
+      renderer.setSize(1080, 1920, false);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+
+      const scene = new THREE.Scene();
+      const envScene = new THREE.Scene();
+      envScene.background = new THREE.Color("#2a3036");
+      const envPanel = (w, h, hex, k, x, y, z) => {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(k), side: THREE.DoubleSide }));
+        m.position.set(x, y, z);
+        m.lookAt(0, 0, 0);
+        envScene.add(m);
+      };
+      envPanel(8, 8, "#fff3df", 1.8, 0, 10, 0);
+      envPanel(5, 6, "#ffe6c0", 2.4, 8, 4, 6);
+      envPanel(6, 8, "#8297a8", 1.4, -8, 2, -2);
+      envPanel(12, 2, "#c9a46a", 1.0, 0, 1, -9);
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+      const camera = new THREE.PerspectiveCamera(35, 1080 / 1920, 0.1, 900);
+      const hemi = new THREE.HemisphereLight(0xc4ced6, 0x6a5e4e, 0.85);
+      scene.add(hemi);
+      const sunLight = new THREE.DirectionalLight(0xffe7c2, 3.0);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.set(2048, 2048);
+      sunLight.shadow.bias = -0.0005;
+      sunLight.shadow.normalBias = 0.02;
+      sunLight.shadow.radius = 5;
+      scene.add(sunLight, sunLight.target);
+      const rimLight = new THREE.DirectionalLight(0x9db2c4, 0.55);
+      rimLight.position.set(-14, 10, -10);
+      scene.add(rimLight);
+
+      // Ventana invisible: bloquea el sol salvo por dos paños, y así dibuja el haz de luz diagonal de la referencia.
+      const occMat = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false, side: THREE.DoubleSide });
+      const occShape = new THREE.Shape();
+      occShape.moveTo(-40, -40); occShape.lineTo(40, -40); occShape.lineTo(40, 40); occShape.lineTo(-40, 40); occShape.lineTo(-40, -40);
+      [[-1.65, 1.5], [0.15, 1.5]].forEach(([x, w]) => {
+        const p = new THREE.Path();
+        p.moveTo(x, -3.4); p.lineTo(x + w, -3.4); p.lineTo(x + w, 3.4); p.lineTo(x, 3.4); p.lineTo(x, -3.4);
+        occShape.holes.push(p);
+      });
+      const occ = new THREE.Mesh(new THREE.ShapeGeometry(occShape), occMat);
+      occ.castShadow = true; occ.receiveShadow = false; occ.frustumCulled = false;
+      scene.add(occ);
+
+      const bloomEl = document.getElementById("w-bloom");
+      const bctx = bloomEl.getContext("2d");
+      const sweepEl = document.getElementById("w-sweep");
+      const gradC = document.createElement("canvas");
+      gradC.width = 4; gradC.height = 256;
+      const gctx = gradC.getContext("2d");
+      const grd = gctx.createLinearGradient(0, 0, 0, 256);
+      grd.addColorStop(0, "#1d2529"); grd.addColorStop(0.5, "#46535b"); grd.addColorStop(1, "#8f8572");
+      gctx.fillStyle = grd; gctx.fillRect(0, 0, 4, 256);
+      const gradTex = new THREE.CanvasTexture(gradC);
+      gradTex.colorSpace = THREE.SRGBColorSpace;
+
+      /* ---------- Piezas lisas ---------- */
+      const mat = (color, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color, flatShading: false, roughness: 0.78, metalness: 0 }, o));
+      const basic = (color, o = {}) => new THREE.MeshBasicMaterial(Object.assign({ color }, o));
+      function add(geo, color, x, y, z, parent, o = {}) {
+        const m = new THREE.Mesh(geo, color && color.isMaterial ? color : mat(color));
+        m.position.set(x, y, z);
+        m.castShadow = o.cast !== false;
+        m.receiveShadow = o.recv !== false;
+        parent.add(m);
+        return m;
+      }
+      const box = (w, h, d, color, x, y, z, parent, o) => add(new THREE.BoxGeometry(w, h, d), color, x, y, z, parent, o);
+      const cyl = (r1, r2, h, color, x, y, z, parent, o) => add(new THREE.CylinderGeometry(r1, r2, h, 48), color, x, y, z, parent, o);
+      const ball = (r, color, x, y, z, parent, o) => add(new THREE.SphereGeometry(r, 40, 28), color, x, y, z, parent, o);
+      const group = (parent, x = 0, y = 0, z = 0) => { const g = new THREE.Group(); g.position.set(x, y, z); parent.add(g); return g; };
+      function roundedGeo(w, h, d, r) {
+        r = Math.min(r, Math.min(w, h, d) / 2 - 0.001);
+        const s = new THREE.Shape();
+        const x = -w / 2 + r, y = -h / 2 + r, iw = w - 2 * r, ih = h - 2 * r;
+        s.moveTo(x, y - r);
+        s.lineTo(x + iw, y - r);
+        s.absarc(x + iw, y, r, -Math.PI / 2, 0, false);
+        s.lineTo(x + iw + r, y + ih);
+        s.absarc(x + iw, y + ih, r, 0, Math.PI / 2, false);
+        s.lineTo(x, y + ih + r);
+        s.absarc(x, y + ih, r, Math.PI / 2, Math.PI, false);
+        s.lineTo(x - r, y);
+        s.absarc(x, y, r, Math.PI, Math.PI * 1.5, false);
+        const g = new THREE.ExtrudeGeometry(s, { depth: Math.max(0.001, d - 2 * r), bevelEnabled: true, bevelThickness: r, bevelSize: r, bevelOffset: -r, bevelSegments: 6, curveSegments: 10 });
+        g.translate(0, 0, -(d - 2 * r) / 2);
+        return g;
+      }
+      const rb = (w, h, d, r, color, x, y, z, parent, o) => add(roundedGeo(w, h, d, r), color, x, y, z, parent, o);
+      const latheGeo = (pts, seg = 72) => new THREE.LatheGeometry(pts.map((p) => new THREE.Vector2(p[0], p[1])), seg);
+      function lathe(points, color, x, y, z, parent, o) { return add(latheGeo(points), color, x, y, z, parent, o); }
+      // Perfil suavizado (spline) para que la silueta no muestre quiebres.
+      const smooth = (pts, n = 48) => new THREE.SplineCurve(pts.map((p) => new THREE.Vector2(p[0], p[1]))).getPoints(n).map((v) => [Math.max(0, v.x), v.y]);
+      const ell = (parent, m, x, y, z, sx, sy, sz, o) => { const b = ball(1, m, x, y, z, parent, o); b.scale.set(sx, sy, sz); return b; };
+      // Texturas de texto: se dibujan al cargar y otra vez cuando las fuentes están listas.
+      const painters = [];
+      function paintTex(w, h, draw) {
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        const tx = new THREE.CanvasTexture(c);
+        tx.colorSpace = THREE.SRGBColorSpace;
+        tx.anisotropy = 8;
+        const run = () => { const x = c.getContext("2d"); x.clearRect(0, 0, w, h); draw(x, w, h); tx.needsUpdate = true; };
+        run();
+        painters.push(run);
+        return tx;
+      }
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => painters.forEach((p) => p()));
+      function rr(c, x, y, w, h, r) { c.beginPath(); c.roundRect(x, y, w, h, r); }
+      function txt(c, s, x, y, font, color, align = "center") { c.font = font; c.fillStyle = color; c.textAlign = align; c.textBaseline = "middle"; c.fillText(s, x, y); }
+      const MONT = (px) => "700 " + px + "px Montserrat, sans-serif";
+      const BAHN = (px) => px + "px Bahnschrift, sans-serif";
+      function plane(w, h, tex, x, y, z, parent, o = {}) {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), o.lit ? mat("#ffffff", { map: tex, roughness: 0.85, transparent: !!o.transparent }) : basic("#ffffff", { map: tex, transparent: o.transparent !== false, depthWrite: !o.transparent }));
+        m.position.set(x, y, z);
+        m.castShadow = false; m.receiveShadow = !!o.lit;
+        parent.add(m);
+        return m;
+      }
+      const puffCanvas = document.createElement("canvas");
+      puffCanvas.width = puffCanvas.height = 128;
+      const pctx = puffCanvas.getContext("2d");
+      const pgrad = pctx.createRadialGradient(64, 64, 4, 64, 64, 64);
+      pgrad.addColorStop(0, "rgba(255,255,255,1)");
+      pgrad.addColorStop(0.5, "rgba(255,255,255,0.45)");
+      pgrad.addColorStop(1, "rgba(255,255,255,0)");
+      pctx.fillStyle = pgrad;
+      pctx.fillRect(0, 0, 128, 128);
+      const puffTex = new THREE.CanvasTexture(puffCanvas);
+      const glowMat = (color, op = 0) => new THREE.SpriteMaterial({ map: puffTex, color, transparent: true, opacity: op, depthWrite: false, blending: THREE.AdditiveBlending });
+      const steamMat = (op = 0) => new THREE.SpriteMaterial({ map: puffTex, color: "#f6f1e8", transparent: true, opacity: op, depthWrite: false });
+      const glassM = () => new THREE.MeshStandardMaterial({ color: "#eef3f4", transparent: true, opacity: 0.2, roughness: 0.04, metalness: 0, envMapIntensity: 1.6, depthWrite: false, side: THREE.DoubleSide });
+      const liquidM = (hex, op) => new THREE.MeshStandardMaterial({ color: hex, transparent: true, opacity: op, roughness: 0.1, depthWrite: false });
+
+      // Mesa de piedra arena y pared de pizarra (el ambiente de la referencia).
+      function roomBase(parent, wallHex, tableHex) {
+        rb(40, 0.5, 18, 0.12, mat(tableHex, { roughness: 0.86 }), 0, -0.25, 5.8, parent);
+        box(44, 18, 0.4, mat(wallHex, { roughness: 0.96 }), 0, 8.8, -3.2, parent, { cast: false });
+      }
+
+      /* ---------- Piezas reutilizables ---------- */
+      const capM = mat(P.cap, { roughness: 0.6 });
+      const gillM = mat(P.gill, { roughness: 0.92, side: THREE.DoubleSide });
+      const stemM = mat(P.stem, { roughness: 0.8 });
+      // Hongo seco liso: pie levemente curvo, sombrero en domo con mamelón y laminillas claras.
+      function mushroom(parent, s) {
+        const g = group(parent);
+        g.scale.setScalar(s);
+        const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.03, 0.25, 0), new THREE.Vector3(0.02, 0.5, 0.01), new THREE.Vector3(-0.01, 0.68, 0)]);
+        add(new THREE.TubeGeometry(curve, 32, 0.06, 20, false), stemM, 0, 0, 0, g);
+        ball(0.062, stemM, 0, 0, 0, g);
+        lathe([[0.31, 0.64], [0.33, 0.67], [0.31, 0.76], [0.25, 0.86], [0.16, 0.93], [0.07, 0.97], [0.03, 1.0], [0, 1.01]], capM, 0, 0, 0, g);
+        lathe([[0.31, 0.64], [0.2, 0.67], [0.07, 0.69], [0, 0.69]], gillM, 0, 0, 0, g, { cast: false });
+        return g;
+      }
+      // Cápsula de dos colores (crema y ocre).
+      function capsule(parent, r, len) {
+        const g = group(parent);
+        const a = mat("#ede5d3", { roughness: 0.32 }), b = mat("#b07f45", { roughness: 0.32 });
+        [[a, 1], [b, -1]].forEach(([m, sg]) => {
+          cyl(r, r, len / 2, m, 0, sg * len / 4, 0, g);
+          const h = add(new THREE.SphereGeometry(r, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), m, 0, sg * len / 2, 0, g);
+          if (sg < 0) h.rotation.x = Math.PI;
+        });
+        return g;
+      }
+      function glassOfWater(parent, x, z, s) {
+        const g = group(parent, x, 0, z);
+        g.scale.setScalar(s);
+        add(latheGeo([[0, 0], [0.36, 0], [0.39, 0.03], [0.44, 1.2], [0.42, 1.2], [0.37, 0.07], [0, 0.07]]), glassM(), 0, 0, 0, g, { cast: false });
+        add(latheGeo([[0, 0.075], [0.37, 0.075], [0.405, 0.82], [0, 0.82]]), liquidM("#c7d8de", 0.32), 0, 0, 0, g, { cast: false });
+        return g;
+      }
+      function plant(parent, x, z, s) {
+        const g = group(parent, x, 0, z);
+        g.scale.setScalar(s);
+        lathe([[0, 0], [0.42, 0], [0.47, 0.06], [0.55, 0.78], [0.58, 0.82], [0.55, 0.84], [0, 0.84]], mat("#d8d0c0", { roughness: 0.55 }), 0, 0, 0, g);
+        const r = rng(9);
+        for (let i = 0; i < 9; i++) {
+          const a = i * 2.4, h = 1.1 + r() * 0.9, d = 0.25 + r() * 0.45;
+          const tip = new THREE.Vector3(Math.cos(a) * d, h, Math.sin(a) * d);
+          add(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0.8, 0), new THREE.Vector3(Math.cos(a) * d * 0.3, h * 0.85, Math.sin(a) * d * 0.3), tip), 16, 0.018, 8, false), P.olive, 0, 0, 0, g, { cast: false });
+          const leaf = ell(g, mat(i % 2 ? P.olive : P.oliveL, { roughness: 0.55 }), tip.x * 1.25, tip.y + 0.05, tip.z * 1.25, 0.36, 0.05, 0.22);
+          leaf.rotation.set(0.25 + r() * 0.3, -a, (r() - 0.5) * 0.6);
+        }
+        return g;
+      }
+      function book(parent, x, z, ry) {
+        const g = group(parent, x, 0, z);
+        g.rotation.y = ry;
+        rb(1.7, 0.08, 1.2, 0.03, "#4b5862", 0, 0.04, 0, g);
+        rb(1.62, 0.22, 1.12, 0.02, "#e7dcc6", 0.02, 0.19, 0, g);
+        rb(1.7, 0.08, 1.2, 0.03, "#4b5862", 0, 0.34, 0, g);
+        return g;
+      }
+
+      /* ---------- 1. MESA SOLEADA (gancho, laboratorio, molécula) ---------- */
+      const roomSet = group(scene);
+      roomBase(roomSet, P.wall, P.table);
+      const hero = group(roomSet, -0.1, 0, 1.0);
+      const heroM = mushroom(hero, 1.0);
+      const lying = [[-1.25, 1.5, 1.5, 0.9, 0.3], [0.95, 1.75, -1.48, 0.8, -0.6]].map(([x, z, rz, s, ry]) => {
+        const g = group(roomSet, x, 0.07 * s, z);
+        g.rotation.set(0, ry, 0);
+        const m = mushroom(g, s);
+        m.rotation.z = rz;
+        m.position.y = 0;
+        return g;
+      });
+      const water = glassOfWater(roomSet, 1.35, -0.25, 1.0);
+      book(roomSet, 2.4, -1.4, 0.12);
+      plant(roomSet, 2.6, -2.2, 1.25);
+      // Campana de vidrio ("sustancia prohibida") y material de laboratorio.
+      const jar = group(roomSet, -0.1, 0, 1.0);
+      add(latheGeo([...smooth([[0, 1.32], [0.18, 1.3], [0.42, 1.18], [0.56, 0.92], [0.6, 0.5], [0.6, 0.04]]), [0.64, 0.0], [0.62, 0.0]]), glassM(), 0, 0, 0, jar, { cast: false });
+      ball(0.08, glassM(), 0, 1.38, 0, jar, { cast: false });
+      const flask = group(roomSet, -1.0, 0, 0.45);
+      add(latheGeo([[0, 0], [0.42, 0], [0.45, 0.04], [0.3, 0.62], [0.12, 0.8], [0.12, 1.25], [0.15, 1.28], [0.11, 1.28], [0.1, 0.82], [0.27, 0.63], [0, 0.6]]), glassM(), 0, 0, 0, flask, { cast: false });
+      add(latheGeo([[0, 0.02], [0.41, 0.02], [0.35, 0.36], [0, 0.36]]), liquidM(P.sage, 0.6), 0, 0, 0, flask, { cast: false });
+      const rack = group(roomSet, 0.95, 0, 0.75);
+      rack.rotation.y = -0.35;
+      rb(1.1, 0.08, 0.36, 0.03, P.oak, 0, 0.04, 0, rack);
+      rb(1.1, 0.06, 0.36, 0.03, P.oak, 0, 0.5, 0, rack);
+      [-0.5, 0.5].forEach((x) => rb(0.06, 0.54, 0.3, 0.02, P.oak, x, 0.27, 0, rack));
+      ["#b98a4e", P.sage, "#c7d8de", "#a8452f"].forEach((hx, i) => {
+        const x = -0.33 + i * 0.22;
+        add(latheGeo([[0, 0.06], [0.06, 0.07], [0.07, 0.12], [0.07, 0.95], [0.08, 0.97], [0.06, 0.97], [0.06, 0.12], [0, 0.11]], 32), glassM(), x, 0, 0, rack, { cast: false });
+        add(latheGeo([[0, 0.1], [0.058, 0.12], [0.058, 0.45 + i * 0.06], [0, 0.45 + i * 0.06]], 32), liquidM(hx, 0.75), x, 0, 0, rack, { cast: false });
+      });
+      // Cápsula en que se transforma el hongo, y esporas de luz.
+      const heroCap = group(roomSet, -0.1, 0.55, 1.0);
+      capsule(heroCap, 0.17, 0.5);
+      const spores = [];
+      const rs = rng(31);
+      for (let i = 0; i < 26; i++) { const s = new THREE.Sprite(glowMat("#f1d9a6", 0)); roomSet.add(s); spores.push({ s, a: rs() * Math.PI * 2, r: 0.2 + rs() * 0.7, h: rs() * 1.2, k: 0.6 + rs() * 0.8 }); }
+      // Molécula de psilocibina (estructura real de átomos pesados; sin hidrógenos).
+      const mol = group(roomSet, -0.9, 1.7, 1.25);
+      const molIn = group(mol);
+      const AT = {
+        C3a: [0.866, 0.5, 0, "C"], C4: [0, 1, 0, "C"], C5: [-0.866, 0.5, 0, "C"], C6: [-0.866, -0.5, 0, "C"], C7: [0, -1, 0, "C"], C7a: [0.866, -0.5, 0, "C"],
+        C3: [1.817, 0.809, 0, "C"], C2: [2.405, 0, 0, "C"], N1: [1.817, -0.809, 0, "N"],
+        O4: [0, 2, 0, "O"], Pp: [-0.87, 2.5, 0.05, "P"], O1: [-1.74, 2.0, 0.25, "O"], O2: [-0.87, 3.5, 0.3, "O"], O3: [-1.0, 2.62, -0.98, "O"],
+        Ca: [2.126, 1.76, 0, "C"], Cb: [2.99, 2.26, 0.2, "C"], Na: [3.0, 3.26, 0.35, "N"], M1: [3.87, 3.76, 0.6, "C"], M2: [2.2, 3.85, 0.55, "C"],
+      };
+      const BONDS = [["C3a", "C4"], ["C4", "C5"], ["C5", "C6"], ["C6", "C7"], ["C7", "C7a"], ["C7a", "C3a"], ["C3a", "C3"], ["C3", "C2"], ["C2", "N1"], ["N1", "C7a"],
+        ["C4", "O4"], ["O4", "Pp"], ["Pp", "O1"], ["Pp", "O2"], ["Pp", "O3"], ["C3", "Ca"], ["Ca", "Cb"], ["Cb", "Na"], ["Na", "M1"], ["Na", "M2"]];
+      const ACOL = { C: "#4a5057", N: "#7c96ad", O: "#b5523b", P: "#c99a4a" };
+      const ARAD = { C: 0.2, N: 0.21, O: 0.2, P: 0.26 };
+      const CEN = [1.0, 1.35, 0.1], MS = 0.24;
+      const apos = (k) => new THREE.Vector3((AT[k][0] - CEN[0]) * MS, (AT[k][1] - CEN[1]) * MS, (AT[k][2] - CEN[2]) * MS);
+      const atomMeshes = [];
+      Object.keys(AT).forEach((k) => { const m = ball(ARAD[AT[k][3]] * MS, mat(ACOL[AT[k][3]], { roughness: 0.3, metalness: 0.1 }), 0, 0, 0, molIn); m.position.copy(apos(k)); atomMeshes.push(m); });
+      const bondM = mat("#efe6d2", { roughness: 0.4 });
+      BONDS.forEach(([a, b]) => {
+        const A = apos(a), B = apos(b), d = A.distanceTo(B);
+        const m = add(new THREE.CylinderGeometry(0.05 * MS, 0.05 * MS, d, 20), bondM, 0, 0, 0, molIn);
+        m.position.copy(A).add(B).multiplyScalar(0.5);
+        m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), B.clone().sub(A).normalize());
+      });
+      const molGlow = new THREE.Sprite(glowMat("#f1d9a6", 0));
+      molGlow.scale.set(2.2, 2.2, 1);
+      mol.add(molGlow);
+
+      /* ---------- 2. PROTOCOLO Y TIMBRE (vista cenital) ---------- */
+      const docSet = group(scene);
+      rb(40, 0.5, 40, 0.12, mat("#d4c6aa", { roughness: 0.88 }), 0, -0.25, 0, docSet);
+      const docTex = paintTex(720, 960, (c, w, h) => {
+        c.fillStyle = "#f4efe4"; c.fillRect(0, 0, w, h);
+        txt(c, "PROTOCOLO DE", 60, 82, MONT(46), "#262b2f", "left");
+        txt(c, "ENSAYO CLÍNICO", 60, 136, MONT(46), "#262b2f", "left");
+        c.fillStyle = "#b98a4e"; c.fillRect(60, 178, w - 120, 6);
+        const rows = [["Fase", "2"], ["Compuesto", "psilocibina"], ["Enfoque", "depresión resistente"], ["Participantes", "≈68 · 18 a 65 años"], ["Dosis", "macrodosis única, guiada"]];
+        rows.forEach(([a, b], i) => { txt(c, a, 60, 240 + i * 64, BAHN(32), "#6a6358", "left"); txt(c, b, 300, 240 + i * 64, BAHN(32), "#262b2f", "left"); });
+        c.fillStyle = "#cbbfa8";
+        for (let i = 0; i < 7; i++) c.fillRect(60, 590 + i * 44, 380 + (i * 71) % 200, 12);
+        c.strokeStyle = "#8a8070"; c.lineWidth = 3; c.beginPath(); c.moveTo(420, 900); c.lineTo(660, 900); c.stroke();
+      });
+      const doc = add(new THREE.BoxGeometry(3.0, 0.03, 4.0), mat("#ffffff", { map: docTex, roughness: 0.9 }), 0, 0.015, 0, docSet);
+      // Mapear la textura sólo en la cara superior.
+      doc.material = [mat("#f4efe4", { roughness: 0.9 }), mat("#f4efe4", { roughness: 0.9 }), mat("#ffffff", { map: docTex, roughness: 0.9 }), mat("#f4efe4", { roughness: 0.9 }), mat("#f4efe4", { roughness: 0.9 }), mat("#f4efe4", { roughness: 0.9 })];
+      const pen = group(docSet, 2.05, 0.06, 0.4);
+      pen.rotation.y = 0.5;
+      add(new THREE.CapsuleGeometry(0.055, 1.7, 8, 24), mat(P.slate, { roughness: 0.35, metalness: 0.3 }), 0, 0, 0, pen).rotation.z = Math.PI / 2;
+      const markTex = paintTex(512, 512, (c, w, h) => {
+        c.strokeStyle = "#a8452f"; c.lineWidth = 16; c.beginPath(); c.arc(w / 2, h / 2, 214, 0, Math.PI * 2); c.stroke();
+        c.lineWidth = 6; c.beginPath(); c.arc(w / 2, h / 2, 180, 0, Math.PI * 2); c.stroke();
+        txt(c, "AUTORIZADO", w / 2, h / 2 + 4, MONT(66), "#a8452f");
+        c.fillStyle = "#a8452f"; c.fillRect(110, h / 2 - 58, w - 220, 5); c.fillRect(110, h / 2 + 54, w - 220, 5);
+      });
+      const mark = plane(1.7, 1.7, markTex, 0.6, 0.034, 0.15, docSet, { transparent: true });
+      mark.rotation.x = -Math.PI / 2; mark.rotation.z = 0.18;
+      const stamper = group(docSet, 0.6, 3, 0.15);
+      rb(1.6, 0.14, 1.6, 0.05, mat("#8a3a2a", { roughness: 0.7 }), 0, 0.07, 0, stamper);
+      rb(1.7, 0.36, 1.7, 0.1, mat(P.oak, { roughness: 0.5 }), 0, 0.32, 0, stamper);
+      lathe([[0, 0], [0.26, 0], [0.2, 0.3], [0.16, 0.7], [0.3, 1.0], [0.34, 1.2], [0.2, 1.38], [0, 1.42]], mat("#a07a52", { roughness: 0.45 }), 0, 0.5, 0, stamper);
+      const docCap = group(docSet, 0, 0.13, 0);
+      capsule(docCap, 0.13, 0.4);
+
+      /* ---------- 3. CABEZA, MARAÑA Y EGO ---------- */
+      const headSet = group(scene);
+      box(44, 18, 0.4, mat("#7a878f", { roughness: 0.96 }), 0, 8, -2.6, headSet, { cast: false });
+      rb(40, 0.5, 18, 0.12, mat(P.table, { roughness: 0.86 }), 0, -0.25, 6.4, headSet);
+      const bust = group(headSet, 0, 0, 0);
+      bust.rotation.y = 0.55;
+      const bustM = mat("#4f5c65", { roughness: 0.7 });
+      lathe([[0, 0], ...smooth([[1.2, 0], [1.28, 0.55], [1.18, 1.0], [0.88, 1.32], [0.42, 1.48], [0.28, 1.6]]), [0, 1.6]], bustM, 0, 0, 0, bust).scale.set(1, 1, 0.62);
+      cyl(0.24, 0.27, 0.6, bustM, 0, 1.78, 0, bust);
+      const headG = group(bust, 0, 2.05, 0.04);
+      headG.rotation.x = 0.28;
+      ell(headG, bustM, 0, 0.45, 0.05, 0.5, 0.6, 0.55);
+      ell(headG, bustM, 0, 0.3, 0.42, 0.13, 0.15, 0.16);
+      const HC = new THREE.Vector3(0, 2.62, 0.1);
+      // Maraña (como el garabato de la referencia): curva abierta que luego se ordena en anillos.
+      const NT = 46;
+      const tR = rng(17);
+      const tangle = [], rings = [];
+      for (let i = 0; i < NT; i++) {
+        const u = tR() * 2 - 1, a = tR() * Math.PI * 2, rad = 0.5 + tR() * 0.35;
+        const sq = Math.sqrt(1 - u * u);
+        tangle.push(new THREE.Vector3(Math.cos(a) * sq * rad, 0.3 + u * rad * 0.7, Math.sin(a) * sq * rad * 0.8));
+        const f = i / (NT - 1), ang = f * Math.PI * 2 * 3;
+        rings.push(new THREE.Vector3(Math.cos(ang) * 0.72, 0.62 + f * 0.24, Math.sin(ang) * 0.72));
+      }
+      const inkM = mat(P.ink, { roughness: 0.6 });
+      const tangleMesh = new THREE.Mesh(new THREE.BufferGeometry(), inkM);
+      tangleMesh.castShadow = true;
+      const tangleG = group(headSet, HC.x, HC.y, HC.z);
+      tangleG.add(tangleMesh);
+      let tangleKey = "";
+      function updateTangle(t, k) {
+        const key = t.toFixed(3) + "|" + k.toFixed(3);
+        if (key === tangleKey) return;
+        tangleKey = key;
+        const pts = tangle.map((p, i) => {
+          const j = 0.035 * (1 - k);
+          const q = new THREE.Vector3(p.x + Math.sin(t * 2.1 + i) * j, p.y + Math.sin(t * 1.7 + i * 1.3) * j, p.z + Math.cos(t * 1.9 + i) * j);
+          return q.lerp(rings[i], io(clamp(k * 1.25 - (i / NT) * 0.25)));
+        });
+        const g = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 420, 0.022, 10, false);
+        tangleMesh.geometry.dispose();
+        tangleMesh.geometry = g;
+      }
+      // Coraza rígida del ego: losetas lisas alrededor de la cabeza, que se disuelven en esporas de luz.
+      const NSH = 150;
+      const shell = new THREE.InstancedMesh(roundedGeo(0.24, 0.24, 0.07, 0.03), mat("#a59a88", { roughness: 0.55 }), NSH);
+      shell.castShadow = true; shell.receiveShadow = true;
+      headSet.add(shell);
+      const shellPts = [];
+      const shR = rng(23);
+      for (let i = 0; i < NSH; i++) {
+        const y = 1 - (i / (NSH - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.39996;
+        const n = new THREE.Vector3(Math.cos(th) * r, y, Math.sin(th) * r);
+        if (n.y < -0.55) n.y = -0.55 + (n.y + 0.55) * 0.2;
+        shellPts.push({ n: n.normalize(), d: shR() * 1.1, sp: 0.6 + shR() * 0.8 });
+      }
+      const dmy = new THREE.Object3D();
+      function updateShell(t, on) {
+        shell.visible = on;
+        if (!on) return;
+        shellPts.forEach((p, i) => {
+          const k = eIn(prog(t, 31.7 + p.d, 32.6 + p.d));
+          const s = Math.max(0.0001, 1 - k);
+          const pos = p.n.clone().multiplyScalar(0.92 + k * 1.4 * p.sp).add(HC);
+          pos.y += k * 1.2 * p.sp;
+          dmy.position.copy(pos);
+          dmy.lookAt(HC.x + p.n.x * 3, HC.y + p.n.y * 3, HC.z + p.n.z * 3);
+          dmy.rotateZ(k * 2 * p.sp);
+          dmy.scale.set(s, s, s);
+          dmy.updateMatrix();
+          shell.setMatrixAt(i, dmy.matrix);
+        });
+        shell.instanceMatrix.needsUpdate = true;
+      }
+      const egoSpores = [];
+      for (let i = 0; i < 36; i++) { const s = new THREE.Sprite(glowMat("#f1d9a6", 0)); headSet.add(s); egoSpores.push({ s, n: shellPts[(i * 7) % NSH].n, d: shellPts[(i * 7) % NSH].d, k: 0.6 + (i % 5) * 0.2 }); }
+      // Dos antidepresivos que no logran desarmar la maraña.
+      const pills = [0, 1].map(() => { const g = group(headSet); cyl(0.13, 0.13, 0.07, mat("#f1ece2", { roughness: 0.4 }), 0, 0, 0, g).rotation.x = Math.PI / 2; return g; });
+
+      /* ---------- 4. 68 PARTICIPANTES ---------- */
+      const crowdSet = group(scene);
+      rb(60, 0.5, 60, 0.12, mat(P.table, { roughness: 0.88 }), 0, -0.25, 0, crowdSet);
+      const N68 = 68;
+      const figBody = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.12, 0.24, 10, 24), mat("#ffffff", { roughness: 0.6 }), N68);
+      const figHead = new THREE.InstancedMesh(new THREE.SphereGeometry(0.105, 28, 20), mat("#ffffff", { roughness: 0.6 }), N68);
+      [figBody, figHead].forEach((m) => { m.castShadow = true; m.receiveShadow = true; crowdSet.add(m); });
+      const FIGC = ["#c9b28c", P.sage, "#6f7f8a", P.ochre, "#a8836a", "#e2d6bf", P.slate, "#8d6a45"];
+      const figPos = [];
+      const fR = rng(68);
+      for (let i = 0; i < N68; i++) {
+        const row = Math.floor(i / 9), col = i % 9, inRow = row === 7 ? 5 : 9;
+        const x = (col - (inRow - 1) / 2) * 0.46 + (fR() - 0.5) * 0.08, z = (row - 3.5) * 0.5 + (fR() - 0.5) * 0.08;
+        figPos.push([x, z, 0.85 + fR() * 0.3]);
+        const c = C(FIGC[Math.floor(fR() * FIGC.length)]);
+        figBody.setColorAt(i, c); figHead.setColorAt(i, c);
+      }
+      function updateCrowd(t) {
+        figPos.forEach(([x, z, h], i) => {
+          const a = 23.93 + (i / N68) * 0.62;
+          const k = Math.max(0.0001, settle(prog(t, a, a + 0.32)));
+          dmy.rotation.set(0, 0, 0);
+          dmy.scale.set(k, k * h, k);
+          dmy.position.set(x, 0.24 * k * h, z); dmy.updateMatrix(); figBody.setMatrixAt(i, dmy.matrix);
+          dmy.scale.set(k, k, k);
+          dmy.position.set(x, (0.5 * h + 0.1) * k, z); dmy.updateMatrix(); figHead.setMatrixAt(i, dmy.matrix);
+        });
+        figBody.instanceMatrix.needsUpdate = figHead.instanceMatrix.needsUpdate = true;
+      }
+
+      /* ---------- 5. MICRODOSIS, MACRODOSIS Y SALA DE TERAPIA ---------- */
+      const doseSet = group(scene);
+      rb(40, 0.5, 22, 0.12, mat(P.oak, { roughness: 0.7 }), 0, -0.25, 4, doseSet);
+      box(44, 18, 0.4, mat(P.wall, { roughness: 0.96 }), 0, 8.8, -3.4, doseSet, { cast: false });
+      add(new THREE.CylinderGeometry(2.6, 2.6, 0.03, 96), mat("#d9cdb5", { roughness: 0.95 }), 0, 0.015, 0.4, doseSet, { cast: false });
+      const side = group(doseSet, 0, 0, 0);
+      lathe([[0, 0], [0.38, 0], [0.4, 0.04], [0.06, 0.12], [0.05, 0.92], [0.5, 0.95], [0.52, 1.0], [0.5, 1.03], [0, 1.03]], mat("#7d5f42", { roughness: 0.5 }), 0, 0, 0, side);
+      lathe([[0, 0], [0.26, 0], [0.3, 0.03], [0.3, 0.05], [0.27, 0.04], [0, 0.03]], mat("#ece5d6", { roughness: 0.3 }), -0.05, 1.03, 0.1, side);
+      const crumbs = [];
+      const cR = rng(5);
+      for (let i = 0; i < 9; i++) crumbs.push(ball(0.018 + cR() * 0.012, mat("#e8dfcc", { roughness: 0.6 }), -0.05 + (cR() - 0.5) * 0.3, 1.075, 0.1 + (cR() - 0.5) * 0.3, side, { cast: false }));
+      const doseCap = group(side, -0.05, 1.12, 0.1);
+      capsule(doseCap, 0.075, 0.24);
+      glassOfWater(side, 0.28, -0.18, 0.42).position.y = 1.03;
+      function armchair(x, z, ry, hex) {
+        const g = group(doseSet, x, 0, z);
+        g.rotation.y = ry;
+        const m = mat(hex, { roughness: 0.9 });
+        rb(1.25, 0.5, 1.15, 0.16, m, 0, 0.45, 0, g);
+        rb(1.25, 1.0, 0.3, 0.14, m, 0, 1.0, -0.45, g);
+        [-1, 1].forEach((sd) => rb(0.26, 0.42, 1.15, 0.12, m, sd * 0.6, 0.85, 0, g));
+        [-1, 1].forEach((sx) => [-1, 1].forEach((sz) => cyl(0.04, 0.03, 0.2, "#5a4632", sx * 0.5, 0.1, sz * 0.45, g)));
+        return g;
+      }
+      armchair(-1.7, 0.3, Math.PI / 2 - 0.35, P.sage);
+      armchair(1.75, 0.4, -Math.PI / 2 + 0.35, P.clay);
+      const lamp = group(doseSet, 2.6, 0, -1.6);
+      cyl(0.25, 0.28, 0.05, P.ink, 0, 0.03, 0, lamp);
+      cyl(0.025, 0.025, 2.6, P.ink, 0, 1.3, 0, lamp);
+      lathe([[0.22, 0], [0.38, 0], [0.24, 0.42], [0.18, 0.42]], mat("#efe3c8", { roughness: 0.8, emissive: "#ffe2b0", emissiveIntensity: 0.35, side: THREE.DoubleSide }), 0, 2.45, 0, lamp, { cast: false });
+      plant(doseSet, -2.7, -2.0, 1.4);
+
+      /* ---------- 6. MAPA REAL DE CHILE ---------- */
+      const mapSet = group(scene);
+      const S = 0.01;
+      const shapesOf = (polys) => polys.map((p) => new THREE.Shape(p.map((q) => new THREE.Vector2(q[0] * S, q[1] * S))));
+      function extrude(polys, depth) {
+        const g = new THREE.ExtrudeGeometry(shapesOf(polys), { depth, bevelEnabled: false, curveSegments: 1 });
+        g.rotateX(-Math.PI / 2);
+        return g;
+      }
+      const oceanMat = new THREE.ShaderMaterial({
+        vertexShader: "varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position,1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }",
+        fragmentShader: [
+          "varying vec3 vW;",
+          "void main(){",
+          "  float d = length(vec2(vW.x * 0.9, vW.z * 0.32));",
+          "  vec3 base = mix(vec3(0.27,0.33,0.37), vec3(0.09,0.12,0.14), smoothstep(1.0, 18.0, d));",
+          "  gl_FragColor = vec4(base, 1.0);",
+          "}"].join("\n"),
+      });
+      const ocean = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), oceanMat);
+      ocean.rotation.x = -Math.PI / 2;
+      ocean.position.y = -0.03;
+      mapSet.add(ocean);
+      const landMat = mat("#3e484f");
+      const landLine = new THREE.LineBasicMaterial({ color: 0xc9a46a, transparent: true, opacity: 0.45 });
+      Object.values(GEO.neighbors).forEach((polys) => {
+        add(extrude(polys, 0.12), landMat, 0, 0, 0, mapSet, { cast: false });
+        polys.forEach((p) => mapSet.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(p.map((q) => new THREE.Vector3(q[0] * S, 0.13, -q[1] * S))), landLine)));
+      });
+      const regionLine = new THREE.LineBasicMaterial({ color: 0x7a6a52, transparent: true, opacity: 0.45 });
+      const REG = [];
+      Object.entries(GEO.regions).forEach(([name, polys]) => {
+        const m = add(extrude(polys, 0.3), mat("#7d7466", { roughness: 0.75 }), 0, 0, 0, mapSet);
+        polys.forEach((p) => mapSet.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(p.map((q) => new THREE.Vector3(q[0] * S, 0.305, -q[1] * S))), regionLine)));
+        let sy = 0, n = 0;
+        polys.forEach((p) => p.forEach((q) => { sy += q[1]; n++; }));
+        REG.push({ m, y: sy / n });
+      });
+      const ys = REG.map((r) => r.y), yMax = Math.max(...ys), yMin = Math.min(...ys);
+      REG.forEach((r) => (r.f = (yMax - r.y) / (yMax - yMin)));
+
+      /* ---------- 7. TETERA DE LA ABUELA VS. CÁPSULA ---------- */
+      const teaSet = group(scene);
+      roomBase(teaSet, P.wall, P.table);
+      plant(teaSet, -2.5, -2.3, 1.3);
+      const pedestal = group(teaSet, -0.95, 0, 0.45);
+      lathe([[0, 0], [0.42, 0], [0.44, 0.04], [0.4, 0.3], [0.42, 0.33], [0, 0.33]], mat("#bdb3a2", { roughness: 0.6 }), 0, 0, 0, pedestal);
+      const teaCap = group(pedestal, 0, 0.62, 0);
+      capsule(teaCap, 0.15, 0.46);
+      const teapot = group(teaSet, 0.65, 0, 0.3);
+      teapot.rotation.y = -0.55;
+      const enamel = mat("#efe7d6", { roughness: 0.28 });
+      const rimM = mat("#41566a", { roughness: 0.3 });
+      lathe([[0, 0], ...smooth([[0.4, 0], [0.47, 0.06], [0.53, 0.3], [0.52, 0.55], [0.44, 0.78], [0.3, 0.88], [0.27, 0.9]]), [0, 0.9]], enamel, 0, 0, 0, teapot);
+      add(new THREE.TorusGeometry(0.41, 0.025, 12, 72), rimM, 0, 0.02, 0, teapot).rotation.x = Math.PI / 2;
+      add(new THREE.TorusGeometry(0.29, 0.022, 12, 72), rimM, 0, 0.885, 0, teapot).rotation.x = Math.PI / 2;
+      const lid = group(teapot, 0, 0.88, 0);
+      lathe([[0, 0], ...smooth([[0.29, 0], [0.27, 0.06], [0.15, 0.12], [0, 0.13]], 32)], enamel, 0, 0, 0, lid);
+      ball(0.07, rimM, 0, 0.18, 0, lid);
+      const spoutCurve = new THREE.CatmullRomCurve3([new THREE.Vector3(0.35, 0.3, 0), new THREE.Vector3(0.62, 0.42, 0), new THREE.Vector3(0.78, 0.7, 0), new THREE.Vector3(0.9, 0.86, 0)]);
+      add(new THREE.TubeGeometry(spoutCurve, 40, 0.07, 20, false), enamel, 0, 0, 0, teapot);
+      add(new THREE.TorusGeometry(0.075, 0.018, 10, 40), rimM, 0.9, 0.86, 0, teapot).rotation.set(Math.PI / 2, 0.5, 0);
+      const handle = add(new THREE.TorusGeometry(0.3, 0.05, 16, 64, Math.PI * 1.15), rimM, -0.5, 0.48, 0, teapot);
+      handle.rotation.z = Math.PI / 2 - 0.05;
+      const cup = group(teaSet, 1.55, 0, 0.95);
+      lathe([[0, 0], [0.16, 0], [0.18, 0.03], [0.24, 0.32], [0.22, 0.33], [0.16, 0.06], [0, 0.06]], enamel, 0, 0, 0, cup);
+      add(new THREE.TorusGeometry(0.23, 0.015, 10, 48), rimM, 0, 0.32, 0, cup).rotation.x = Math.PI / 2;
+      add(new THREE.CylinderGeometry(0.205, 0.205, 0.01, 40), liquidM("#c9a05a", 0.85), 0, 0.27, 0, cup, { cast: false });
+      const SPOUT = new THREE.Vector3();
+      const steam = [];
+      for (let i = 0; i < 16; i++) { const s = new THREE.Sprite(steamMat(0)); teaSet.add(s); steam.push({ s, ph: i / 16, k: 0.7 + (i % 4) * 0.15 }); }
+      // Hierbas: hojas de melisa y flores de manzanilla, que aparecen al nombrarlas.
+      const leaves = [];
+      [[0.05, 0.95, 0.3], [0.3, 1.05, -0.5], [-0.05, 1.25, 1.2], [1.35, 0.6, 0.4], [1.95, 0.75, -0.6]].forEach(([x, z, ry], i) => {
+        const g = group(teaSet, x, 0.03, z);
+        g.rotation.y = ry;
+        const lf = ell(g, mat(i % 2 ? P.oliveL : "#7d9a4c", { roughness: 0.55 }), 0, 0.02, 0, 0.17, 0.025, 0.11);
+        lf.rotation.z = 0.08;
+        leaves.push(g);
+      });
+      const petalM = mat("#f6f2e8", { roughness: 0.6 }), centerM = mat("#e0b33c", { roughness: 0.5 });
+      const flowers = [[1.25, 1.2], [1.9, 1.15], [0.35, 1.45]].map(([x, z], i) => {
+        const g = group(teaSet, x, 0.03, z);
+        for (let k = 0; k < 13; k++) { const a = (k / 13) * Math.PI * 2; const p = ell(g, petalM, Math.cos(a) * 0.075, 0.015, Math.sin(a) * 0.075, 0.06, 0.012, 0.022, { cast: false }); p.rotation.y = -a; }
+        ell(g, centerM, 0, 0.03, 0, 0.045, 0.035, 0.045);
+        g.rotation.y = i;
+        return g;
+      });
+
+      // Colores exactos para lo que no es "material real" (textos impresos): sin tone mapping.
+      scene.traverse((o) => { if (o.material && o.material.isMeshBasicMaterial && o !== occ) o.material.toneMapped = false; });
+
+      /* ---------- TOMAS ---------- */
+      // Cámara con curva continua (Catmull-Rom) entre los puntos clave y una sola curva de velocidad por toma:
+      // arranca y frena suave, pero nunca se detiene del todo, así los cortes llegan en movimiento.
+      function path(keys, t) {
+        const n = keys.length;
+        if (n === 1) return keys[0];
+        const t0 = keys[0].t, t1 = keys[n - 1].t;
+        const x = prog(t, t0, t1);
+        const u = 0.3 * x + 0.7 * io(x);
+        const tau = t0 + u * (t1 - t0);
+        let i = 0;
+        while (i < n - 2 && tau > keys[i + 1].t) i++;
+        const s = clamp((tau - keys[i].t) / (keys[i + 1].t - keys[i].t));
+        const Pk = (j) => keys[Math.max(0, Math.min(n - 1, j))];
+        const cr = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * s + (2 * a - 5 * b + 4 * c - d) * s * s + (-a + 3 * b - 3 * c + d) * s * s * s);
+        const out = { p: [0, 0, 0], g: [0, 0, 0] };
+        ["p", "g"].forEach((k) => { for (let c = 0; c < 3; c++) out[k][c] = cr(Pk(i - 1)[k][c], Pk(i)[k][c], Pk(i + 1)[k][c], Pk(i + 2)[k][c]); });
+        return out;
+      }
+      // win: ventana que proyecta el haz de sol (distancia al objetivo, desplazamiento y giro del marco).
+      const SHOTS = [
+        { a: 0, b: 3.95, set: roomSet, light: [7, 8, 9], tg: [0, 0.6, 0], r: 9, win: [6, 0.2, 0.6, 0.35, 1.0], cam: [
+          { t: 0, p: [1.7, 2.9, 11.2], g: [0.6, 0.62, 0.3] },
+          { t: 3.95, p: [1.2, 2.45, 9.6], g: [0.45, 0.6, 0.4] } ] },
+        { a: 3.95, b: 9.63, set: roomSet, light: [7, 8, 9], tg: [0, 0.6, 0], r: 9, win: [6, 0.2, 0.6, 0.35, 1.0], cam: [
+          { t: 3.95, p: [0.6, 1.3, 4.4], g: [-0.1, 0.62, 1.0] },
+          { t: 6.9, p: [0.3, 1.95, 7.4], g: [-0.05, 0.7, 0.8] },
+          { t: 9.63, p: [0.15, 1.45, 4.7], g: [-0.1, 0.72, 1.0] } ] },
+        { a: 9.63, b: 15.35, set: docSet, light: [6, 10, 5], tg: [0, 0, 0], r: 8, win: [5, 0.6, 0, 0.5, 1.15], cam: [
+          { t: 9.63, p: [0.4, 9.2, 4.2], g: [0.05, 0, -0.1] },
+          { t: 15.35, p: [0.1, 8.2, 3.3], g: [0.1, 0, 0.05] } ] },
+        { a: 15.35, b: 17.79, set: roomSet, light: [7, 8, 9], tg: [0, 0.6, 0], r: 9, win: [6, 0.2, 0.6, 0.35, 1.0], cam: [
+          { t: 15.35, p: [-0.15, 1.85, 7.0], g: [-0.85, 1.2, 1.2] },
+          { t: 17.79, p: [-0.45, 2.0, 6.3], g: [-0.9, 1.3, 1.2] } ] },
+        { a: 17.79, b: 22.67, set: headSet, light: [6, 7, 8], tg: [0, 2.2, 0], r: 8, win: [5.5, 0.4, 0.2, 0.35, 1.0], cam: [
+          { t: 17.79, p: [0.9, 2.6, 8.4], g: [0.05, 2.35, 0] },
+          { t: 22.67, p: [0.45, 2.75, 7.3], g: [0.0, 2.45, 0] } ] },
+        { a: 22.67, b: 25.85, set: crowdSet, light: [7, 7, 6], tg: [0, 0, 0], r: 8, win: [5, 0.0, 0, 0.6, 1.4], cam: [
+          { t: 22.67, p: [0.6, 10.5, 9.5], g: [0, 0, -0.6] },
+          { t: 25.85, p: [0.1, 8.4, 8.0], g: [0, 0, -0.3] } ] },
+        { a: 25.85, b: 29.82, set: doseSet, light: [7, 8, 9], tg: [0, 0.8, 0], r: 9, win: [6, 0.2, 0.4, 0.35, 1.1], cam: [
+          { t: 25.85, p: [0.3, 1.65, 1.45], g: [-0.05, 1.05, 0.1] },
+          { t: 27.6, p: [0.35, 1.75, 1.9], g: [-0.05, 1.08, 0.1] },
+          { t: 29.82, p: [0.5, 3.5, 11.2], g: [0, 1.0, 0] } ] },
+        { a: 29.82, b: 37.06, set: headSet, light: [6, 7, 8], tg: [0, 2.2, 0], r: 8, win: [5.5, 0.4, 0.2, 0.35, 1.0], cam: [
+          { t: 29.82, p: [-0.7, 2.7, 7.6], g: [0.0, 2.5, 0] },
+          { t: 33.4, p: [-0.2, 2.85, 6.9], g: [0.0, 2.6, 0] },
+          { t: 37.06, p: [0.5, 2.9, 7.2], g: [0.0, 2.65, 0] } ] },
+        { a: 37.06, b: 40.32, set: mapSet, bg: true, light: [30, 22, 6], tg: [0, 0, 0], r: 26, win: null, cam: [
+          { t: 37.06, p: [3.0, 66, 20], g: [-0.6, 0, -0.4] },
+          { t: 40.32, p: [2.0, 56, 12], g: [-0.6, 0, -0.4] } ] },
+        { a: 40.32, b: DUR + 1, set: teaSet, light: [7, 8, 9], tg: [0, 0.6, 0], r: 9, win: [6, 0.2, 0.6, 0.35, 1.0], cam: [
+          { t: 40.32, p: [0.3, 2.1, 9.6], g: [0.2, 0.45, 0.4] },
+          { t: 42.2, p: [0.85, 1.75, 7.0], g: [0.7, 0.5, 0.4] },
+          { t: 44.4, p: [1.2, 1.45, 5.3], g: [0.95, 0.4, 0.6] },
+          { t: 46.0, p: [0.2, 1.85, 8.6], g: [0.1, 0.45, 0.4] },
+          { t: DUR, p: [0.2, 2.6, 10.4], g: [0.15, 0.55, 0.3] } ] },
+      ];
+      const allSets = SHOTS.map((s) => s.set).filter((s, i, a) => a.indexOf(s) === i);
+      const BLUR_CUTS = [9.63, 22.67, 37.06, 40.32];
+      const BG = C("#1d2327");
+
+      function updateScene(t, shot) {
+        allSets.forEach((s) => (s.visible = s === shot.set));
+        scene.background = shot.bg ? gradTex : BG;
+        const c = path(shot.cam, t);
+        camera.position.set(c.p[0] + Math.sin(t * 0.63) * 0.03, c.p[1] + Math.sin(t * 0.81 + 1.3) * 0.025, c.p[2]);
+        camera.up.set(0, 1, 0);
+        camera.lookAt(c.g[0], c.g[1], c.g[2]);
+        camera.updateMatrixWorld(true);
+        const L = new THREE.Vector3(...shot.light), T = new THREE.Vector3(...shot.tg);
+        sunLight.position.copy(L);
+        sunLight.target.position.copy(T);
+        sunLight.target.updateMatrixWorld();
+        sunLight.intensity = 2.6;
+        const sc = sunLight.shadow.camera;
+        sc.left = -shot.r; sc.right = shot.r; sc.top = shot.r; sc.bottom = -shot.r; sc.near = 0.5; sc.far = 120;
+        sc.updateProjectionMatrix();
+        hemi.intensity = 1.7;
+        rimLight.intensity = 0.55;
+        occ.visible = !!shot.win;
+        if (shot.win) {
+          const [d, ox, oy, roll, ws] = shot.win;
+          const dir = L.clone().sub(T).normalize();
+          occ.position.copy(T).addScaledVector(dir, d);
+          occ.lookAt(L);
+          occ.rotateZ(roll);
+          occ.translateX(ox); occ.translateY(oy);
+          occ.scale.setScalar(ws);
+          occ.updateMatrixWorld(true);
+        }
+
+        if (shot.set === roomSet) {
+          const intro = t < 3.95, lab = t >= 3.95 && t < 9.63, molShot = t >= 15.35;
+          // Campana de vidrio: baja en "prohibida" y sube en "laboratorios".
+          const down = settle(prog(t, 5.15, 5.6)), up = io(prog(t, 6.9, 7.6));
+          jar.visible = lab && t >= 4.9 && up < 1;
+          jar.position.y = (1 - down) * 2.4 + up * 2.8;
+          // Material de laboratorio que entra por los lados.
+          const li = settle(prog(t, 6.6, 7.3)), li2 = settle(prog(t, 6.8, 7.5));
+          flask.visible = lab && t >= 6.6;
+          flask.position.x = mix(-4.0, -1.0, li);
+          rack.visible = lab && t >= 6.8;
+          rack.position.x = mix(4.2, 0.95, li2);
+          // Transformación del hongo en cápsula ("para tratar la salud mental").
+          const mo = prog(t, 7.75, 8.35);
+          hero.visible = !molShot && mo < 1;
+          heroM.scale.setScalar(Math.max(0.001, 1 - eIn(mo)));
+          hero.rotation.y = (lab ? 0.4 : 0) + eIn(mo) * 5;
+          const cg = settle(prog(t, 8.15, 8.8));
+          heroCap.visible = lab && t >= 8.15;
+          heroCap.scale.setScalar(Math.max(0.001, cg));
+          heroCap.position.y = 0.42 + 0.06 * Math.sin(t * 2.2);
+          heroCap.rotation.set(0.25, (t - 8.15) * 1.2, -0.35);
+          spores.forEach((sp, i) => {
+            const k = prog(t, 7.8 + (i % 6) * 0.03, 9.2);
+            sp.s.visible = lab && k > 0 && k < 1;
+            sp.s.position.set(-0.1 + Math.cos(sp.a + k) * sp.r * (0.4 + k), 0.5 + sp.h * 0.5 + k * 0.9 * sp.k, 1.0 + Math.sin(sp.a + k) * sp.r * (0.4 + k));
+            sp.s.scale.setScalar(0.09 + 0.05 * sp.k);
+            sp.s.material.opacity = 0.85 * Math.sin(Math.PI * k);
+          });
+          water.visible = !lab;
+          // Molécula de psilocibina que sube desde el hongo.
+          const mk = settle(prog(t, 15.45, 16.1));
+          mol.visible = molShot;
+          mol.position.set(-0.9, 1.05 + 0.65 * mk + Math.sin(t * 1.3) * 0.04, 1.25);
+          mol.scale.setScalar(Math.max(0.001, mk));
+          molIn.rotation.set(0.25 + Math.sin(t * 0.7) * 0.12, -0.6 + (t - 15.35) * 0.45, 0.1);
+          molGlow.material.opacity = 0.35 * mk;
+          if (intro) { hero.rotation.y = 0.4; }
+        }
+
+        if (shot.set === docSet) {
+          const k = settle(prog(t, 9.66, 10.4));
+          doc.position.set(mix(-0.4, 0, k), 0.015 + Math.max(0, 1 - k) * 0.6, mix(-5.5, 0, k));
+          doc.rotation.set(0, mix(-0.45, 0.03, k), 0);
+          const down = eIn(prog(t, 10.72, 10.97));
+          const up = eOut(prog(t, 11.2, 11.9));
+          // El timbre entra deslizándose desde la derecha, baja, golpea y sale por el mismo lado (sin aparecer de golpe).
+          const inn = io(prog(t, 10.1, 10.7));
+          stamper.position.set(0.6 + (1 - inn) * 4.2 + up * 4.2, 3.0 - 2.97 * down + 2.5 * up, 0.15 - up * 0.8);
+          stamper.rotation.set(0, 0.18 - up * 0.2, -up * 0.25 + (1 - inn) * 0.3);
+          stamper.visible = t >= 10.1 && up < 1;
+          mark.material.opacity = t >= 10.97 ? 0.88 : 0;
+          // La cápsula rueda sobre el protocolo en "psilocibina".
+          const r = eOut(prog(t, 13.75, 14.6));
+          docCap.visible = t >= 13.75;
+          docCap.position.set(mix(3.4, -0.55, r), 0.13, 1.25);
+          docCap.rotation.set(0, 0, Math.PI / 2);
+          docCap.rotateY(0);
+          docCap.rotation.x = (1 - r) * 9;
+        }
+
+        if (shot.set === headSet) {
+          const reorder = t >= 29.82 ? prog(t, 34.55, 35.8) : 0;
+          updateTangle(t, reorder);
+          tangleG.position.set(HC.x, HC.y + 0.02 * Math.sin(t * 1.4), HC.z);
+          tangleG.rotation.y = t * (0.25 + 0.3 * reorder);
+          const egoOn = t >= 29.82;
+          updateShell(t, egoOn && t < 33.9);
+          egoSpores.forEach((e, i) => {
+            const k = prog(t, 31.75 + e.d, 33.6 + e.d * 0.5);
+            e.s.visible = egoOn && k > 0 && k < 1;
+            const pos = e.n.clone().multiplyScalar(0.95 + k * 1.2).add(HC);
+            pos.y += k * 1.6 * e.k;
+            e.s.position.copy(pos);
+            e.s.scale.setScalar(0.12 + 0.06 * e.k);
+            e.s.material.opacity = 0.8 * Math.sin(Math.PI * k);
+          });
+          // Los antidepresivos llegan, rebotan en la maraña y caen.
+          pills.forEach((p, i) => {
+            const t0 = 20.7 + i * 0.32;
+            const fly = prog(t, t0, t0 + 0.45), fall = prog(t, t0 + 0.45, t0 + 1.3);
+            p.visible = !egoOn && t >= t0 && fall < 1;
+            const hit = new THREE.Vector3(0.75, 2.95 + i * 0.15, 0.5);
+            const from = new THREE.Vector3(3.2, 3.6 - i * 0.4, 1.5);
+            const pos = from.clone().lerp(hit, eOut(fly));
+            if (fall > 0) { pos.x = hit.x + fall * 0.9; pos.y = hit.y + 0.5 * Math.sin(Math.PI * Math.min(1, fall * 1.6)) * 0.4 - fall * fall * 3.2; }
+            p.position.copy(pos);
+            p.rotation.set(t * 6 + i, t * 4, 0);
+          });
+          // Luz más cálida cuando la maraña se ordena.
+          sunLight.intensity = 2.6 + 0.5 * reorder;
+        }
+
+        if (shot.set === crowdSet) updateCrowd(t);
+
+        if (shot.set === doseSet) {
+          // Microdosis: migas que se esfuman; llega una sola cápsula (macrodosis).
+          const gone = io(prog(t, 26.5, 26.95));
+          crumbs.forEach((m, i) => { m.scale.setScalar(Math.max(0.001, 1 - gone)); m.visible = gone < 1; });
+          const land = prog(t, 26.85, 27.19);
+          doseCap.visible = t >= 26.85;
+          doseCap.position.y = 1.12 + (1 - land * land) * 1.3 + (t >= 27.19 ? 0.04 * Math.exp(-(t - 27.19) * 8) * Math.abs(Math.sin((t - 27.19) * 30)) : 0);
+          doseCap.rotation.set(Math.PI / 2, 0.4, 0);
+          doseCap.position.y = Math.max(1.11, doseCap.position.y);
+        }
+
+        if (shot.set === mapSet) {
+          REG.forEach((r) => {
+            const k = io(prog(t, 37.25 + r.f * 1.3, 37.95 + r.f * 1.3));
+            r.m.material.color.copy(C("#7d7466").lerp(C("#e2cfa6"), k));
+            r.m.material.emissive.set("#c9a46a");
+            r.m.material.emissiveIntensity = 0.12 * k;
+          });
+          hemi.intensity = 1.0;
+          sunLight.intensity = 2.4;
+        }
+
+        if (shot.set === teaSet) {
+          // Vapor que sube desde el pico.
+          const puff = t >= 45.84 ? Math.exp(-(t - 45.84) * 1.8) : 0;
+          teapot.updateWorldMatrix(true, false);
+          SPOUT.set(0.92, 0.9, 0);
+          teapot.localToWorld(SPOUT);
+          steam.forEach((st, i) => {
+            const ph = ((t * 0.35 * st.k + st.ph) % 1);
+            st.s.visible = true;
+            st.s.position.set(SPOUT.x + Math.sin(t * 1.3 + i) * 0.08 + ph * 0.25, SPOUT.y + ph * 1.5, SPOUT.z + Math.cos(t + i) * 0.06);
+            st.s.scale.setScalar(0.18 + ph * 0.55 + puff * 0.5);
+            st.s.material.opacity = (0.22 + 0.25 * puff) * Math.sin(Math.PI * ph);
+          });
+          leaves.forEach((g, i) => { const k = settle(prog(t, 44.6 + i * 0.06, 45.0 + i * 0.06)); g.visible = t >= 44.6 + i * 0.06; g.scale.setScalar(Math.max(0.001, k)); });
+          flowers.forEach((g, i) => { const k = settle(prog(t, 45.05 + i * 0.09, 45.45 + i * 0.09)); g.visible = t >= 45.05 + i * 0.09; g.scale.setScalar(Math.max(0.001, k)); });
+          // "No lo hay": la tetera da un saltito orgullosa y la cápsula se tumba.
+          const hop = t >= 45.84 && t < 46.4 ? Math.sin(Math.PI * (t - 45.84) / 0.56) : 0;
+          teapot.position.y = 0.16 * hop;
+          teapot.rotation.z = -0.06 * hop;
+          lid.position.y = 0.88 + 0.07 * (t >= 45.9 && t < 46.25 ? Math.sin(Math.PI * (t - 45.9) / 0.35) : 0);
+          const tip = settle(prog(t, 46.05, 46.6));
+          teaCap.rotation.set(0, 0, tip * (Math.PI / 2));
+          teaCap.position.set(-tip * 0.06, 0.62 - tip * 0.3 + Math.sin(t * 1.6) * 0.03 * (1 - tip), 0);
+        }
+      }
+
+      // Motion blur real: 6 muestras dentro de un obturador de 180° a 60 fps (1/120 s), promediadas.
+      // Nunca mezcla dos tomas: las muestras no retroceden antes del inicio de la toma actual.
+      const SUBS = 6, SHUTTER = 1 / 120;
+      const grainEl = document.getElementById("w-grain");
+      const grctx = grainEl.getContext("2d");
+      const grImg = grctx.createImageData(540, 960);
+      function drawGrain(t) {
+        const r = rng(Math.round(t * 60) + 7);
+        const d = grImg.data;
+        for (let i = 0; i < d.length; i += 4) { const g = r() * 255; d[i] = d[i + 1] = d[i + 2] = g; d[i + 3] = 255; }
+        grctx.putImageData(grImg, 0, 0);
+      }
+      const n68 = document.getElementById("n-68");
+      function updateHtml(t) { n68.textContent = String(Math.round(68 * eOut(prog(t, 23.93, 24.55)))); }
+      function renderAt(t) {
+        t = clamp(t, 0, DUR - 1 / 120);
+        const shot = SHOTS.find((s) => t >= s.a && t < s.b) || SHOTS[SHOTS.length - 1];
+        outCtx.globalCompositeOperation = "source-over";
+        for (let k = SUBS - 1; k >= 0; k--) {
+          const tk = Math.max(shot.a, t - (k / (SUBS - 1)) * SHUTTER);
+          updateScene(tk, shot);
+          renderer.render(scene, camera);
+          outCtx.globalAlpha = 1 / (SUBS - k);
+          outCtx.drawImage(glCanvas, 0, 0);
+        }
+        outCtx.globalAlpha = 1;
+        drawGrain(t);
+        updateHtml(t);
+        let blur = 0;
+        for (const cut of BLUR_CUTS) {
+          if (t >= cut - 0.26 && t < cut) blur = Math.max(blur, 26 * eIn(prog(t, cut - 0.26, cut)));
+          if (t >= cut && t < cut + 0.42) blur = Math.max(blur, 26 * (1 - eOut(prog(t, cut, cut + 0.42))));
+        }
+        canvas.style.filter = blur > 0.05 ? "blur(" + blur.toFixed(2) + "px)" : "none";
+        canvas.style.transform = blur > 0.05 ? "scale(" + (1 + blur * 0.004).toFixed(4) + ")" : "none";
+        bctx.globalCompositeOperation = "source-over";
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bctx.globalCompositeOperation = "multiply";
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bloomEl.style.filter = "blur(" + (16 + blur).toFixed(1) + "px)";
+        let sw = 0;
+        for (const cut of BLUR_CUTS) if (t >= cut - 0.2 && t < cut + 0.2) sw = prog(t, cut - 0.2, cut + 0.2);
+        sweepEl.style.opacity = sw > 0 ? String(Math.sin(Math.PI * sw)) : "0";
+        sweepEl.style.transform = "translateY(" + (sw * 1920).toFixed(1) + "px)";
+      }
+
+      // Todo texto entra y sale con Fade In y Fade Out.
+      const tl = gsap.timeline({ paused: true });
+      [["#c-hito", 2.04, 3.9], ["#c-ley", 5.3, 7.65], ["#c-isp", 9.75, 11.95], ["#c-primer", 12.09, 15.25], ["#t-src1", 9.75, 15.25],
+       ["#c-psilo", 15.4, 17.7], ["#c-drt", 18.9, 22.55], ["#t-src2", 18.9, 22.55], ["#c-68", 23.85, 25.85], ["#t-src3", 22.75, 25.85],
+       ["#c-micro", 25.9, 27.05], ["#c-macro", 27.15, 29.75], ["#t-src4", 25.9, 29.75], ["#c-ego", 31.6, 33.55], ["#c-chile", 37.15, 40.2],
+       ["#c-vs", 40.45, 42.3], ["#c-cta", 47.19, 49.95]].forEach(([sel, at, end]) => {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "sine.inOut" }, at);
+        tl.to(sel, { opacity: 0, duration: 0.28, ease: "sine.inOut" }, end - 0.29);
+      });
+      // "Microdosis" se tacha limpiamente.
+      tl.fromTo("#k-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 26.05);
+      // Nota a mano: se escribe de izquierda a derecha y se desvanece.
+      tl.fromTo("#n-nota", { clipPath: "inset(-30% 100% -30% -5%)", opacity: 0 }, { clipPath: "inset(-30% -5% -30% -5%)", opacity: 1, duration: 0.55, ease: "sine.inOut" }, 41.99);
+      tl.to("#n-nota", { opacity: 0, duration: 0.28, ease: "sine.inOut" }, 45.75);
+      // Fundido final a negro (sin créditos).
+      tl.fromTo("#e-bg", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, 50.0);
+      tl.set({}, {}, 51.0);
+      window.__timelines["world"] = tl;
+
+      window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+      renderAt(0);
+    })();
+  </script>
+</template>

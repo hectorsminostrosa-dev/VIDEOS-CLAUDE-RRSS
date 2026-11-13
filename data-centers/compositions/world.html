@@ -1,0 +1,1121 @@
+<template>
+  <style>
+    @font-face { font-family: "Bahnschrift"; src: local("Bahnschrift"); }
+    @font-face { font-family: "Bahnschrift"; src: local("Bahnschrift SemiBold"), local("Bahnschrift"); font-weight: 600; }
+    @font-face { font-family: "Emoji"; src: local("Segoe UI Emoji"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: transparent; }
+    #w-canvas { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; }
+    #w-bloom { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; mix-blend-mode: screen; opacity: 0.45; pointer-events: none; }
+    #w-grain { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; mix-blend-mode: overlay; opacity: 0.045; pointer-events: none; }
+    #w-scrim { position: absolute; left: 0; right: 0; top: 1080px; height: 420px; z-index: 5; pointer-events: none; opacity: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.42) 34%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0) 100%); }
+    .fixed { position: absolute; left: 0; right: 0; text-align: center; z-index: 10; }
+    .fixed.lft { left: 40px; right: auto; width: 690px; text-align: left; }
+    .card { display: inline-flex; align-items: center; gap: 16px; max-width: 940px; background: rgba(18, 20, 18, 0.84); border: 1.5px solid #F2B544; border-radius: 14px; padding: 16px 28px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(242, 181, 68, 0.22); text-align: left; }
+    .lft .card { max-width: 690px; }
+    .card.alert { border-color: #e0574f; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(224, 87, 79, 0.3); }
+    .emo { font-family: "Emoji", sans-serif; font-size: 50px; line-height: 1; flex: none; }
+    .ttl { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 40px; line-height: 1.12; color: #ffffff; }
+    .unit { font-family: "Bahnschrift", sans-serif; font-weight: 600; font-size: 34px; color: #ffffff; }
+    .sub { display: block; font-family: "Bahnschrift", sans-serif; font-size: 30px; line-height: 1.25; color: #e6e2d8; margin-top: 6px; font-weight: 400; }
+    .num { font-family: "Montserrat", sans-serif; font-weight: 700; color: #ffffff; font-size: 54px; }
+    .flag { display: inline-block; width: 54px; height: 36px; flex: none; border-radius: 4px; }
+    .src { font-family: "Bahnschrift", sans-serif; font-size: 30px; line-height: 1.25; color: #ffffff; text-shadow: 0 1px 8px #000000, 0 0 3px #000000; padding: 0 50px; }
+    .stamp { display: inline-block; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 62px; letter-spacing: 0.04em; color: #ffffff; border: 4px solid #ffffff; border-radius: 10px; padding: 8px 26px; white-space: nowrap; transform: rotate(-6deg); background: rgba(0, 0, 0, 0.35); }
+    #w-end { position: absolute; inset: 0; z-index: 40; background: #000000; }
+  </style>
+  <div id="root" data-composition-id="world" data-start="0" data-duration="82.8" data-width="1080" data-height="1920">
+    <canvas id="w-canvas" width="1620" height="2880" data-layout-ignore></canvas>
+    <canvas id="w-bloom" width="270" height="480" data-layout-ignore></canvas>
+    <canvas id="w-grain" width="540" height="960" data-layout-ignore></canvas>
+    <div id="w-scrim" data-layout-ignore></div>
+
+    <div id="w-rank" class="fixed lft clip" style="top: 230px" data-start="1.4" data-duration="3.4" data-track-index="1"><div id="c-rank" class="card"><svg class="flag" viewBox="0 0 48 32"><rect width="48" height="32" fill="#ffffff"/><rect y="16" width="48" height="16" fill="#d52b1e"/><rect width="16" height="16" fill="#0039a6"/><path d="M8 3.2l1.9 5.6h5.9l-4.8 3.5 1.8 5.6L8 14.5l-4.8 3.4 1.8-5.6-4.8-3.5h5.9z" fill="#ffffff"/></svg><span class="ttl">2° de Latinoamérica<span class="sub">en data centers, después de Brasil</span></span></div></div>
+    <div id="w-37" class="fixed lft clip" style="top: 230px" data-start="5.18" data-duration="3.55" data-track-index="2"><div id="c-37" class="card"><span class="emo">🖥️</span><span class="ttl"><span id="n-37" class="num">0</span> <span class="unit">data centers</span><span class="sub">operativos; la mayoría en el norte de Santiago</span></span></div></div>
+    <div id="w-srca" class="fixed src clip" style="top: 1150px" data-start="1.4" data-duration="7.3" data-track-index="3"><span id="t-srca">Fuentes: Forbes Chile (abr. 2026) y GPS Property</span></div>
+
+    <div id="w-agua" class="fixed clip" style="top: 230px" data-start="14.64" data-duration="3.75" data-track-index="4"><div id="c-agua" class="card"><span class="emo">💧</span><span class="ttl">Agua y electricidad<span class="sub">en plena crisis hídrica</span></span></div></div>
+
+    <div id="w-169" class="fixed lft clip" style="top: 230px" data-start="20.9" data-duration="6.1" data-track-index="5"><div id="c-169" class="card"><span class="emo">🚰</span><span class="ttl"><span id="n-169" class="num">0</span> <span class="unit">litros por segundo</span><span class="sub">Lo que contemplaba extraer el diseño original de Google en Cerrillos</span></span></div></div>
+    <div id="w-trib" class="fixed lft clip" style="top: 230px" data-start="27.18" data-duration="1.8" data-track-index="6"><div id="c-trib" class="card alert"><span class="emo">⚖️</span><span class="ttl">Frenado en tribunales<span class="sub">Segundo Tribunal Ambiental, febrero de 2024</span></span></div></div>
+    <div id="w-srcb" class="fixed src clip" style="top: 1150px" data-start="19.3" data-duration="9.65" data-track-index="7"><span id="t-srcb">Fuente: El Desconcierto (10 nov. 2026) · corte ilustrativo</span></div>
+
+    <div id="w-aire" class="fixed clip" style="top: 230px" data-start="31.2" data-duration="2.9" data-track-index="8"><div id="c-aire" class="card"><span class="emo">❄️</span><span class="ttl">Refrigeración por aire<span class="sub">en vez de agua subterránea</span></span></div></div>
+    <div id="w-696" class="fixed clip" style="top: 230px" data-start="34.26" data-duration="1.95" data-track-index="9"><div id="c-696" class="card"><span class="emo">🛢️</span><span class="ttl"><span id="n-696" class="num">0</span> <span class="unit">toneladas de combustible</span><span class="sub">y 44 generadores diésel de respaldo</span></span></div></div>
+    <div id="w-srcc" class="fixed src clip" style="top: 1150px" data-start="31.2" data-duration="5.0" data-track-index="10"><span id="t-srcc">Fuente: El Desconcierto (25 oct. y 10 nov. 2026)</span></div>
+
+    <div id="w-ds17" class="fixed lft clip" style="top: 230px" data-start="38.68" data-duration="3.3" data-track-index="11"><div id="c-ds17" class="card"><span class="emo">📜</span><span class="ttl">Cambio al reglamento<span class="sub">Decreto Supremo N°17, Ministerio del Medio Ambiente</span></span></div></div>
+    <div id="w-tope" class="fixed lft clip" style="top: 230px" data-start="42.1" data-duration="1.65" data-track-index="12"><div id="c-tope" class="card alert"><span class="emo">⛽</span><span class="ttl"><span class="unit">Tope:</span> <span id="n-tope" class="num">80</span> <span class="unit">toneladas</span><span class="sub">de sustancias inflamables, como el diésel</span></span></div></div>
+    <div id="w-srcd" class="fixed src clip" style="top: 1150px" data-start="38.7" data-duration="5.05" data-track-index="13"><span id="t-srcd">Fuente: El Desconcierto · tanque a escala: 80 frente a 1.000</span></div>
+
+    <div id="w-seis" class="fixed lft clip" style="top: 230px" data-start="44.2" data-duration="4.1" data-track-index="14"><div id="c-seis" class="card"><span class="emo">📍</span><span class="ttl">6 data centers en consulta<span class="sub">Cerrillos (Google), Puente Alto, Lampa, Buin y Valparaíso</span></span></div></div>
+    <div id="w-pert" class="fixed lft clip" style="top: 230px" data-start="48.42" data-duration="3.2" data-track-index="15"><div id="c-pert" class="card alert"><span class="emo">🚦</span><span class="ttl">¿Sin evaluación ambiental?<span class="sub">Consultaron al SEA si deben someterse a ella</span></span></div></div>
+    <div id="w-srce" class="fixed src clip" style="top: 1150px" data-start="44.2" data-duration="7.4" data-track-index="16"><span id="t-srce">Fuente: El Desconcierto (10 nov. 2026) · ubicaciones aproximadas</span></div>
+
+    <div id="w-mesa" class="fixed lft clip" style="top: 230px" data-start="52.88" data-duration="2.85" data-track-index="17"><div id="c-mesa" class="card"><span class="emo">🤝</span><span class="ttl">Mesa Permanente de Data Centers<span class="sub">Para reducir trabas burocráticas</span></span></div></div>
+    <div id="w-mma" class="fixed lft clip" style="top: 230px" data-start="55.8" data-duration="3.3" data-track-index="18"><div id="c-mma" class="card alert"><span class="emo">🌱</span><span class="ttl">Medio Ambiente: invitado<span class="sub">Preside Ciencia; secretaría ejecutiva: Economía</span></span></div></div>
+    <div id="w-srcf" class="fixed src clip" style="top: 1150px" data-start="52.9" data-duration="6.2" data-track-index="19"><span id="t-srcf">Fuente: El Desconcierto, con datos de La Tercera (nov. 2026)</span></div>
+    <div id="w-stamp" class="clip" style="position: absolute; left: 330px; top: 860px; z-index: 10;" data-start="58.5" data-duration="0.7" data-track-index="20"><span id="s-inv" class="stamp">SOLO INVITADO</span></div>
+
+    <div id="w-q" class="fixed clip" style="top: 230px" data-start="72.52" data-duration="2.6" data-track-index="21"><div id="c-q" class="card"><span class="emo">💬</span><span class="ttl">¿Te parece bien?<span class="sub">Te leo en los comentarios</span></span></div></div>
+    <div id="w-end" class="clip" data-start="81.6" data-duration="1.2" data-track-index="22"></div>
+  </div>
+  <script>
+    (function () {
+      const DUR = 81.6;
+      const AMB = "#F2B544";
+      const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+      const prog = (t, a, b) => clamp((t - a) / (b - a));
+      const io = (x) => x * x * x * (x * (x * 6 - 15) + 10);
+      const eOut = (x) => 1 - Math.pow(1 - x, 3);
+      const eIn = (x) => x * x * x;
+      const settle = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.exp(-5.5 * x) * Math.cos(6.5 * x));
+      const pop = (t, a, d = 0.55) => Math.max(0, settle(prog(t, a, a + d)));
+      const mix = (a, b, x) => a + (b - a) * x;
+      const D2R = Math.PI / 180;
+      function rng(seed) {
+        return function () {
+          seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
+          let r = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+          return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      const C = (hex) => new THREE.Color(hex);
+      const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+      const el = (id) => document.getElementById(id);
+
+      /* ---------- RENDER ---------- */
+      const canvas = el("w-canvas");
+      const outCtx = canvas.getContext("2d");
+      const glCanvas = document.createElement("canvas");
+      const renderer = new THREE.WebGLRenderer({ canvas: glCanvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(1.5);
+      renderer.setSize(1080, 1920, false);
+      renderer.setClearColor(0x000000, 0);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+
+      const scene = new THREE.Scene();
+      const envScene = new THREE.Scene();
+      envScene.background = new THREE.Color("#0a0b0c");
+      const envPanel = (w, h, hex, k, x, y, z) => {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(k), side: THREE.DoubleSide }));
+        m.position.set(x, y, z); m.lookAt(0, 0, 0); envScene.add(m);
+      };
+      envPanel(8, 8, "#fff3e2", 2.0, 0, 10, 0);
+      envPanel(5, 4, "#ffffff", 1.6, 7, 3, 6);
+      envPanel(5, 8, "#9fb7c4", 1.0, -8, 2, -2);
+      envPanel(12, 2, "#5a4a32", 1.2, 0, 1, -9);
+      envPanel(4, 3, "#ffd9a8", 1.3, 6, 1, -6);
+      envPanel(6, 3, "#ffffff", 0.8, -4, 4, 8);
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+      const camera = new THREE.PerspectiveCamera(35, 1080 / 1920, 0.05, 900);
+      const hemi = new THREE.HemisphereLight(0xfff4e6, 0x2a2620, 0.6);
+      scene.add(hemi);
+      const sunLight = new THREE.DirectionalLight(0xfff0dc, 2.2);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.set(2048, 2048);
+      sunLight.shadow.bias = -0.0004;
+      sunLight.shadow.normalBias = 0.02;
+      sunLight.shadow.radius = 6;
+      scene.add(sunLight, sunLight.target);
+      const rimLight = new THREE.DirectionalLight(0xffe2b8, 1.0);
+      scene.add(rimLight, rimLight.target);
+      const spot = new THREE.SpotLight(0xfff0d8, 0, 0, 0.42, 0.55, 0);
+      spot.castShadow = true;
+      spot.shadow.mapSize.set(1024, 1024);
+      spot.shadow.bias = -0.0006;
+      spot.shadow.radius = 5;
+      scene.add(spot, spot.target);
+      const pointA = new THREE.PointLight(0x7fd36b, 0, 6, 2);
+      scene.add(pointA);
+
+      const bloomEl = el("w-bloom");
+      const bctx = bloomEl.getContext("2d");
+      const scrimEl = el("w-scrim");
+      function gradTexOf(stops) {
+        const c = document.createElement("canvas");
+        c.width = 4; c.height = 256;
+        const x = c.getContext("2d");
+        const g = x.createLinearGradient(0, 0, 0, 256);
+        stops.forEach(([s, col]) => g.addColorStop(s, col));
+        x.fillStyle = g; x.fillRect(0, 0, 4, 256);
+        const t = new THREE.CanvasTexture(c);
+        t.colorSpace = THREE.SRGBColorSpace;
+        return t;
+      }
+      function radialTex(inner, outer, size = 512) {
+        const c = document.createElement("canvas");
+        c.width = c.height = size;
+        const x = c.getContext("2d");
+        const g = x.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+        g.addColorStop(0, inner); g.addColorStop(1, outer);
+        x.fillStyle = g; x.fillRect(0, 0, size, size);
+        const t = new THREE.CanvasTexture(c);
+        t.colorSpace = THREE.SRGBColorSpace;
+        return t;
+      }
+      // Fondos naturales: pizarra azul grisácea, arena cálida y océano profundo.
+      const BG = {
+        slate: gradTexOf([[0, "#1a2124"], [0.4, "#2f3d42"], [0.62, "#3a4a4f"], [0.85, "#20292c"], [1, "#151a1c"]]),
+        warm: gradTexOf([[0, "#1d1814"], [0.4, "#3b3127"], [0.62, "#4a3d2f"], [0.85, "#2a221b"], [1, "#17130f"]]),
+        ocean: gradTexOf([[0, "#0c1a22"], [0.45, "#183444"], [1, "#0b1820"]]),
+      };
+
+      /* ---------- PIEZAS ---------- */
+      const mat = (color, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color, flatShading: false, roughness: 0.78, metalness: 0 }, o));
+      const phys = (color, o = {}) => new THREE.MeshPhysicalMaterial(Object.assign({ color, roughness: 0.5, metalness: 0 }, o));
+      const basic = (color, o = {}) => new THREE.MeshBasicMaterial(Object.assign({ color }, o));
+      function add(geo, color, x, y, z, parent, o = {}) {
+        const m = new THREE.Mesh(geo, color && (color.isMaterial || Array.isArray(color)) ? color : mat(color));
+        m.position.set(x, y, z);
+        m.castShadow = o.cast !== false;
+        m.receiveShadow = o.recv !== false;
+        parent.add(m);
+        return m;
+      }
+      const cyl = (r1, r2, h, color, x, y, z, parent, o) => add(new THREE.CylinderGeometry(r1, r2, h, 64), color, x, y, z, parent, o);
+      const ball = (r, color, x, y, z, parent, o) => add(new THREE.SphereGeometry(r, 48, 32), color, x, y, z, parent, o);
+      const group = (parent, x = 0, y = 0, z = 0) => { const g = new THREE.Group(); g.position.set(x, y, z); parent.add(g); return g; };
+      function roundedGeo(w, h, d, r) {
+        r = Math.min(r, Math.min(w, h, d) / 2 - 0.001);
+        const s = new THREE.Shape();
+        const x = -w / 2 + r, y = -h / 2 + r, iw = w - 2 * r, ih = h - 2 * r;
+        s.moveTo(x, y - r);
+        s.lineTo(x + iw, y - r);
+        s.absarc(x + iw, y, r, -Math.PI / 2, 0, false);
+        s.lineTo(x + iw + r, y + ih);
+        s.absarc(x + iw, y + ih, r, 0, Math.PI / 2, false);
+        s.lineTo(x, y + ih + r);
+        s.absarc(x, y + ih, r, Math.PI / 2, Math.PI, false);
+        s.lineTo(x - r, y);
+        s.absarc(x, y, r, Math.PI, Math.PI * 1.5, false);
+        const g = new THREE.ExtrudeGeometry(s, { depth: Math.max(0.001, d - 2 * r), bevelEnabled: true, bevelThickness: r, bevelSize: r, bevelOffset: -r, bevelSegments: 6, curveSegments: 10 });
+        g.translate(0, 0, -(d - 2 * r) / 2);
+        return g;
+      }
+      const rb = (w, h, d, r, color, x, y, z, parent, o) => add(roundedGeo(w, h, d, r), color, x, y, z, parent, o);
+      const latheGeo = (pts, seg = 72) => new THREE.LatheGeometry(pts.map((p) => new THREE.Vector2(p[0], p[1])), seg);
+      const lathe = (pts, color, x, y, z, parent, o) => add(latheGeo(pts), color, x, y, z, parent, o);
+      const tube = (pts, r, color, parent, o = {}) => add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map((p) => V3(...p))), o.seg || 64, r, o.rad || 16, false), color, 0, 0, 0, parent, o);
+      const painters = [];
+      function paintTex(w, h, draw) {
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        const tx = new THREE.CanvasTexture(c);
+        tx.colorSpace = THREE.SRGBColorSpace;
+        tx.anisotropy = 8;
+        const run = () => { const x = c.getContext("2d"); x.clearRect(0, 0, w, h); draw(x, w, h); tx.needsUpdate = true; };
+        run();
+        painters.push(run);
+        return tx;
+      }
+      function rr(c, x, y, w, h, r) { c.beginPath(); c.roundRect(x, y, w, h, r); }
+      function txt(c, s, x, y, font, color, align = "center") { c.font = font; c.fillStyle = color; c.textAlign = align; c.textBaseline = "middle"; c.fillText(s, x, y); }
+      const MONT = (px) => "700 " + px + "px Montserrat, sans-serif";
+      const BAHN = (px, w = 400) => w + " " + px + "px Bahnschrift, sans-serif";
+      function plane(w, h, tex, x, y, z, parent, o = {}) {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), o.lit ? mat("#ffffff", { map: tex, roughness: o.rough == null ? 0.85 : o.rough, transparent: !!o.transparent }) : basic("#ffffff", { map: tex, transparent: o.transparent !== false, depthWrite: !o.transparent }));
+        m.position.set(x, y, z);
+        m.castShadow = false; m.receiveShadow = !!o.lit;
+        parent.add(m);
+        return m;
+      }
+      const puffCanvas = document.createElement("canvas");
+      puffCanvas.width = puffCanvas.height = 128;
+      {
+        const p = puffCanvas.getContext("2d");
+        const g = p.createRadialGradient(64, 64, 4, 64, 64, 64);
+        g.addColorStop(0, "rgba(255,255,255,1)"); g.addColorStop(0.5, "rgba(255,255,255,0.45)"); g.addColorStop(1, "rgba(255,255,255,0)");
+        p.fillStyle = g; p.fillRect(0, 0, 128, 128);
+      }
+      const puffTex = new THREE.CanvasTexture(puffCanvas);
+      const glowMat = (color, op = 0) => new THREE.SpriteMaterial({ map: puffTex, color, transparent: true, opacity: op, depthWrite: false, blending: THREE.AdditiveBlending });
+      const glow = (parent, color, op, s, x, y, z) => { const sp = new THREE.Sprite(glowMat(color, op)); sp.scale.set(s, s, 1); sp.position.set(x, y, z); parent.add(sp); return sp; };
+      const smokeMat = (color, op = 0) => new THREE.SpriteMaterial({ map: puffTex, color, transparent: true, opacity: op, depthWrite: false });
+      // Rótulo 3D: pastilla oscura con borde ámbar, texto blanco (Montserrat) y bajada opcional (Bahnschrift).
+      function labelSprite(text, sub, border = AMB, w = 1024) {
+        const h = sub ? 300 : 190;
+        const tx = paintTex(w, h, (c, W, H) => {
+          rr(c, 6, 6, W - 12, H - 12, 40);
+          c.fillStyle = "rgba(18,20,18,0.88)"; c.fill();
+          c.lineWidth = 6; c.strokeStyle = border; c.stroke();
+          txt(c, text, W / 2, sub ? 105 : H / 2, MONT(84), "#ffffff");
+          if (sub) txt(c, sub, W / 2, 210, BAHN(62), "#e6e2d8");
+        });
+        const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tx, transparent: true, depthWrite: false, depthTest: false, toneMapped: false }));
+        sp.renderOrder = 10;
+        sp.userData.aspect = w / h;
+        return sp;
+      }
+      const sizeLabel = (sp, hUnits) => sp.scale.set(hUnits * sp.userData.aspect, hUnits, 1);
+      // Tamaño del rótulo en píxeles de pantalla (según su distancia a la cámara), para que se lea igual en cualquier toma.
+      const tmpV = new THREE.Vector3();
+      const TAN = Math.tan(17.5 * D2R);
+      function sizePx(sp, px) {
+        sp.updateWorldMatrix(true, false);
+        const d = camera.position.distanceTo(sp.getWorldPosition(tmpV));
+        sizeLabel(sp, Math.max(0.0001, (px / 1920) * 2 * TAN * d));
+      }
+
+      function noiseTex(base, specks, seed, w = 512, h = 512, n = 5000) {
+        return paintTex(w, h, (c, W, H) => {
+          c.fillStyle = base; c.fillRect(0, 0, W, H);
+          const r = rng(seed);
+          for (let i = 0; i < n; i++) { c.fillStyle = specks[Math.floor(r() * specks.length)]; c.globalAlpha = 0.25 + r() * 0.5; c.beginPath(); c.arc(r() * W, r() * H, 0.8 + r() * 3.5, 0, 7); c.fill(); }
+          c.globalAlpha = 1;
+        });
+      }
+      function soilTex(base, specks, seed) {
+        const t = noiseTex(base, specks, seed, 512, 512, 4200);
+        t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(0.7, 0.7);
+        return t;
+      }
+      function woodTex(base, dark, light, seed, rep, planks = 4) {
+        const t = paintTex(1024, 1024, (c, w, h) => {
+          c.fillStyle = base; c.fillRect(0, 0, w, h);
+          const r = rng(seed);
+          for (let i = 0; i < 300; i++) {
+            const y = r() * h, amp = 3 + r() * 12, f = 0.002 + r() * 0.006, ph = r() * 6;
+            c.strokeStyle = r() < 0.55 ? dark : light; c.globalAlpha = 0.06 + r() * 0.2; c.lineWidth = 1 + r() * 4;
+            c.beginPath();
+            for (let x = 0; x <= w; x += 16) { const yy = y + Math.sin(x * f + ph) * amp; if (x) c.lineTo(x, yy); else c.moveTo(x, yy); }
+            c.stroke();
+          }
+          c.globalAlpha = 0.55; c.strokeStyle = dark; c.lineWidth = 3;
+          for (let k = 1; k < planks; k++) { c.beginPath(); c.moveTo(0, (k * h) / planks); c.lineTo(w, (k * h) / planks); c.stroke(); }
+          c.globalAlpha = 1;
+        });
+        t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep, rep);
+        return t;
+      }
+      const tableWood = woodTex("#7a5232", "#4a2f1b", "#a07048", 5, 1, 1);
+      const darkWood = woodTex("#4a2e1c", "#26170d", "#6a4429", 3, 1, 1);
+      const floorWood = woodTex("#5e4029", "#3a2617", "#7f5838", 8, 10, 8);
+      const chrome = mat("#d8dade", { metalness: 0.95, roughness: 0.18 });
+      const steel = mat("#9aa1a6", { metalness: 0.8, roughness: 0.32 });
+      const concrete = mat("#e3e0d8", { roughness: 0.62 });
+      const waterMat = phys("#3f86b0", { roughness: 0.08, clearcoat: 1, clearcoatRoughness: 0.05, transparent: true, opacity: 0.86, envMapIntensity: 1.3 });
+      const ledG = basic("#9be27f");
+      const ledA = basic("#ffd27a");
+
+      // Servidor: torre redondeada clara con franjas de luz.
+      const srvGeo = roundedGeo(1, 1, 1, 0.12);
+      const srvMat = mat("#e6e3dc", { roughness: 0.5, metalness: 0.05 });
+      const srvTopMat = mat("#c9c5bb", { roughness: 0.55 });
+
+      /* ---------- MAPAS REALES (Natural Earth) ---------- */
+      function extrudeShapes(rings, k, depth, material, parent, bevel = 0.01) {
+        const shapes = rings.map((ring) => new THREE.Shape(ring.map((p) => new THREE.Vector2(p[0] * k, p[1] * k))));
+        const g = new THREE.ExtrudeGeometry(shapes, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel * 0.8, bevelSegments: 3, curveSegments: 4 });
+        g.rotateX(-Math.PI / 2);
+        return add(g, material, 0, 0, 0, parent);
+      }
+      function oceanPlane(parent, size, inner, outer) {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size), basic("#ffffff", { map: radialTex(inner, outer) }));
+        m.rotation.x = -Math.PI / 2; m.position.y = -0.03;
+        m.receiveShadow = false;
+        parent.add(m);
+        return m;
+      }
+      function makePin(parent, x, z, h, color) {
+        const g = group(parent, x, 0, z);
+        const inner = group(g);
+        const stemM = mat("#f1ede4", { roughness: 0.4 });
+        add(new THREE.CylinderGeometry(0.012 * h, 0.004 * h, 0.5 * h, 24), stemM, 0, 0.25 * h, 0, inner);
+        const headM = mat(color, { roughness: 0.35, emissive: C(color), emissiveIntensity: 0.15 });
+        const head = ball(0.09 * h, headM, 0, 0.56 * h, 0, inner);
+        const halo = glow(inner, color, 0, 0.7 * h, 0, 0.56 * h, 0);
+        const ring = new THREE.Mesh(new THREE.RingGeometry(0.06 * h, 0.09 * h, 48), basic(color, { transparent: true, opacity: 0, depthWrite: false }));
+        ring.rotation.x = -Math.PI / 2; ring.position.y = 0.01; inner.add(ring);
+        g.visible = false;
+        return { g, inner, head, headM, halo, ring, h };
+      }
+      function showPin(p, t, at, end = 999) {
+        const k = pop(t, at, 0.6);
+        const e = io(prog(t, end, end + 0.35));
+        p.g.visible = t >= at && e < 1;
+        p.inner.scale.set(Math.max(0.001, k * (1 - e)), Math.max(0.001, k * (1 - e)), Math.max(0.001, k * (1 - e)));
+        p.inner.position.y = (1 - clamp(k)) * 0.4 * p.h;
+        const rp = ((t - at) * 0.9) % 1;
+        p.ring.scale.setScalar(1 + rp * 2.5);
+        p.ring.material.opacity = t >= at ? 0.55 * (1 - rp) * (1 - e) : 0;
+        p.halo.material.opacity = 0.35 * clamp(k) * (1 - e);
+      }
+
+      // Sudamérica: 1 unidad = 1.000 km.
+      const mapSet = group(scene);
+      const KSA = 0.001;
+      oceanPlane(mapSet, 30, "#2a5164", "#0d1c25");
+      const landM = mat("#cbb991", { roughness: 0.92 });
+      const chileM = mat("#c8643c", { roughness: 0.8 });
+      const brazilM = mat("#8a9d58", { roughness: 0.85 });
+      for (const name in GEO.sa.shapes) {
+        const m = name === "Chile" ? chileM : name === "Brazil" ? brazilM : landM;
+        const d = name === "Chile" ? 0.1 : name === "Brazil" ? 0.075 : 0.045;
+        extrudeShapes(GEO.sa.shapes[name], KSA, d, m, mapSet, 0.012);
+      }
+      const saCity = (k) => [GEO.sa.cities[k][0] * KSA, -GEO.sa.cities[k][1] * KSA];
+      function buildCluster(parent, cx, cz, n, seed, top, spread, scale) {
+        const r = rng(seed);
+        const items = [];
+        const cols = Math.ceil(Math.sqrt(n));
+        for (let i = 0; i < n; i++) {
+          const gx = (i % cols) - (cols - 1) / 2, gz = Math.floor(i / cols) - (cols - 1) / 2;
+          const x = cx + gx * spread + (r() - 0.5) * spread * 0.4, z = cz + gz * spread + (r() - 0.5) * spread * 0.4;
+          const h = scale * (0.8 + r() * 1.6);
+          const m = new THREE.Mesh(srvGeo, srvMat);
+          m.castShadow = m.receiveShadow = true;
+          m.position.set(x, top, z);
+          const led = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.08, 1.02), r() < 0.7 ? ledG : ledA);
+          led.position.y = 0.32;
+          m.add(led);
+          parent.add(m);
+          items.push({ m, h, w: scale * 0.55, at: r() });
+        }
+        return items;
+      }
+      const [spX, spZ] = saCity("SaoPaulo");
+      const [stX, stZ] = saCity("Santiago");
+      const brCluster = buildCluster(mapSet, spX + 0.05, spZ - 0.05, 30, 11, 0.075, 0.11, 0.13);
+      const clCluster = buildCluster(mapSet, stX + 0.03, stZ, 16, 12, 0.1, 0.1, 0.12);
+      const brGlow = glow(mapSet, "#ffe6b0", 0, 1.0, spX, 0.2, spZ);
+      const clGlow = glow(mapSet, "#ffe6b0", 0, 0.8, stX, 0.22, stZ);
+      const lbBr = labelSprite("1° Brasil", null); mapSet.add(lbBr);
+      const lbCl = labelSprite("2° Chile", null); mapSet.add(lbCl);
+
+      // Región Metropolitana: 1 unidad = 10 km.
+      const rmSet = group(scene);
+      const KRM = 0.1;
+      oceanPlane(rmSet, 60, "#2a5164", "#0d1c25");
+      const rmMain = mat("#e6d3a6", { roughness: 0.9 });
+      const rmOther = mat("#9f9073", { roughness: 0.92 });
+      const rmArg = mat("#857a63", { roughness: 0.95 });
+      for (const name in GEO.rm.shapes) {
+        const isRM = name === "Región Metropolitana de Santiago";
+        const arg = name === "Mendoza" || name === "San Juan";
+        extrudeShapes(GEO.rm.shapes[name], KRM, isRM ? 0.14 : arg ? 0.06 : 0.09, isRM ? rmMain : arg ? rmArg : rmOther, rmSet, 0.03);
+      }
+      const lbSt = labelSprite("Santiago", null); rmSet.add(lbSt);
+      const rmCity = (k) => [GEO.rm.cities[k][0] * KRM, -GEO.rm.cities[k][1] * KRM];
+      // Mancha urbana de Santiago (ilustrativa, suave).
+      const urban = new THREE.Mesh(new THREE.CircleGeometry(1.7, 64), basic("#ffffff", { map: radialTex("rgba(150,140,120,0.55)", "rgba(150,140,120,0)"), transparent: true, depthWrite: false }));
+      urban.rotation.x = -Math.PI / 2; urban.position.set(rmCity("Santiago")[0] - 0.1, 0.145, rmCity("Santiago")[1] + 0.2); urban.scale.set(1, 1.25, 1);
+      rmSet.add(urban);
+      // 37 data centers: la mayoría en el corredor norte (Quilicura, Lampa, Colina); ubicaciones ilustrativas.
+      const dcs = [];
+      {
+        const r = rng(37);
+        const north = [rmCity("Quilicura"), rmCity("Valle Grande"), [-0.19, -2.76], [-1.2, -1.5]];
+        const rest = [rmCity("Cerrillos"), rmCity("Santiago"), rmCity("Puente Alto"), [-0.9, 1.6], [0.9, -0.6]];
+        for (let i = 0; i < 37; i++) {
+          const pool = i < 27 ? north : rest;
+          const c = pool[Math.floor(r() * pool.length)];
+          const a = r() * 6.283, rad = 0.22 + r() * (i < 27 ? 0.75 : 0.9);
+          const m = new THREE.Mesh(srvGeo, srvMat);
+          m.castShadow = m.receiveShadow = true;
+          const h = 0.2 + r() * 0.28;
+          m.position.set(c[0] + Math.cos(a) * rad, 0.14, c[1] + Math.sin(a) * rad);
+          const led = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.08, 1.02), r() < 0.7 ? ledG : ledA);
+          led.position.y = 0.32;
+          m.add(led);
+          rmSet.add(m);
+          dcs.push({ m, h, w: 0.16 + r() * 0.1 });
+        }
+      }
+      const dcGlow = glow(rmSet, "#ffe2a8", 0, 2.4, rmCity("Quilicura")[0] - 0.4, 0.4, rmCity("Quilicura")[1] - 0.6);
+      const pinQ = makePin(rmSet, ...rmCity("Quilicura"), 1.0, "#e0574f");
+      const lbQ = labelSprite("Quilicura", null); rmSet.add(lbQ);
+      const pinCe = makePin(rmSet, ...rmCity("Cerrillos"), 0.9, "#e0574f");
+      const pinPA = makePin(rmSet, ...rmCity("Bajos de Mena"), 0.9, "#e0574f");
+      const pinBu = makePin(rmSet, ...rmCity("Buin"), 0.9, "#e0574f");
+      const pinLa = makePin(rmSet, ...rmCity("Valle Grande"), 0.9, "#e0574f");
+      const RM_PINS = [[pinCe, 44.4, "Cerrillos", "Google"], [pinPA, 46.1, "Puente Alto", null], [pinBu, 46.94, "Buin", null], [pinLa, 47.36, "Lampa", null]];
+      RM_PINS.forEach((p) => { p.push(labelSprite(p[2], p[3])); rmSet.add(p[4]); });
+      const lbBM = labelSprite("Bajos de Mena", "a 250 m de casas", "#e0574f"); rmSet.add(lbBM);
+      const lbVG = labelSprite("Valle Grande", "a menos de 50 m de casas", "#e0574f"); rmSet.add(lbVG);
+
+      /* ---------- ACUÍFERO EN CORTE ---------- */
+      const aqSet = group(scene);
+      const floorAq = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mat("#20272a", { roughness: 0.95 }));
+      floorAq.rotation.x = -Math.PI / 2; floorAq.position.y = -3.46; floorAq.receiveShadow = true; aqSet.add(floorAq);
+      const AQW = 3.2, AQD = 1.8;
+      const LAYERS = [
+        // [arriba, abajo, color, motas]
+        [0, -0.14, "#8d8452", ["#6f6a3e", "#a39a62", "#5d5a35"]],
+        [-0.14, -0.62, "#6b4a32", ["#4e3423", "#8a6447", "#3e2a1c"]],
+        [-0.62, -1.62, "#a88a5c", ["#c5a776", "#7d6441", "#e0c99c", "#5e4b33"]],
+        [-1.62, -2.62, "#8a7458", ["#a8917a", "#6b5944", "#c2ad92"]],
+        [-2.62, -3.42, "#5e4636", ["#4a3629", "#73594a"]],
+      ];
+      LAYERS.forEach(([a, b, col, sp], i) => {
+        const tex = soilTex(col, sp, 40 + i);
+        const m = mat("#ffffff", { map: tex, roughness: 0.95 });
+        const s = rb(AQW, a - b, AQD, 0.03, m, 0, (a + b) / 2, 0, aqSet);
+        s.castShadow = true;
+      });
+      // Agua del acuífero: baja cuando el pozo extrae (ilustrativo).
+      const waterBox = rb(AQW - 0.02, 1, AQD + 0.02, 0.03, phys("#3a7ea6", { roughness: 0.15, transparent: true, opacity: 0.72, clearcoat: 1, clearcoatRoughness: 0.1 }), 0, -2.12, 0, aqSet, { cast: false });
+      const aqLabelTex = paintTex(1400, 200, (c, W, H) => { txt(c, "ACUÍFERO SANTIAGO CENTRAL", W / 2, H / 2, MONT(74), "rgba(255,255,255,0.9)"); });
+      const aqLabel = plane(2.4, 0.343, aqLabelTex, 0, -1.98, AQD / 2 + 0.03, aqSet);
+      // Data center sobre la superficie.
+      const dc = group(aqSet, -0.45, 0, -0.1);
+      rb(1.7, 0.55, 1.0, 0.06, concrete, 0, 0.275, 0, dc);
+      rb(1.72, 0.06, 1.02, 0.03, mat("#b9b5ab", { roughness: 0.6 }), 0, 0.57, 0, dc);
+      const winTex = paintTex(1024, 128, (c, W, H) => { c.fillStyle = "#2a3236"; c.fillRect(0, 0, W, H); for (let i = 0; i < 22; i++) { c.fillStyle = i % 3 ? "#3f4c52" : "#5f7480"; c.fillRect(12 + i * 46, 18, 36, H - 36); } });
+      plane(1.55, 0.14, winTex, 0, 0.33, 0.505, dc, { lit: true, transparent: false });
+      const chillers = [];
+      for (let i = 0; i < 3; i++) {
+        const cx = -0.52 + i * 0.52;
+        rb(0.42, 0.16, 0.5, 0.04, mat("#cfccc4", { roughness: 0.5, metalness: 0.2 }), cx, 0.68, 0, dc);
+        const fan = cyl(0.15, 0.15, 0.02, mat("#3b4246", { roughness: 0.5 }), cx, 0.77, 0, dc);
+        const blades = group(dc, cx, 0.79, 0);
+        for (let k = 0; k < 4; k++) { const bl = rb(0.26, 0.012, 0.05, 0.005, steel, 0, 0, 0, blades); bl.rotation.y = (k * Math.PI) / 4; }
+        chillers.push({ blades, x: cx });
+      }
+      const lbDC = labelSprite("Data center", "Cerrillos"); aqSet.add(lbDC);
+      // Tubería: del edificio al acuífero; tramo visible en la superficie con válvula.
+      const pipeX = 0.95;
+      tube([[0.38, 0.36, -0.1], [pipeX, 0.36, -0.1], [pipeX, 0.0, -0.1]], 0.06, steel, aqSet, { seg: 24 });
+      const glassPipe = cyl(0.085, 0.085, 2.3, phys("#ffffff", { roughness: 0.05, transmission: 0, transparent: true, opacity: 0.22 }), pipeX, -1.15, AQD / 2 - 0.05, aqSet, { cast: false });
+      cyl(0.05, 0.05, 2.3, mat("#7a8288", { metalness: 0.6, roughness: 0.4 }), pipeX, -1.15, AQD / 2 - 0.14, aqSet);
+      const flow = [];
+      for (let i = 0; i < 16; i++) flow.push(ball(0.06, waterMat, pipeX, 0, AQD / 2 - 0.05, aqSet, { cast: false }));
+      const pump = rb(0.24, 0.3, 0.24, 0.05, steel, pipeX, -2.3, AQD / 2 - 0.1, aqSet);
+      // Válvula con candado (fallo judicial).
+      const valve = group(aqSet, pipeX, 0.18, -0.1);
+      const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.12, 0.018, 16, 48), mat("#b23a32", { roughness: 0.4 }));
+      wheel.position.z = 0.1; valve.add(wheel);
+      cyl(0.075, 0.075, 0.16, steel, 0, 0, 0, valve).rotation.x = Math.PI / 2;
+      const lock = group(valve, 0, -0.17, 0.16);
+      rb(0.2, 0.17, 0.08, 0.03, mat("#c08a2e", { metalness: 0.7, roughness: 0.3 }), 0, -0.04, 0, lock);
+      const shackle = new THREE.Mesh(new THREE.TorusGeometry(0.06, 0.016, 16, 32, Math.PI), chrome);
+      shackle.position.y = 0.04; lock.add(shackle);
+      ball(0.016, basic("#2a2016"), 0, -0.05, 0.041, lock, { cast: false });
+      valve.visible = false;
+      const steam = [];
+      for (let i = 0; i < 10; i++) { const s = new THREE.Sprite(smokeMat("#f4f1ea", 0)); aqSet.add(s); steam.push(s); }
+
+      /* ---------- OBJETOS JUNTO AL USUARIO (tomas a cámara) ---------- */
+      const ovSet = group(scene);
+      const KPX = 6.306 / 1920;
+      const scr = (px, py, z = 0) => V3((px - 540) * KPX, (960 - py) * KPX, z);
+      // Nube digital
+      const cloud = group(ovSet);
+      const cloudM = mat("#f7f8fa", { roughness: 0.95 });
+      [[0, 0, 0.3], [-0.32, -0.06, 0.24], [0.32, -0.05, 0.25], [-0.55, -0.12, 0.16], [0.56, -0.12, 0.17], [0.14, 0.14, 0.24], [-0.16, 0.1, 0.22]].forEach(([x, y, r]) => { const b = ball(r, cloudM, x, y, 0, cloud, { cast: false }); b.scale.set(1, 0.85, 0.8); });
+      const cloudBase = rb(1.2, 0.18, 0.4, 0.09, cloudM, 0, -0.16, 0, cloud, { cast: false });
+      // Etiqueta de precio que cuelga de la nube
+      const tag = group(cloud, 0.42, -0.24, 0.1);
+      const tagTex = paintTex(512, 320, (c, W, H) => {
+        rr(c, 0, 0, W, H, 40); c.fillStyle = "#efe4cb"; c.fill();
+        c.fillStyle = "#3a2a1a"; c.beginPath(); c.arc(70, H / 2, 26, 0, 7); c.fill();
+        txt(c, "$ ???", W / 2 + 40, H / 2, MONT(118), "#8a2a1f");
+      });
+      const tagStr = add(new THREE.CylinderGeometry(0.006, 0.006, 0.26, 8), mat("#6b5a44"), 0, -0.13, 0, tag, { cast: false });
+      const tagCard = group(tag, 0, -0.38, 0);
+      rb(0.5, 0.31, 0.03, 0.05, mat("#efe4cb", { roughness: 0.8 }), 0, 0, -0.018, tagCard, { cast: false });
+      plane(0.5, 0.31, tagTex, 0, 0, 0.0, tagCard, { lit: true });
+      // Gota de agua (perfil de lágrima)
+      function dropGeo(s) {
+        const pts = [];
+        for (let i = 0; i <= 40; i++) { const a = (i / 40) * Math.PI; const y = -Math.cos(a); const r = Math.sin(a) * (0.62 + 0.38 * Math.pow((1 - y) / 2, 0.6)) * (y > 0.2 ? 1 - (y - 0.2) * 0.9 : 1); pts.push([Math.max(0, r * 0.55) * s, (y * 0.75 + (y > 0 ? y * y * 0.35 : 0)) * s]); }
+        pts[pts.length - 1][0] = 0;
+        return latheGeo(pts, 64);
+      }
+      const dropM = phys("#4a9fd0", { roughness: 0.06, clearcoat: 1, clearcoatRoughness: 0.04, transparent: true, opacity: 0.93, envMapIntensity: 1.6, emissive: C("#0d3550"), emissiveIntensity: 0.4 });
+      const drop1 = add(dropGeo(0.45), dropM, 0, 0, 0, ovSet, { cast: false });
+      const drop2 = add(dropGeo(0.42), dropM, 0, 0, 0, ovSet, { cast: false });
+      const drop3 = add(dropGeo(0.4), dropM, 0, 0, 0, ovSet, { cast: false });
+      const drips = [];
+      for (let i = 0; i < 3; i++) drips.push(add(dropGeo(0.09), dropM, 0, 0, 0, ovSet, { cast: false }));
+      // Rayo (electricidad)
+      const boltShape = new THREE.Shape([[0.08, 0.62], [-0.3, 0.02], [-0.04, 0.02], [-0.16, -0.62], [0.3, 0.06], [0.04, 0.06], [0.18, 0.62]].map((p) => new THREE.Vector2(p[0], p[1])));
+      const boltG = new THREE.ExtrudeGeometry(boltShape, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.035, bevelSegments: 5, curveSegments: 6 });
+      boltG.center();
+      const bolt = add(boltG, mat("#f2b544", { roughness: 0.3, metalness: 0.2, emissive: C("#a86a10"), emissiveIntensity: 0.55 }), 0, 0, 0, ovSet, { cast: false });
+      const boltGlow = glow(ovSet, "#ffcf6a", 0, 1.6, 0, 0, -0.2);
+      // Equipo de aire acondicionado (condensador)
+      const ac = group(ovSet);
+      rb(0.86, 0.66, 0.36, 0.06, mat("#dedcd5", { roughness: 0.45, metalness: 0.15 }), 0, 0, 0, ac, { cast: false });
+      const grilleM = mat("#5d6468", { roughness: 0.5, metalness: 0.4 });
+      for (let i = 1; i <= 4; i++) { const ring = new THREE.Mesh(new THREE.TorusGeometry(0.06 * i, 0.007, 10, 64), grilleM); ring.position.set(-0.1, 0, 0.19); ac.add(ring); }
+      add(new THREE.CylinderGeometry(0.27, 0.27, 0.02, 64), mat("#2c3134"), -0.1, 0, 0.17, ac, { cast: false }).rotation.x = Math.PI / 2;
+      const acFan = group(ac, -0.1, 0, 0.18);
+      for (let k = 0; k < 3; k++) { const bl = rb(0.22, 0.07, 0.012, 0.03, mat("#8d969b", { metalness: 0.5, roughness: 0.35 }), 0.11, 0, 0, group(acFan)); bl.parent.rotation.z = (k * 2 * Math.PI) / 3; }
+      for (let i = 0; i < 5; i++) rb(0.14, 0.012, 0.012, 0.005, grilleM, 0.3, -0.18 + i * 0.09, 0.185, ac, { cast: false });
+      // Tambores de diésel
+      const drumM = mat("#b8862f", { roughness: 0.45, metalness: 0.35 });
+      const drumRibM = mat("#8f6620", { roughness: 0.4, metalness: 0.4 });
+      const drums = [];
+      const drumPos = [[-0.3, 0], [0, 0], [0.3, 0], [-0.15, 1], [0.15, 1], [0, 2]];
+      drumPos.forEach(([x, row], i) => {
+        const g = group(ovSet);
+        cyl(0.14, 0.14, 0.4, drumM, 0, 0, 0, g, { cast: false });
+        [-0.12, 0.12].forEach((y) => { const rib = new THREE.Mesh(new THREE.TorusGeometry(0.142, 0.012, 10, 48), drumRibM); rib.rotation.x = Math.PI / 2; rib.position.y = y; g.add(rib); });
+        const lid = new THREE.Mesh(new THREE.TorusGeometry(0.12, 0.014, 10, 48), drumRibM); lid.rotation.x = Math.PI / 2; lid.position.y = 0.2; g.add(lid);
+        drums.push({ g, x, row, i });
+      });
+      // Chimenea con humo (contaminar)
+      const stack = group(ovSet);
+      cyl(0.09, 0.12, 0.7, mat("#9a8f82", { roughness: 0.8 }), 0, 0, 0, stack, { cast: false });
+      [0.22, 0.12].forEach((y) => { const b = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.012, 10, 40), mat("#b23a32")); b.rotation.x = Math.PI / 2; b.position.y = y; stack.add(b); });
+      const smoke = [];
+      for (let i = 0; i < 14; i++) { const s = new THREE.Sprite(smokeMat("#6e6862", 0)); ovSet.add(s); smoke.push(s); }
+      // Parlante con ondas (ruido)
+      const spk = group(ovSet);
+      rb(0.42, 0.5, 0.3, 0.06, mat("#3b3631", { roughness: 0.6 }), 0, 0, 0, spk, { cast: false });
+      lathe([[0, 0], [0.17, 0.0], [0.15, 0.04], [0.06, 0.1], [0, 0.11]], mat("#6f6559", { roughness: 0.5 }), 0, -0.04, 0.15, spk, { cast: false }).rotation.x = Math.PI / 2;
+      ball(0.045, mat("#2a2622"), 0, -0.04, 0.2, spk, { cast: false });
+      const waves = [];
+      for (let i = 0; i < 3; i++) { const w = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.012, 8, 48, Math.PI * 0.6), basic("#f2b544", { transparent: true, opacity: 0 })); w.rotation.z = -Math.PI * 0.3; ovSet.add(w); waves.push(w); }
+      // Torta en rebanadas y el plato vacío de los vecinos
+      const cake = group(ovSet);
+      const plateM = phys("#f4f2ee", { roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.1 });
+      const cakePlate = lathe([[0, 0], [0.62, 0], [0.66, 0.03], [0.6, 0.04], [0, 0.03]], plateM, 0, -0.2, 0, cake, { cast: false });
+      const slices = [];
+      const SL = 8;
+      const spongeM = mat("#e2bf86", { roughness: 0.85 });
+      const creamM = mat("#f7efe4", { roughness: 0.6 });
+      const chocoM = mat("#5a3524", { roughness: 0.45 });
+      for (let i = 0; i < SL; i++) {
+        const g = group(cake);
+        const th = (i / SL) * Math.PI * 2;
+        const piece = group(g);
+        add(new THREE.CylinderGeometry(0.5, 0.5, 0.12, 24, 1, false, th, (Math.PI * 2) / SL - 0.01), spongeM, 0, -0.11, 0, piece, { cast: false });
+        add(new THREE.CylinderGeometry(0.5, 0.5, 0.04, 24, 1, false, th, (Math.PI * 2) / SL - 0.01), chocoM, 0, -0.03, 0, piece, { cast: false });
+        add(new THREE.CylinderGeometry(0.5, 0.5, 0.12, 24, 1, false, th, (Math.PI * 2) / SL - 0.01), spongeM, 0, 0.05, 0, piece, { cast: false });
+        add(new THREE.CylinderGeometry(0.505, 0.505, 0.05, 24, 1, false, th, (Math.PI * 2) / SL - 0.01), creamM, 0, 0.135, 0, piece, { cast: false });
+        ball(0.045, mat("#b8323a", { roughness: 0.3 }), Math.sin(th + Math.PI / SL) * 0.36, 0.2, Math.cos(th + Math.PI / SL) * 0.36, piece, { cast: false });
+        slices.push({ g, th: th + Math.PI / SL });
+      }
+      const vPlate = group(ovSet);
+      const shardM = mat("#f4f2ee", { roughness: 0.3, side: THREE.DoubleSide });
+      const shards = [];
+      for (let i = 0; i < 6; i++) {
+        const g = group(vPlate);
+        const a0 = (i / 6) * Math.PI * 2, a1 = a0 + (Math.PI * 2) / 6 - 0.04;
+        const sh = new THREE.Shape();
+        sh.moveTo(0, 0); sh.absarc(0, 0, 0.33, a0, a1, false); sh.lineTo(0, 0);
+        const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.025, bevelEnabled: true, bevelThickness: 0.005, bevelSize: 0.004, bevelSegments: 2, curveSegments: 10 });
+        sg.rotateX(-Math.PI / 2);
+        add(sg, shardM, 0, 0, 0, g, { cast: false });
+        shards.push(g);
+      }
+      const lbVec = labelSprite("Vecinos", null); ovSet.add(lbVec);
+      // Fichas que se juntan: inversión, desarrollo, medio ambiente y comunidad
+      const TILES = [["Inversión", "#c9902f", 75.24], ["Desarrollo", "#6f8a5c", 76.18], ["Medio ambiente", "#3f7a52", 76.66], ["Comunidad", "#b8573a", 80.66]].map(([name, col, at], i) => {
+        const g = group(ovSet);
+        rb(1.0, 0.36, 0.1, 0.07, mat(col, { roughness: 0.5 }), 0, 0, 0, g, { cast: false });
+        const tx = paintTex(1000, 360, (c, W, H) => { txt(c, name, W / 2, H / 2 + 4, MONT(name.length > 11 ? 104 : 120), "#ffffff"); });
+        plane(1.0, 0.36, tx, 0, 0, 0.052, g);
+        return { g, at, i };
+      });
+
+      /* ---------- TANQUE DE DIÉSEL Y REGLAMENTO ---------- */
+      const tankSet = group(scene);
+      const tFloor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mat("#ffffff", { map: floorWood, roughness: 0.8 }));
+      tFloor.rotation.x = -Math.PI / 2; tFloor.position.y = -0.9; tFloor.receiveShadow = true; tankSet.add(tFloor);
+      rb(5.6, 0.16, 3.0, 0.05, mat("#ffffff", { map: tableWood, roughness: 0.6 }), 0, -0.08, 0, tankSet);
+      const docTex = paintTex(800, 1040, (c, W, H) => {
+        c.fillStyle = "#f6f1e6"; c.fillRect(0, 0, W, H);
+        txt(c, "REGLAMENTO DEL SEIA", W / 2, 110, MONT(52), "#2a2a2a");
+        txt(c, "D.S. N° 17 · MMA", W / 2, 180, BAHN(42, 600), "#5a5a5a");
+        c.fillStyle = "#c9c2b3";
+        for (let i = 0; i < 14; i++) c.fillRect(80, 270 + i * 46, W - 160 - (i % 4 === 3 ? 220 : 0), 14);
+        c.strokeStyle = "#b23a32"; c.lineWidth = 6; rr(c, 90, 920, 360, 70, 10); c.stroke();
+        txt(c, "80 t → 1.000 t", 270, 956, MONT(40), "#b23a32");
+      });
+      const doc = plane(1.15, 1.5, docTex, -0.95, 0.005, 0.55, tankSet, { lit: true });
+      doc.rotation.set(-Math.PI / 2, 0, 0.12);
+      // Caballo de ajedrez (la "jugada maestra")
+      const knight = group(tankSet);
+      const ivory = phys("#efe5cf", { roughness: 0.3, clearcoat: 0.8, clearcoatRoughness: 0.2 });
+      lathe([[0, 0], [0.2, 0], [0.21, 0.04], [0.17, 0.08], [0.18, 0.11], [0.12, 0.15], [0.11, 0.2], [0, 0.2]], ivory, 0, 0, 0, knight);
+      {
+        const pts = [[-0.14, 0], [0.14, 0], [0.12, 0.1], [0.09, 0.18], [0.15, 0.27], [0.19, 0.35], [0.17, 0.42], [0.1, 0.49], [0.04, 0.55], [-0.02, 0.58], [-0.05, 0.53], [-0.1, 0.47], [-0.2, 0.4], [-0.23, 0.34], [-0.19, 0.3], [-0.1, 0.31], [-0.05, 0.27], [-0.1, 0.18], [-0.13, 0.09]];
+        const sh = new THREE.Shape(pts.map((p) => new THREE.Vector2(p[0], p[1])));
+        const g = new THREE.ExtrudeGeometry(sh, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.035, bevelSegments: 6, curveSegments: 8 });
+        g.translate(0, 0, -0.05);
+        add(g, ivory, 0, 0.18, 0, knight);
+      }
+      knight.scale.setScalar(0.85);
+      // Tanque de vidrio: el tope sube de 80 a 1.000 toneladas (a escala).
+      const TK = { x: 1.25, z: -0.35, r: 0.62, h: 3.0 };
+      const tank = group(tankSet, TK.x, 0, TK.z);
+      cyl(TK.r + 0.04, TK.r + 0.06, 0.1, steel, 0, 0.05, 0, tank);
+      const glassM = phys("#ffffff", { roughness: 0.04, transparent: true, opacity: 0.2, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false });
+      const glassT = add(new THREE.CylinderGeometry(TK.r, TK.r, TK.h, 72, 1, true), glassM, 0, 0.1 + TK.h / 2, 0, tank, { cast: false });
+      cyl(TK.r + 0.04, TK.r + 0.04, 0.06, steel, 0, 0.13 + TK.h, 0, tank);
+      const fuelM = phys("#c98b2b", { roughness: 0.12, clearcoat: 1, transparent: true, opacity: 0.88, emissive: C("#4a2a05"), emissiveIntensity: 0.3 });
+      const fuel = cyl(TK.r - 0.03, TK.r - 0.03, 1, fuelM, 0, 0, 0, tank, { cast: false });
+      const limit = new THREE.Mesh(new THREE.TorusGeometry(TK.r + 0.05, 0.022, 16, 80), mat("#e0574f", { emissive: C("#e0574f"), emissiveIntensity: 0.6 }));
+      limit.rotation.x = Math.PI / 2; tank.add(limit);
+      const limGlow = glow(tank, "#ff6a5a", 0, 1.8, 0, 0, TK.r);
+      const lb80 = labelSprite("80 t", null); tankSet.add(lb80);
+      const lb1000 = labelSprite("1.000 t", null, "#e0574f"); tankSet.add(lb1000);
+
+      /* ---------- MESA DEL GOBIERNO ---------- */
+      const mesaSet = group(scene);
+      const mFloor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mat("#ffffff", { map: floorWood, roughness: 0.8 }));
+      mFloor.rotation.x = -Math.PI / 2; mFloor.receiveShadow = true; mesaSet.add(mFloor);
+      const wallM = mat("#4f6168", { roughness: 0.92 });
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(40, 12), wallM);
+      wall.position.set(0, 6, -3.4); wall.receiveShadow = true; mesaSet.add(wall);
+      const tableTop = add(new THREE.CylinderGeometry(1, 1, 0.08, 96), mat("#ffffff", { map: darkWood, roughness: 0.45 }), 0, 0.78, 0, mesaSet);
+      tableTop.scale.set(1.75, 1, 1.05);
+      cyl(0.16, 0.26, 0.74, mat("#2e1d12", { roughness: 0.5 }), -0.9, 0.37, 0, mesaSet);
+      cyl(0.16, 0.26, 0.74, mat("#2e1d12", { roughness: 0.5 }), 0.9, 0.37, 0, mesaSet);
+      const chairM = mat("#6b4a32", { roughness: 0.55 });
+      const legM = mat("#2b2b2b", { metalness: 0.6, roughness: 0.4 });
+      function chair(parent, x, z, ry) {
+        const g = group(parent, x, 0, z);
+        g.rotation.y = ry;
+        rb(0.5, 0.08, 0.48, 0.03, chairM, 0, 0.48, 0, g);
+        rb(0.5, 0.6, 0.07, 0.03, chairM, 0, 0.82, -0.22, g);
+        [[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]].forEach(([a, b]) => cyl(0.02, 0.02, 0.46, legM, a, 0.23, b, g));
+        return g;
+      }
+      function nameplate(parent, x, z, ry, text, col = "#2a2a2a") {
+        const tx = paintTex(640, 180, (c, W, H) => { c.fillStyle = "#f4efe3"; c.fillRect(0, 0, W, H); txt(c, text, W / 2, H / 2, MONT(text.length > 10 ? 52 : 64), col); });
+        const g = group(parent, x, 0.86, z);
+        g.rotation.y = ry;
+        const front = plane(0.6, 0.17, tx, 0, 0, 0.012, g, { lit: true });
+        rb(0.6, 0.17, 0.02, 0.005, mat("#f4efe3"), 0, 0, 0, g);
+        g.rotation.x = -0.25;
+        return g;
+      }
+      const SEATS = [["CIENCIA", 0], ["ECONOMÍA", 0.9], ["VIVIENDA", 2.1], ["ENERGÍA", 3.1], ["BIENES NAC.", 4.2], ["PRIVADOS", 5.3]];
+      SEATS.forEach(([name, a]) => {
+        const ang = a - Math.PI / 2 + 0.6;
+        const cx = Math.cos(ang) * 2.15, cz = Math.sin(ang) * 1.45;
+        chair(mesaSet, cx, cz, Math.atan2(-cx, -cz));
+        nameplate(mesaSet, Math.cos(ang) * 1.45, Math.sin(ang) * 0.82, Math.atan2(cx, cz), name);
+      });
+      // Reloj de trámites (las agujas corren)
+      const clockFace = paintTex(512, 512, (c, W, H) => {
+        c.fillStyle = "#f6f2e8"; c.beginPath(); c.arc(256, 256, 250, 0, 7); c.fill();
+        c.strokeStyle = "#2a2a2a"; c.lineWidth = 16; c.beginPath(); c.arc(256, 256, 242, 0, 7); c.stroke();
+        for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2; c.lineWidth = i % 3 ? 6 : 12; c.beginPath(); c.moveTo(256 + Math.sin(a) * 200, 256 - Math.cos(a) * 200); c.lineTo(256 + Math.sin(a) * 228, 256 - Math.cos(a) * 228); c.stroke(); }
+        txt(c, "TRÁMITES", 256, 340, MONT(40), "#8a2a1f");
+      });
+      const clock = group(mesaSet, -0.7, 2.1, -3.3);
+      cyl(0.62, 0.62, 0.08, mat("#3a2a1e", { roughness: 0.5 }), 0, 0, 0, clock).rotation.x = Math.PI / 2;
+      plane(1.12, 1.12, clockFace, 0, 0, 0.05, clock, { lit: true });
+      const hourH = group(clock, 0, 0, 0.08), minH = group(clock, 0, 0, 0.09);
+      rb(0.05, 0.3, 0.02, 0.01, mat("#1f1f1f"), 0, 0.13, 0, hourH);
+      rb(0.035, 0.44, 0.02, 0.01, mat("#8a2a1f"), 0, 0.2, 0, minH);
+      // Silla de Medio Ambiente: apartada, con letrero de "invitado"
+      const mmaChair = chair(mesaSet, 3.3, 1.5, -0.45);
+      const mmaPlate = nameplate(mesaSet, 0, 0, 0, "MEDIO AMBIENTE", "#1f4f2c");
+      mmaPlate.position.set(3.2, 0.6, 1.62); mmaPlate.rotation.set(-0.3, -0.45, 0); mmaPlate.scale.setScalar(1.3);
+      const signTex = paintTex(640, 260, (c, W, H) => { rr(c, 8, 8, W - 16, H - 16, 26); c.fillStyle = "#f4efe3"; c.fill(); c.lineWidth = 10; c.strokeStyle = "#1f4f2c"; c.stroke(); txt(c, "INVITADO", W / 2, H / 2 + 4, MONT(92), "#1f4f2c"); });
+      const sign = group(mmaChair, 0, 1.0, -0.17);
+      plane(0.56, 0.23, signTex, 0, -0.15, 0.0, sign, { lit: true });
+      const papers = [];
+      for (let i = 0; i < 6; i++) { const p = rb(0.3, 0.012, 0.4, 0.004, mat("#f6f1e6", { roughness: 0.8 }), 0, 0.84, 0, mesaSet); papers.push(p); }
+
+      scene.traverse((o) => { if (o.material && o.material.isMeshBasicMaterial) o.material.toneMapped = false; });
+
+      /* ---------- TOMAS ---------- */
+      function path(keys, t) {
+        const n = keys.length;
+        if (n === 1) return keys[0];
+        const t0 = keys[0].t, t1 = keys[n - 1].t;
+        const x = prog(t, t0, t1);
+        const u = 0.3 * x + 0.7 * io(x);
+        const tau = t0 + u * (t1 - t0);
+        let i = 0;
+        while (i < n - 2 && tau > keys[i + 1].t) i++;
+        const s = clamp((tau - keys[i].t) / (keys[i + 1].t - keys[i].t));
+        const P = (j) => keys[Math.max(0, Math.min(n - 1, j))];
+        const cr = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * s + (2 * a - 5 * b + 4 * c - d) * s * s + (-a + 3 * b - 3 * c + d) * s * s * s);
+        const out = { p: [0, 0, 0], g: [0, 0, 0] };
+        ["p", "g"].forEach((k) => { for (let c = 0; c < 3; c++) out[k][c] = cr(P(i - 1)[k][c], P(i)[k][c], P(i + 1)[k][c], P(i + 2)[k][c]); });
+        return out;
+      }
+      const [qx, qz] = rmCity("Quilicura");
+      const OVCAM = [{ t: 0, p: [0, 0, 10], g: [0, 0, 0] }];
+      const SHOTS = [
+        { id: "map", a: 0, b: 5.0, set: mapSet, bg: "ocean", sun: [-4, 9, 6], tg: [0, 0, 0.5], si: 2.0, hi: 0.7, rim: [6, 3, -6], ri: 0.6, r: 6, cam: [
+          { t: 0, p: [0.35, 11.2, 5.6], g: [0.3, 0, 0.9] },
+          { t: 2.5, p: [-0.3, 7.6, 5.2], g: [-0.2, 0, 1.2] },
+          { t: 5.0, p: [-1.05, 3.4, 4.2], g: [-1.0, 0, 1.75] } ] },
+        { id: "rm", a: 5.0, b: 9.35, set: rmSet, bg: "ocean", sun: [-5, 9, 5], tg: [-0.5, 0, -0.5], si: 2.0, hi: 0.65, rim: [6, 3, -6], ri: 0.5, r: 7, cam: [
+          { t: 5.0, p: [1.2, 24, 15], g: [0.4, 0, -0.6] },
+          { t: 7.2, p: [0.2, 12, 9.0], g: [-0.2, 0, -1.0] },
+          { t: 9.35, p: [qx + 0.6, 4.6, qz + 4.4], g: [qx + 0.2, 0, qz + 0.4] } ] },
+        { id: "f1", a: 9.35, b: 18.5, set: ovSet, bg: null, sun: [-3, 4, 8], tg: [0, 0, 0], si: 2.2, hi: 0.95, rim: [5, 2, -3], ri: 0.8, r: 5, ov: true, cam: OVCAM },
+        { id: "aq", a: 18.5, b: 29.6, set: aqSet, bg: "slate", sun: [-4, 7, 6], tg: [0, -1, 0], si: 2.0, hi: 0.6, rim: [6, 3, -5], ri: 0.9, r: 6, cam: [
+          { t: 18.5, p: [1.0, 1.6, 11.8], g: [0.2, -0.7, 0] },
+          { t: 21.5, p: [0.7, -0.7, 9.6], g: [0.1, -1.85, 0] },
+          { t: 25.0, p: [0.8, 0.6, 8.4], g: [0.25, -0.6, 0] },
+          { t: 28.2, p: [1.9, 1.0, 5.6], g: [1.0, 0.0, 0] },
+          { t: 29.6, p: [2.1, 1.0, 5.0], g: [1.1, 0.05, 0] } ] },
+        { id: "f2", a: 29.6, b: 36.3, set: ovSet, bg: null, sun: [-3, 4, 8], tg: [0, 0, 0], si: 2.2, hi: 0.95, rim: [5, 2, -3], ri: 0.8, r: 5, ov: true, cam: OVCAM },
+        { id: "tank", a: 36.3, b: 43.85, set: tankSet, bg: "warm", sun: [-4, 7, 5], tg: [0, 0.5, 0], si: 2.1, hi: 0.55, rim: [6, 4, -5], ri: 1.0, r: 5, cam: [
+          { t: 36.3, p: [-0.2, 2.8, 4.7], g: [-0.55, 0.35, 0.55] },
+          { t: 38.6, p: [-0.5, 2.6, 4.3], g: [-0.75, 0.3, 0.5] },
+          { t: 40.6, p: [0.7, 2.9, 12.2], g: [1.6, 0.95, 0] },
+          { t: 43.85, p: [0.9, 3.1, 12.8], g: [1.75, 1.15, -0.2] } ] },
+        { id: "rm2", a: 43.85, b: 51.75, set: rmSet, bg: "ocean", sun: [-5, 9, 5], tg: [-0.5, 0, 0.6], si: 2.0, hi: 0.65, rim: [6, 3, -6], ri: 0.5, r: 9, cam: [
+          { t: 43.85, p: [0.6, 12.5, 9.2], g: [0.0, 0, 0.2] },
+          { t: 48.4, p: [0.4, 11.6, 8.8], g: [-0.05, 0, 0.25] },
+          { t: 51.75, p: [0.3, 11.0, 8.4], g: [-0.1, 0, 0.3] } ] },
+        { id: "mesa", a: 51.75, b: 59.75, set: mesaSet, bg: "slate", sun: [-3, 7, 5], tg: [0.5, 0.6, 0], si: 1.9, hi: 0.55, rim: [6, 4, -2], ri: 0.7, r: 6, cam: [
+          { t: 51.75, p: [0.5, 3.8, 8.8], g: [0.6, 1.25, 0] },
+          { t: 54.3, p: [-0.1, 2.25, 4.4], g: [-0.35, 1.95, -3.0] },
+          { t: 56.0, p: [1.2, 2.5, 7.2], g: [2.1, 0.9, 0.6] },
+          { t: 59.75, p: [2.2, 2.1, 6.5], g: [3.55, 0.8, 1.3] } ] },
+        { id: "f3", a: 59.75, b: DUR + 1, set: ovSet, bg: null, sun: [-3, 4, 8], tg: [0, 0, 0], si: 2.2, hi: 0.95, rim: [5, 2, -3], ri: 0.8, r: 5, ov: true, cam: OVCAM },
+      ];
+      const allSets = SHOTS.map((s) => s.set).filter((s, i, a) => a.indexOf(s) === i);
+      const BLUR_CUTS = [5.0, 43.85, 51.75];
+
+      // Aparición suave de un objeto flotante: escala con rebote y salida.
+      function floatIn(o, t, at, end, base = 1) {
+        const k = pop(t, at, 0.6);
+        const e = io(prog(t, end, end + 0.32));
+        o.visible = t >= at && e < 1;
+        o.scale.setScalar(Math.max(0.001, base * k * (1 - e)));
+        return { k, e };
+      }
+
+      function updateScene(t, shot) {
+        allSets.forEach((s) => (s.visible = s === shot.set));
+        scene.background = shot.bg ? BG[shot.bg] : null;
+        const c = path(shot.cam, t);
+        const drift = shot.ov ? 0 : 1;
+        camera.position.set(c.p[0] + drift * Math.sin(t * 0.63) * 0.03, c.p[1] + drift * Math.sin(t * 0.81 + 1.3) * 0.025, c.p[2]);
+        camera.up.set(0, 1, 0);
+        camera.lookAt(c.g[0], c.g[1], c.g[2]);
+        camera.updateMatrixWorld(true);
+        sunLight.position.set(...shot.sun);
+        sunLight.target.position.set(...shot.tg);
+        sunLight.intensity = shot.si;
+        const sc = sunLight.shadow.camera;
+        sc.left = -shot.r; sc.right = shot.r; sc.top = shot.r; sc.bottom = -shot.r; sc.near = 0.5; sc.far = 60;
+        sc.updateProjectionMatrix();
+        hemi.intensity = shot.hi;
+        rimLight.position.set(...shot.rim);
+        rimLight.target.position.set(...shot.tg);
+        rimLight.intensity = shot.ri;
+        spot.intensity = 0; pointA.intensity = 0;
+
+        if (shot.id === "map") {
+          const grow = (items, a, b, t) => items.forEach((it) => {
+            const k = pop(t, a + it.at * (b - a), 0.5);
+            it.m.visible = k > 0.001;
+            it.m.scale.set(it.w, Math.max(0.001, it.h * k), it.w);
+            it.m.position.y = (it === items[0] ? 0 : 0) + it.m.userData.base + (it.h * k) / 2;
+          });
+          brCluster.forEach((it) => (it.m.userData.base = 0.075));
+          clCluster.forEach((it) => (it.m.userData.base = 0.1));
+          grow(brCluster, 0.2, 1.6, t);
+          grow(clCluster, 0.9, 2.2, t);
+          brGlow.material.opacity = 0.55 * clamp(prog(t, 0.4, 1.6));
+          clGlow.material.opacity = 0.6 * clamp(prog(t, 1.0, 2.2));
+          const kb = pop(t, 1.0, 0.5), kc = pop(t, 1.48, 0.5);
+          lbBr.position.set(spX - 0.35, 0.45, spZ + 0.45); sizePx(lbBr, 72 * kb); lbBr.visible = kb > 0.01;
+          lbCl.position.set(stX + 0.62, 0.5, stZ - 0.05); sizePx(lbCl, 72 * kc); lbCl.visible = kc > 0.01;
+        }
+        if (shot.id === "rm" || shot.id === "rm2") {
+          const n = shot.id === "rm" ? 37 * eOut(prog(t, 5.18, 6.6)) : 37;
+          dcs.forEach((d, i) => {
+            const k = shot.id === "rm" ? pop(t, 5.18 + (i / 37) * 1.42, 0.45) : 1;
+            d.m.visible = i < Math.ceil(n) && k > 0.001;
+            const dim = shot.id === "rm2" ? 0.6 : 1;
+            d.m.scale.set(d.w, Math.max(0.001, d.h * k * dim), d.w * 0.8);
+            d.m.position.y = 0.14 + (d.h * k * dim) / 2;
+          });
+          dcGlow.material.opacity = shot.id === "rm" ? 0.45 * clamp(prog(t, 5.5, 7)) : 0.12;
+          urban.material.opacity = 1;
+          const [sx0, sz0] = rmCity("Santiago");
+          const ks = shot.id === "rm" ? pop(t, 5.4, 0.5) * (1 - io(prog(t, 7.6, 8.0))) : 0;
+          lbSt.visible = ks > 0.01; lbSt.position.set(sx0 + 0.3, 0.5, sz0 + 0.5); sizePx(lbSt, 58 * ks);
+          if (shot.id === "rm") {
+            showPin(pinQ, t, 8.42);
+            const kq = pop(t, 8.42, 0.5);
+            lbQ.visible = kq > 0.01; lbQ.position.set(qx - 0.05, 1.25, qz); sizePx(lbQ, 72 * kq);
+            RM_PINS.forEach((p) => { p[0].g.visible = false; p[4].visible = false; });
+            lbBM.visible = lbVG.visible = false;
+          } else {
+            pinQ.g.visible = false; lbQ.visible = false;
+            RM_PINS.forEach(([p, at, , , lb]) => {
+              showPin(p, t, at);
+              const green = clamp(prog(t, 48.42 + (at - 44.4) * 0.1, 48.9 + (at - 44.4) * 0.1));
+              p.headM.color.set("#e0574f").lerp(C("#5fb85a"), green);
+              p.headM.emissive.copy(p.headM.color); p.headM.emissiveIntensity = 0.15 + 0.5 * green;
+              p.ring.material.color.copy(p.headM.color); p.halo.material.color.copy(p.headM.color);
+              p.halo.material.opacity *= 1 + green * 1.5;
+              const kl = pop(t, at + 0.1, 0.5);
+              lb.visible = kl > 0.01;
+              lb.position.set(p.g.position.x, 1.35, p.g.position.z); sizePx(lb, (lb.userData.aspect > 3.5 ? 62 : 100) * kl);
+            });
+            const kbm = pop(t, 49.6, 0.5), kvg = pop(t, 50.2, 0.5);
+            lbBM.visible = kbm > 0.01; lbBM.position.set(pinPA.g.position.x + 0.1, 0.3, pinPA.g.position.z + 0.95); sizePx(lbBM, 104 * kbm);
+            lbVG.visible = kvg > 0.01; lbVG.position.set(pinLa.g.position.x - 1.0, 0.3, pinLa.g.position.z + 0.35); sizePx(lbVG, 104 * kvg);
+          }
+        }
+        if (shot.id === "aq") {
+          const stop = 28.3;
+          const tt = Math.min(t, stop);
+          const level = mix(1.0, 0.32, io(prog(tt, 21.0, 27.6)));
+          waterBox.scale.y = level;
+          waterBox.position.y = -2.62 + level / 2;
+          const flowing = t < stop + 0.25 && t > 19.4;
+          const fade = clamp(prog(t, 19.4, 20.2)) * (1 - clamp(prog(t, stop, stop + 0.3)));
+          flow.forEach((f, i) => {
+            const ph = ((t * 0.9 + i / flow.length) % 1);
+            const yTop = -0.05, yBot = -2.3;
+            f.position.y = mix(yBot, yTop, ph);
+            f.visible = flowing;
+            f.scale.setScalar(Math.max(0.001, fade * Math.sin(Math.PI * ph) * 1.2));
+          });
+          chillers.forEach((ch, i) => (ch.blades.rotation.y = t * (6 + i)));
+          steam.forEach((s, i) => {
+            const ph = ((t * 0.35 + i / steam.length) % 1);
+            const ch = chillers[i % chillers.length];
+            s.position.set(dc.position.x + ch.x + Math.sin(i * 3 + t) * 0.06, 0.95 + ph * 1.3, dc.position.z);
+            const sz = 0.25 + ph * 0.6;
+            s.scale.set(sz, sz, 1);
+            s.material.opacity = 0.35 * Math.sin(Math.PI * ph) * clamp(prog(t, 25.6, 26.4));
+          });
+          const kv = pop(t, stop, 0.5);
+          valve.visible = t >= stop - 0.01;
+          valve.scale.setScalar(Math.max(0.001, kv * 1.0));
+          lock.rotation.z = Math.sin((t - stop) * 9) * 0.3 * Math.exp(-Math.max(0, t - stop) * 3);
+          const kd = pop(t, 19.6, 0.5);
+          lbDC.visible = kd > 0.01 && t < 20.85; lbDC.position.set(dc.position.x, 1.3, dc.position.z); sizePx(lbDC, 104 * kd * (1 - io(prog(t, 20.45, 20.85))));
+        }
+        if (shot.id === "tank") {
+          const kn = io(prog(t, 37.3, 38.1));
+          const hop = Math.sin(Math.PI * kn) * 0.55;
+          knight.position.set(mix(0.15, -0.9, kn), 0.0 + hop, mix(1.05, 0.55, kn));
+          knight.rotation.y = mix(0.5, 0.15, kn);
+          const land = Math.exp(-Math.max(0, t - 38.1) * 8) * (t > 38.1 ? 1 : 0);
+          knight.scale.set(0.85 * (1 + 0.08 * land), 0.85 * (1 - 0.1 * land), 0.85 * (1 + 0.08 * land));
+          const k = eOut(prog(t, 42.24, 43.15));
+          const capH = (TK.h * mix(80, 1000, k)) / 1000;
+          limit.position.y = 0.1 + capH;
+          limGlow.position.y = 0.1 + capH;
+          limGlow.material.opacity = 0.5 + 0.3 * Math.sin(t * 6);
+          const fillH = (TK.h * mix(80, 1000, eOut(prog(t, 42.35, 43.6)))) / 1000 - 0.02;
+          fuel.scale.y = Math.max(0.01, fillH);
+          fuel.position.y = 0.1 + fillH / 2;
+          lb80.position.set(TK.x + TK.r + 0.42, 0.1 + (TK.h * 80) / 1000 + 0.12, TK.z); sizePx(lb80, 66 * pop(t, 40.3, 0.5)); lb80.visible = t > 40.3;
+          lb1000.position.set(TK.x - TK.r - 0.5, 0.1 + TK.h, TK.z); sizePx(lb1000, 72 * pop(t, 42.9, 0.5)); lb1000.visible = t > 42.9;
+        }
+        if (shot.id === "mesa") {
+          const fast = clamp(prog(t, 54.6, 55.2));
+          minH.rotation.z = -(t - 51.75) * mix(0.5, 14, fast);
+          hourH.rotation.z = -(t - 51.75) * mix(0.04, 1.2, fast);
+          papers.forEach((p, i) => {
+            const ph = ((t - 54.6) * 0.9 + i / papers.length) % 1;
+            const on = t > 54.6 && t < 57.0;
+            p.visible = on;
+            p.position.set(mix(-1.4, 1.4, ph), 0.84 + Math.sin(Math.PI * ph) * 0.25, 0.1 + (i % 2) * 0.12);
+            p.rotation.y = ph * 2.5;
+          });
+          // Foco: el resto se oscurece y queda iluminada la silla de Medio Ambiente.
+          const f = io(prog(t, 55.9, 56.8));
+          hemi.intensity = mix(shot.hi, 0.18, f);
+          sunLight.intensity = mix(shot.si, 0.45, f);
+          spot.position.set(3.0, 5.2, 3.4); spot.target.position.set(3.3, 0.5, 1.5); spot.angle = 0.3;
+          spot.intensity = 42 * f;
+          sign.rotation.z = Math.sin(t * 2.2) * 0.08 * clamp(prog(t, 56, 57));
+        }
+        if (shot.ov) updateOverlay(t);
+      }
+
+      const hide = (...os) => os.forEach((o) => (o.visible = false));
+      function updateOverlay(t) {
+        hide(cloud, drop1, drop2, drop3, bolt, boltGlow, ac, stack, spk, cake, vPlate, lbVec, ...drips, ...waves, ...smoke, ...drums.map((d) => d.g), ...TILES.map((x) => x.g));
+        const bob = (o, i) => { o.position.y += Math.sin(t * 1.4 + i) * 0.03; o.rotation.y = Math.sin(t * 0.7 + i) * 0.25; };
+        // Toma 1: nube con etiqueta de precio; luego gota y rayo junto a la cabeza.
+        if (t < 18.5) {
+          floatIn(cloud, t, 9.45, 14.15);
+          cloud.position.copy(scr(540, 300, 0)); cloud.position.y += Math.sin(t * 1.1) * 0.03;
+          cloud.rotation.y = Math.sin(t * 0.5) * 0.12;
+          const kt = pop(t, 11.28, 0.7);
+          tag.visible = t >= 11.28;
+          tag.scale.setScalar(Math.max(0.001, kt));
+          tag.rotation.z = Math.sin((t - 11.28) * 3.2) * 0.35 * Math.exp(-Math.max(0, t - 11.28) * 0.8) + Math.sin(t * 1.3) * 0.04;
+          floatIn(drop1, t, 15.88, 18.15, 1);
+          drop1.position.copy(scr(185, 640)); bob(drop1, 0);
+          floatIn(bolt, t, 16.2, 18.15, 0.95);
+          bolt.position.copy(scr(895, 640)); bolt.rotation.set(0, Math.sin(t * 0.8) * 0.3, -0.12); bolt.position.y += Math.sin(t * 1.3 + 1) * 0.03;
+          boltGlow.visible = bolt.visible; boltGlow.position.copy(bolt.position).add(V3(0, 0, -0.2));
+          boltGlow.material.opacity = bolt.visible ? 0.16 * bolt.scale.x : 0;
+        } else if (t < 36.3) {
+          // Toma 2: la gota se cambia por un aire acondicionado; caen tambores de diésel.
+          floatIn(drop2, t, 30.5, 31.25, 1);
+          drop2.position.copy(scr(190, 640)); bob(drop2, 1);
+          const ka = floatIn(ac, t, 31.42, 35.95, 1);
+          ac.position.copy(scr(190, 650)); ac.rotation.set(0.05, 0.35 + Math.sin(t * 0.6) * 0.1, 0); ac.position.y += Math.sin(t * 1.2) * 0.025;
+          acFan.rotation.z = -t * 14;
+          drums.forEach((d) => {
+            const at = 33.74 + d.i * 0.13;
+            const fall = clamp(prog(t, at, at + 0.38));
+            const y0 = scr(0, 860).y + d.row * 0.4;
+            d.g.visible = t >= at && t < 36.27;
+            const b = settle(fall);
+            d.g.position.set(scr(870, 0).x + d.x, mix(y0 + 2.2, y0, eIn(fall)) + (fall >= 1 ? 0 : 0), 0);
+            if (fall >= 1) d.g.position.y = y0 + Math.max(0, (1 - b)) * 0.03;
+            const e = io(prog(t, 35.95, 36.27));
+            d.g.scale.setScalar(Math.max(0.001, 1 - e));
+            d.g.rotation.y = d.i * 0.7;
+          });
+        } else if (t >= 59.75) {
+          // Toma 3: contaminar (humo), gastar agua (gota que gotea), ruido (parlante); torta y platos rotos; fichas.
+          const e3 = 65.1;
+          floatIn(stack, t, 62.3, e3, 1);
+          stack.position.copy(scr(185, 700));
+          smoke.forEach((s, i) => {
+            const ph = ((t * 0.5 + i / smoke.length) % 1);
+            s.visible = stack.visible;
+            s.position.copy(scr(185, 700)).add(V3(Math.sin(i * 2.1 + t * 0.8) * 0.06 + ph * 0.35, 0.4 + ph * 0.9, 0));
+            const sz = (0.14 + ph * 0.42) * stack.scale.x;
+            s.scale.set(sz, sz, 1);
+            s.material.opacity = 0.75 * Math.sin(Math.PI * ph) * clamp(stack.scale.x);
+          });
+          floatIn(drop3, t, 63.18, e3, 1);
+          drop3.position.copy(scr(895, 560)); bob(drop3, 2);
+          drips.forEach((d, i) => {
+            const ph = ((t * 0.8 + i / 3) % 1);
+            d.visible = drop3.visible;
+            d.position.copy(drop3.position).add(V3(0, -0.4 - ph * 0.9, 0));
+            d.scale.setScalar(Math.max(0.001, drop3.scale.x * (1 - ph)));
+          });
+          floatIn(spk, t, 63.98, e3, 1);
+          spk.position.copy(scr(895, 900)); spk.rotation.y = -0.35 + Math.sin(t * 0.7) * 0.1;
+          spk.position.x += Math.sin(t * 40) * 0.006 * spk.scale.x;
+          waves.forEach((w, i) => {
+            const ph = ((t * 1.3 + i / 3) % 1);
+            w.visible = spk.visible;
+            w.position.copy(spk.position).add(V3(-0.3 - ph * 0.15, 0, 0.1));
+            w.rotation.set(0, 0, Math.PI * 0.7);
+            w.scale.setScalar(0.5 + ph * 0.9);
+            w.material.opacity = 0.8 * (1 - ph) * clamp(spk.scale.x);
+          });
+          // La torta: los vecinos se quedan con el plato vacío.
+          const kc = floatIn(cake, t, 65.4, 72.0, 1);
+          cake.position.copy(scr(640, 330)); cake.rotation.set(0.42, Math.sin(t * 0.5) * 0.2, 0);
+          slices.forEach((s, i) => {
+            const at = 66.74 + i * 0.24;
+            const f = io(prog(t, at, at + 0.7));
+            s.g.visible = f < 1;
+            s.g.position.set(Math.sin(s.th) * f * 0.5 + f * 2.4, f * 0.6, Math.cos(s.th) * f * 0.3);
+            s.g.rotation.z = -f * 1.2;
+          });
+          const kv = floatIn(vPlate, t, 65.98, 72.4, 1);
+          vPlate.position.copy(scr(250, 360)); vPlate.rotation.set(0.5, 0, 0);
+          const br = prog(t, 71.5, 72.4);
+          shards.forEach((s, i) => {
+            const a = (i / 6) * Math.PI * 2 + Math.PI / 6;
+            const f = br;
+            s.position.set(Math.sin(a) * f * 0.35, -4.9 * f * f * 0.9 + Math.cos(a) * f * 0.2, Math.cos(a) * f * 0.25);
+            s.rotation.set(f * (2 + i), f * i, f * (1.5 - i * 0.4));
+          });
+          if (br > 0) vPlate.scale.setScalar(1);
+          vPlate.visible = t >= 65.98 && br < 1;
+          lbVec.visible = vPlate.visible && t < 71.5;
+          lbVec.position.copy(scr(250, 455)); sizePx(lbVec, 62 * kv.k * (1 - kv.e));
+          // Fichas que se juntan
+          TILES.forEach((tl, i) => {
+            const k = pop(t, tl.at, 0.6);
+            const ex = io(prog(t, 81.2, 81.55));
+            tl.g.visible = t >= tl.at && ex < 1;
+            const start = [scr(230, 330), scr(850, 330), scr(540, 470), scr(540, 470)][i];
+            const row = [scr(230, 300), scr(540, 300), scr(850, 300), scr(540, 440)][i];
+            const grid = [scr(390, 285), scr(690, 285), scr(390, 410), scr(690, 410)][i];
+            const j1 = io(prog(t, 77.6, 78.3)), j2 = io(prog(t, 80.66, 81.1));
+            const p = start.clone().lerp(row, j1).lerp(grid, j2);
+            tl.g.position.copy(p);
+            tl.g.position.y += Math.sin(t * 1.4 + i) * 0.02 * (1 - j1);
+            const snap = Math.exp(-Math.max(0, t - 78.3) * 7) * (t > 78.3 ? 1 : 0);
+            tl.g.scale.setScalar(Math.max(0.001, k * (1 - ex) * (0.88 + 0.08 * snap)));
+            tl.g.rotation.set(0, Math.sin(t * 0.8 + i) * 0.15 * (1 - j1), 0);
+          });
+        }
+      }
+
+      /* ---------- CUADRO FINAL ---------- */
+      const SUBS = 6, SHUTTER = 1 / 120;
+      const grainEl = el("w-grain");
+      const grctx = grainEl.getContext("2d");
+      const grImg = grctx.createImageData(540, 960);
+      function drawGrain(t) {
+        const r = rng(Math.round(t * 60) + 7);
+        const d = grImg.data;
+        for (let i = 0; i < d.length; i += 4) { const g = r() * 255; d[i] = d[i + 1] = d[i + 2] = g; d[i + 3] = 255; }
+        grctx.putImageData(grImg, 0, 0);
+      }
+      const fmt = (v) => v.toLocaleString("es-CL");
+      const n37 = el("n-37"), n169 = el("n-169"), n696 = el("n-696"), nTope = el("n-tope");
+      function updateHtml(t) {
+        n37.textContent = fmt(Math.round(37 * eOut(prog(t, 5.18, 6.6))));
+        n169.textContent = fmt(Math.round(169 * eOut(prog(t, 20.9, 22.2))));
+        n696.textContent = fmt(Math.round(696 * eOut(prog(t, 34.26, 35.4))));
+        nTope.textContent = fmt(Math.round(80 + 920 * eOut(prog(t, 42.24, 43.15))));
+      }
+      function renderAt(t) {
+        t = clamp(t, 0, DUR - 1 / 120);
+        let si = SHOTS.findIndex((s) => t >= s.a && t < s.b);
+        if (si < 0) si = SHOTS.length - 1;
+        const shot = SHOTS[si];
+        outCtx.globalCompositeOperation = "source-over";
+        outCtx.globalAlpha = 1;
+        outCtx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let k = SUBS - 1; k >= 0; k--) {
+          const tk = Math.max(shot.a, t - (k / (SUBS - 1)) * SHUTTER);
+          updateScene(tk, shot);
+          renderer.render(scene, camera);
+          outCtx.globalAlpha = 1 / (SUBS - k);
+          outCtx.drawImage(glCanvas, 0, 0);
+        }
+        outCtx.globalAlpha = 1;
+        drawGrain(t);
+        updateHtml(t);
+        scrimEl.style.opacity = shot.ov ? "0" : "1";
+        let blur = 0;
+        for (const cut of BLUR_CUTS) {
+          if (t >= cut - 0.26 && t < cut) blur = Math.max(blur, 26 * eIn(prog(t, cut - 0.26, cut)));
+          if (t >= cut && t < cut + 0.42) blur = Math.max(blur, 26 * (1 - eOut(prog(t, cut, cut + 0.42))));
+        }
+        canvas.style.filter = blur > 0.05 ? "blur(" + blur.toFixed(2) + "px)" : "none";
+        canvas.style.transform = blur > 0.05 ? "scale(" + (1 + blur * 0.004).toFixed(4) + ")" : "none";
+        bctx.clearRect(0, 0, 270, 480);
+        bctx.globalCompositeOperation = "source-over";
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bctx.globalCompositeOperation = "multiply";
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bctx.drawImage(canvas, 0, 0, 270, 480);
+        bloomEl.style.filter = "blur(" + (16 + blur).toFixed(1) + "px)";
+        bloomEl.style.opacity = shot.ov ? "0.25" : "0.45";
+      }
+
+      // Todo texto entra y sale con Fade In y Fade Out.
+      const tl = gsap.timeline({ paused: true });
+      [["#c-rank", 1.4, 4.8], ["#c-37", 5.18, 8.73], ["#t-srca", 1.4, 8.7], ["#c-agua", 14.64, 18.39], ["#c-169", 20.9, 27.0], ["#c-trib", 27.18, 28.98],
+       ["#t-srcb", 19.3, 28.95], ["#c-aire", 31.2, 34.1], ["#c-696", 34.26, 36.21], ["#t-srcc", 31.2, 36.2], ["#c-ds17", 38.68, 41.98], ["#c-tope", 42.1, 43.75],
+       ["#t-srcd", 38.7, 43.75], ["#c-seis", 44.2, 48.3], ["#c-pert", 48.42, 51.62], ["#t-srce", 44.2, 51.6], ["#c-mesa", 52.88, 55.73], ["#c-mma", 55.8, 59.1],
+       ["#t-srcf", 52.9, 59.1], ["#c-q", 72.52, 75.12]].forEach(([sel, at, end]) => {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "sine.inOut" }, at);
+        tl.to(sel, { opacity: 0, duration: 0.28, ease: "sine.inOut" }, end - 0.29);
+      });
+      tl.fromTo("#s-inv", { opacity: 0, scale: 1.45 }, { opacity: 0.95, scale: 1, duration: 0.2, ease: "power3.in" }, 58.7 - 0.2);
+      tl.to("#s-inv", { opacity: 0, duration: 0.22, ease: "sine.inOut" }, 58.96);
+      tl.fromTo("#w-end", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "sine.inOut" }, 81.6);
+      tl.set({}, {}, 82.8);
+      window.__timelines["world"] = tl;
+
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { painters.forEach((p) => p()); });
+      window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+      renderAt(0);
+    })();
+  </script>
+</template>
